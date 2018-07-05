@@ -9,6 +9,7 @@ using ScanX.Core.Models;
 using System.Runtime.InteropServices;
 using ScanX.Core.Args;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace ScanX.Core
 {
@@ -16,6 +17,8 @@ namespace ScanX.Core
     public class DeviceClient
     {
         public const uint WIA_ERROR_PAPER_EMPTY = 0x80210003;
+
+        public object WIA_IPS_BRIGHTNESS { get; private set; }
 
         public event EventHandler OnTransferCompleted;
         public event EventHandler OnImageScanned;
@@ -118,12 +121,17 @@ namespace ScanX.Core
             }
 
             if (device == null)
-                throw new Exception($"Unable to find device id {deviceID}");
-
+                throw new Exception($"Unable to find device id: {deviceID}");
+            
             var connectedDevice = device.Connect();
 
-            int page = 1;
+            
+            //SetWIAProperty(connectedDevice.Items[1].Properties,DeviceSetting.WIA_COLOR_MODE,DeviceSetting.ColorModel.Color);
+            SetWIAPageSize(connectedDevice.Items[1].Properties, DeviceSetting.PageSize.A4);
 
+
+            int page = 1;
+            
             var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
 
             byte[] data = (byte[])img.FileData.get_BinaryData();
@@ -140,6 +148,38 @@ namespace ScanX.Core
             CommonDialogClass dlg = new CommonDialogClass();
 
 
+        }
+
+        private void SetWIAProperty(IProperties properties,string propertyId,object value)
+        {
+            foreach (IProperty item in properties)
+            {
+                if (item.PropertyID.Equals(propertyId))
+                {
+                    item.set_Value(value);
+                }
+
+            }
+        }
+
+        private void SetWIAPageSize(IProperties properties,DeviceSetting.PageSize pageSize)
+        {
+            foreach (IProperty item in properties)
+            {
+                object value;
+
+                if (item.PropertyID.Equals(DeviceSetting.WIA_HORIZONTAL_EXTENT))
+                {
+                    value = 8267;
+                    item.set_Value(ref value);
+                }
+                else if (item.PropertyID.Equals(DeviceSetting.WIA_VERTICAL_EXTENT))
+                {
+                    value = 876;
+
+                    item.set_Value(ref value);
+                }
+            }
         }
     }
 }

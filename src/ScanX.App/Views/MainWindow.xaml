@@ -64,13 +64,13 @@
 
                 <Button Command="{Binding ScanCommand}" Content="Scan" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="70"/>
 
-                <ListView Grid.Column="1" Margin="10" ItemsSource="{Binding Media}">
+                <ListView Grid.Column="1" Margin="10" ItemsSource="{Binding Media}" HorizontalContentAlignment="Stretch">
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                <Image Height="200" Stretch="Fill" Source="{Binding Source}"/>
-                                <TextBlock Text="{Binding Page}"/>
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                                <Image Width="150" Stretch="UniformToFill" Source="{Binding Source}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Page}" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

@@ -132,8 +132,6 @@ namespace ScanX.App.ViewModels
                 Source = await ImageConverter.ConvertToImageSource(args.ImageData)
             };
 
-            //File.WriteAllBytes($@"C:\Users\b.albarrak\Documents\SampleImages\{args.Page}{args.Extension}", args.ImageData);
-
             Media.Add(media);
             
         }
