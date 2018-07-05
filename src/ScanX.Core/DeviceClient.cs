@@ -114,11 +114,11 @@ namespace ScanX.Core
                 throw new Exception($"Unable to find device id: {deviceID}");
 
             var connectedDevice = device.Connect();
-            
-            SetWIAProperty(connectedDevice.Items[1].Properties, DeviceSetting.WIA_COLOR_MODE, DeviceSetting.ColorModel.Color);
+
+            //SetWIAProperty(connectedDevice.Items[1].Properties, DeviceSetting.WIA_COLOR_MODE, DeviceSetting.ColorModel.Color);
             SetWIAProperty(connectedDevice.Items[1].Properties, DeviceSetting.WIA_HORIZONTAL_EXTENT, 1240);
             SetWIAProperty(connectedDevice.Items[1].Properties, DeviceSetting.WIA_VERTICAL_EXTENT, 1754);
-            
+
             int page = 1;
 
             var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
@@ -175,6 +175,8 @@ namespace ScanX.Core
                     Value = item.get_Value()
                 });
             }
+
+            result = result.OrderBy(a => a.Name).ToList();
 
             return result;
         }

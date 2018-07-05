@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ScanX.App.ViewModels
@@ -59,11 +60,18 @@ namespace ScanX.App.ViewModels
 
         private async Task ListDeviceProperties()
         {
+            if (SelectedDevice == null)
+            {
+                MessageBox.Show("Please select a scannr from scanner list", "Select scanner", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+
+                return;
+            }
+
             var client = new DeviceClient();
 
             Properties.Clear();
 
-            var result = client.GetItemDeviceConnectProperties(SelectedDevice.DeviceId);
+            var result = client.GetDeviceConnectProperties(SelectedDevice.DeviceId);
 
             foreach (var item in result)
             {
