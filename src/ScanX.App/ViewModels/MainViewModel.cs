@@ -1,5 +1,6 @@
 ﻿using ScanX.App.Helpers;
 using ScanX.App.Models;
+using ScanX.App.Views;
 using ScanX.Core;
 using ScanX.Core.Args;
 using ScanX.Core.Models;
@@ -49,34 +50,33 @@ namespace ScanX.App.ViewModels
             }
             set { _service = value; }
         }
-
-
+        
         public ObservableCollection<string> Printers { get; set; } = new ObservableCollection<string>();
 
         public ObservableCollection<ScannerDevice> Scanners { get; set; } = new ObservableCollection<ScannerDevice>();
 
         public ObservableCollection<Media> Media { get; set; } = new ObservableCollection<Media>();
-
-
+        
         public ICommand ListPrintersCommand { get; private set; }
 
         public ICommand ListScannersCommand { get; private set; }
 
         public ICommand ScanCommand { get; private set; }
 
+        public ICommand ShowDeviceWindowCommand { get; private set; }
+
         public MainViewModel()
         {
             SetCommands();
             Service.OnImageScanned += OnImageScanned;
         }
-
         
-
         private void SetCommands()
         {
             ListPrintersCommand = new RelayCommand(async (arg) =>{ await ListPrinters(); });
             ListScannersCommand = new RelayCommand(async (arg) => { await ListScanners(); });
             ScanCommand = new RelayCommand(async (arg) => { await Scan(); });
+            ShowDeviceWindowCommand = new RelayCommand(async (arg) => { await ShowDeviceWindow(); });
         }
 
         private async Task ListScanners()
@@ -104,6 +104,13 @@ namespace ScanX.App.ViewModels
                 Printers.Add(item);
             }
 
+            await Task.CompletedTask;
+        }
+
+        private async Task ShowDeviceWindow()
+        {
+            DeviceWindow window = new DeviceWindow();
+            window.Show();
             await Task.CompletedTask;
         }
 

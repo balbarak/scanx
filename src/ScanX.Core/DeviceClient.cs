@@ -108,30 +108,19 @@ namespace ScanX.Core
 
         public void ScanSinglePage(string deviceID)
         {
-
-            IDeviceInfo device = null;
-
-            foreach (IDeviceInfo info in new DeviceManagerClass().DeviceInfos)
-            {
-                if (info.DeviceID == deviceID)
-                {
-                    device = info;
-                    break;
-                }
-            }
+            IDeviceInfo device = GetDeviceById(deviceID);
 
             if (device == null)
                 throw new Exception($"Unable to find device id: {deviceID}");
-            
+
             var connectedDevice = device.Connect();
-
             
-            //SetWIAProperty(connectedDevice.Items[1].Properties,DeviceSetting.WIA_COLOR_MODE,DeviceSetting.ColorModel.Color);
-            SetWIAPageSize(connectedDevice.Items[1].Properties, DeviceSetting.PageSize.A4);
-
-
+            SetWIAProperty(connectedDevice.Items[1].Properties, DeviceSetting.WIA_COLOR_MODE, DeviceSetting.ColorModel.Color);
+            SetWIAProperty(connectedDevice.Items[1].Properties, DeviceSetting.WIA_HORIZONTAL_EXTENT, 1240);
+            SetWIAProperty(connectedDevice.Items[1].Properties, DeviceSetting.WIA_VERTICAL_EXTENT, 1754);
+            
             int page = 1;
-            
+
             var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
 
             byte[] data = (byte[])img.FileData.get_BinaryData();
@@ -150,7 +139,84 @@ namespace ScanX.Core
 
         }
 
-        private void SetWIAProperty(IProperties properties,string propertyId,object value)
+        public List<DeviceProperty> GetDeviceProperties(string id)
+        {
+            List<DeviceProperty> result = new List<DeviceProperty>();
+
+            IDeviceInfo device = GetDeviceById(id);
+
+            foreach (IProperty item in device.Properties)
+            {
+                result.Add(new DeviceProperty()
+                {
+                    Id = item.PropertyID,
+                    Name = item.Name,
+                    Value = item.get_Value()
+                });
+            }
+
+            return result;
+        }
+
+        public List<DeviceProperty> GetDeviceConnectProperties(string id)
+        {
+            List<DeviceProperty> result = new List<DeviceProperty>();
+
+            IDeviceInfo device = GetDeviceById(id);
+
+            var connectedDevice = device.Connect();
+
+            foreach (IProperty item in connectedDevice.Properties)
+            {
+                result.Add(new DeviceProperty()
+                {
+                    Id = item.PropertyID,
+                    Name = item.Name,
+                    Value = item.get_Value()
+                });
+            }
+
+            return result;
+        }
+
+        public List<DeviceProperty> GetItemDeviceConnectProperties(string id)
+        {
+            List<DeviceProperty> result = new List<DeviceProperty>();
+
+            IDeviceInfo device = GetDeviceById(id);
+
+            var connectedDevice = device.Connect();
+
+            foreach (IProperty item in connectedDevice.Items[1].Properties)
+            {
+                result.Add(new DeviceProperty()
+                {
+                    Id = item.PropertyID,
+                    Name = item.Name,
+                    Value = item.get_Value()
+                });
+            }
+
+            return result;
+        }
+
+        private IDeviceInfo GetDeviceById(string deviceID)
+        {
+            IDeviceInfo device = null;
+
+            foreach (IDeviceInfo info in new DeviceManagerClass().DeviceInfos)
+            {
+                if (info.DeviceID == deviceID)
+                {
+                    device = info;
+                    break;
+                }
+            }
+
+            return device;
+        }
+
+        private void SetWIAProperty(IProperties properties, int propertyId, object value)
         {
             foreach (IProperty item in properties)
             {
@@ -162,24 +228,44 @@ namespace ScanX.Core
             }
         }
 
-        private void SetWIAPageSize(IProperties properties,DeviceSetting.PageSize pageSize)
+        private void SetWIAPageSize(IProperties properties, DeviceSetting.PageSize pageSize)
         {
             foreach (IProperty item in properties)
             {
                 object value;
 
-                if (item.PropertyID.Equals(DeviceSetting.WIA_HORIZONTAL_EXTENT))
-                {
-                    value = 8267;
-                    item.set_Value(ref value);
-                }
-                else if (item.PropertyID.Equals(DeviceSetting.WIA_VERTICAL_EXTENT))
-                {
-                    value = 876;
+                //if (item.PropertyID.Equals(DeviceSetting.WIA_PAGE_WIDTH))
+                //{
+                //    value = 8267;
+                //    item.set_Value(ref value);
+                //}
+                //else if(item.PropertyID.Equals(DeviceSetting.WIA_PAGE_HEIGHT))
+                //{
+                //    value = 11692;
 
-                    item.set_Value(ref value);
-                }
+                //    item.set_Value(ref value);
+
+                //}
+                //else if (item.PropertyID.Equals(DeviceSetting.WIA_PAGE_SIZE))
+                //{
+                //    value = 2;
+
+                //    item.set_Value(ref value);
+
+                //}
+                //else if (item.PropertyID.Equals(DeviceSetting.WIA_HORIZONTAL_EXTENT))
+                //{
+                //    value = 2550;
+                //    item.set_Value(ref value);
+                //}
+                //else if (item.PropertyID.Equals(DeviceSetting.WIA_VERTICAL_EXTENT))
+                //{
+                //    value = 3300;
+
+                //    item.set_Value(ref value);
+                //}
             }
+            
         }
     }
 }

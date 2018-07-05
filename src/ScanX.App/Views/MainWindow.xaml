@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ScanX.App.Views"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:ScanX.App.ViewModels"
-        Title="Scanx App v0.0.1" Height="690.81" Width="1129.333">
+        Title="Scanx App v0.0.1" Height="690.81" Width="1224.333">
 
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -16,8 +16,8 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="184"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -79,6 +79,7 @@
 
             </Grid>
         </GroupBox>
+        <Button Command="{Binding ShowDeviceWindowCommand}" Content="Show Device Window" Grid.Column="2" Margin="10,10,10,0" VerticalAlignment="Top" RenderTransformOrigin="0.08,-1.05"/>
 
 
     </Grid>

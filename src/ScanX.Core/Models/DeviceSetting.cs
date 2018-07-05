@@ -18,6 +18,18 @@ namespace ScanX.Core.Models
 
         public const int WIA_VERTICAL_RESOLUTION = 6148;
 
+        public const int WIA_PAGE_WIDTH = 3098;
+
+        public const int WIA_PAGE_HEIGHT = 3099;
+
+        public enum DPI
+        {
+            DPI_72 = 1,
+            DPI_96 = 2,
+            DPI_150 = 3,
+            DPI_300 = 4,
+        }
+
         public enum ColorModel
         {
             Grayscale = 2,
@@ -29,6 +41,38 @@ namespace ScanX.Core.Models
         {
             A4 = 0,
             Letter = 1,
+        }
+
+        public DPI Dpi { get; set; }
+
+        public ColorModel Color { get; set; }
+
+
+        //for more info https://www.papersizes.org/a-sizes-in-pixels.htm
+        public static (int width,int height) GetA4SizeByDpi(DPI dpi)
+        {
+            switch (dpi)
+            {
+                case DPI.DPI_72:
+
+                    return (595, 842);
+
+                case DPI.DPI_96:
+
+                    return (794, 1123);
+
+                case DPI.DPI_150:
+
+                    return (1240, 1754);
+
+                case DPI.DPI_300:
+
+                    return (2480, 3508);
+
+                default:
+
+                    return (794,1123);
+            }
         }
     }
 }
