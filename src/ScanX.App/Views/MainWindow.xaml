@@ -6,14 +6,26 @@
         xmlns:local="clr-namespace:ScanX.App.Views"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:ScanX.App.ViewModels"
-        Title="Scanx App v0.0.1" Height="409.333" Width="600.333">
+        Title="Scanx App v0.0.1" Height="690.81" Width="1129.333">
 
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
 
     <Grid>
-        <GroupBox Header="Printers" HorizontalAlignment="Left" Margin="10,186,0,10" Width="254">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Printers" Margin="10"  Grid.Row="0">
             <Grid>
                 <Button Command="{Binding ListPrintersCommand}" Content="List Printers" Margin="10,10,5,0" VerticalAlignment="Top" />
                 <ListView 
@@ -23,15 +35,51 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Header="Scanners" HorizontalAlignment="Left" Margin="10,4,0,0" Width="254" Height="177" VerticalAlignment="Top">
+        <GroupBox Header="Scanners" Margin="10" Grid.Row="1">
             <Grid>
                 <Button Command="{Binding ListScannersCommand}" Content="List Scanners" Margin="10,10,5,0" VerticalAlignment="Top" />
                 <ListView 
                     Margin="10,35,5,0"
-                    ItemsSource="{Binding Scanners}"
-                    />
+                    SelectedItem="{Binding SelectedDevice,Mode=TwoWay}"
+                    ItemsSource="{Binding Scanners}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,0">
+                                <TextBlock Text="{Binding Name}" FontSize="12"/>
+                                <TextBlock Text="{Binding Port}" FontSize="12" Foreground="Gray"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </GroupBox>
+
+        <GroupBox Grid.Column="1" Header="Scan Page" Margin="10" Grid.RowSpan="2">
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Command="{Binding ScanCommand}" Content="Scan" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="70"/>
+
+                <ListView Grid.Column="1" Margin="10" ItemsSource="{Binding Media}">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Image Height="200" Stretch="Fill" Source="{Binding Source}"/>
+                                <TextBlock Text="{Binding Page}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+            </Grid>
+        </GroupBox>
+
 
     </Grid>
 </Window>
