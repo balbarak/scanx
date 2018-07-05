@@ -67,7 +67,7 @@ namespace ScanX.App.ViewModels
         public MainViewModel()
         {
             SetCommands();
-            Service.OnImageScanned += Service_OnImageScanned;
+            Service.OnImageScanned += OnImageScanned;
         }
 
         
@@ -116,12 +116,12 @@ namespace ScanX.App.ViewModels
                 return;
             }
 
-            Service.ScanSinglePage(SelectedDevice.Id);
+            Service.ScanSinglePage(SelectedDevice.DeviceId);
 
             await Task.CompletedTask;
         }
 
-        private async void Service_OnImageScanned(object sender, EventArgs e)
+        private async void OnImageScanned(object sender, EventArgs e)
         {
             var args = e as DeviceImageScannedEventArgs;
 
@@ -132,7 +132,7 @@ namespace ScanX.App.ViewModels
                 Source = await ImageConverter.ConvertToImageSource(args.ImageData)
             };
 
-            File.WriteAllBytes($@"C:\Users\b.albarrak\Documents\SampleImages\{args.Page}{args.Extension}", args.ImageData);
+            //File.WriteAllBytes($@"C:\Users\b.albarrak\Documents\SampleImages\{args.Page}{args.Extension}", args.ImageData);
 
             Media.Add(media);
             

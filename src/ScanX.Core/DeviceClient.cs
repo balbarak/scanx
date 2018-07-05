@@ -39,30 +39,18 @@ namespace ScanX.Core
         {
             var result = new List<ScannerDevice>();
 
-            var deviceManager = new DeviceManager();
-
-            var devices = deviceManager.DeviceInfos;
-
-            for (int i = 0; i < devices.Count; i++)
+            foreach (IDeviceInfo info in new DeviceManagerClass().DeviceInfos)
             {
-                try
+                if (info.Type == WiaDeviceType.ScannerDeviceType)
                 {
-                    if (devices[i].Type == WiaDeviceType.ScannerDeviceType)
+                    result.Add(new ScannerDevice()
                     {
-                        result.Add(new ScannerDevice()
-                        {
-                            Id = i,
-                            Name = devices[i].Properties["Name"].get_Value().ToString(),
-                            Description = devices[i].Properties["Description"]?.get_Value()?.ToString(),
-                            Port = devices[i].Properties["Port"]?.get_Value()?.ToString()
-                        });
-                    }
+                        DeviceId = info.DeviceID,
+                        Name = info.Properties["Name"].get_Value().ToString(),
+                        Description = info.Properties["Description"]?.get_Value()?.ToString(),
+                        Port = info.Properties["Port"]?.get_Value()?.ToString()
+                    });
                 }
-                catch (Exception)
-                {
-
-                }
-
             }
 
             return result;
@@ -115,31 +103,36 @@ namespace ScanX.Core
             }
         }
 
-        public void ScanSinglePage(int deviceID)
+        public void ScanSinglePage(string deviceID)
         {
-            var deviceManager = new DeviceManager();
 
-            try
+            IDeviceInfo device = null;
+
+            foreach (IDeviceInfo info in new DeviceManagerClass().DeviceInfos)
             {
-                var device = deviceManager.DeviceInfos[deviceID];
-
-                var connectedDevice = device.Connect();
-
-                int page = 1;
-
-                var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
-
-                byte[] data = (byte[])img.FileData.get_BinaryData();
-                
-                OnImageScanned?.Invoke(this, new DeviceImageScannedEventArgs(data, img.FileExtension, page));
-
-                page++;
-
+                if (info.DeviceID == deviceID)
+                {
+                    device = info;
+                    break;
+                }
             }
-            catch (Exception ex)
-            {
 
-            }
+            if (device == null)
+                throw new Exception($"Unable to find device id {deviceID}");
+
+            var connectedDevice = device.Connect();
+
+            int page = 1;
+
+            var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
+
+            byte[] data = (byte[])img.FileData.get_BinaryData();
+
+            OnImageScanned?.Invoke(this, new DeviceImageScannedEventArgs(data, img.FileExtension, page));
+
+            page++;
+
+
         }
 
         public void ScanWithUI(int deviceID)

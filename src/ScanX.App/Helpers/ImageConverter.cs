@@ -14,17 +14,14 @@ namespace ScanX.App.Helpers
         public static async Task<ImageSource> ConvertToImageSource(byte[] data)
         {
             BitmapImage result = new BitmapImage();
-            
-            using (MemoryStream ms = new MemoryStream())
-            {
-                var buffer = data;
 
-                await ms.WriteAsync(buffer,0,buffer.Length);
+            result.BeginInit();
+            result.CreateOptions = BitmapCreateOptions.None;
+            result.CacheOption = BitmapCacheOption.Default;
+            result.StreamSource = new MemoryStream(data);
+            result.EndInit();
 
-                ms.Position = 0;
-
-                result.StreamSource = ms;
-            }
+            await Task.CompletedTask;
 
             return result;
 
