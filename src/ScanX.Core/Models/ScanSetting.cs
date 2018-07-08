@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ScanX.Core.Models
 {
-    public class DeviceSetting
+    public class ScanSetting
     {
         public const int WIA_PAGE_SIZE = 3097;
 

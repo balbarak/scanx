@@ -56,7 +56,7 @@ namespace ScanX.App.ViewModels
         public ObservableCollection<ScannerDevice> Scanners { get; set; } = new ObservableCollection<ScannerDevice>();
 
         private Media _selectedMedia;
-
+        
         public Media SelectedMedia
         {
             get
@@ -74,6 +74,42 @@ namespace ScanX.App.ViewModels
             }
         }
 
+        private ScanSetting.DPI _selectedDpi = ScanSetting.DPI.DPI_75;
+
+        public ScanSetting.DPI SelectedDpi
+        {
+            get { return _selectedDpi; }
+            set { _selectedDpi = value; RaisePropertyChanged(); }
+        }
+
+
+        private ScanSetting.ColorModel _selectedColorMode = ScanSetting.ColorModel.Color;
+
+        public ScanSetting.ColorModel SelectedColorMode
+        {
+            get { return _selectedColorMode; }
+            set { _selectedColorMode = value; RaisePropertyChanged(); }
+        }
+
+
+
+        public IEnumerable<ScanSetting.DPI> Dpi
+        {
+            get
+            {
+                return Enum.GetValues(typeof(ScanSetting.DPI))
+                    .Cast<ScanSetting.DPI>();
+            }
+        }
+
+        public IEnumerable<ScanSetting.ColorModel> ColorMode
+        {
+            get
+            {
+                return Enum.GetValues(typeof(ScanSetting.ColorModel))
+                    .Cast<ScanSetting.ColorModel>();
+            }
+        }
 
         public ObservableCollection<Media> Media { get; set; } = new ObservableCollection<Media>();
         
@@ -143,7 +179,13 @@ namespace ScanX.App.ViewModels
                 return;
             }
 
-            Service.ScanSinglePage(SelectedDevice.DeviceId);
+            ScanSetting setting = new ScanSetting()
+            {
+                Color = SelectedColorMode,
+                Dpi = SelectedDpi
+            };
+
+            Service.ScanSinglePage(SelectedDevice.DeviceId,setting);
 
             await Task.CompletedTask;
         }

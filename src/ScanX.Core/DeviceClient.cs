@@ -106,13 +106,11 @@ namespace ScanX.Core
             }
         }
 
-        public void ScanSinglePage(string deviceID,DeviceSetting setting = null)
+        public void ScanSinglePage(string deviceID,ScanSetting setting = null)
         {
             if (setting == null)
-                setting = new DeviceSetting();
-
-            setting.Color = DeviceSetting.ColorModel.Grayscale;
-            setting.Dpi = DeviceSetting.DPI.DPI_300;
+                setting = new ScanSetting();
+            
 
             IDeviceInfo device = GetDeviceById(deviceID);
             
@@ -229,21 +227,21 @@ namespace ScanX.Core
             return device;
         }
 
-        private void SetDeviceSettings(Device connectedDevice,DeviceSetting setting)
+        private void SetDeviceSettings(Device connectedDevice,ScanSetting setting)
         {
-            var pageSize = DeviceSetting.GetA4SizeByDpi(setting.Dpi);
-            var resoultions = DeviceSetting.GetResolution(setting.Dpi);
+            var pageSize = ScanSetting.GetA4SizeByDpi(setting.Dpi);
+            var resoultions = ScanSetting.GetResolution(setting.Dpi);
 
             var properties = connectedDevice.Items[1].Properties;
 
-            SetWIAProperty(properties, DeviceSetting.WIA_HORIZONTAL_RESOLUTION, resoultions);
-            SetWIAProperty(properties, DeviceSetting.WIA_VERTICAL_RESOLUTION, resoultions);
+            SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_RESOLUTION, resoultions);
+            SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_RESOLUTION, resoultions);
 
 
-            SetWIAProperty(properties, DeviceSetting.WIA_HORIZONTAL_EXTENT, pageSize.width);
-            SetWIAProperty(properties, DeviceSetting.WIA_VERTICAL_EXTENT, pageSize.height);
+            SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, pageSize.width);
+            SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, pageSize.height);
             
-            SetWIAProperty(properties, DeviceSetting.WIA_COLOR_MODE, setting.Color);
+            SetWIAProperty(properties, ScanSetting.WIA_COLOR_MODE, setting.Color);
 
 
         }
