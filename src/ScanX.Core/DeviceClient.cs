@@ -17,7 +17,7 @@ namespace ScanX.Core
     public class DeviceClient
     {
         public const uint WIA_ERROR_PAPER_EMPTY = 0x80210003;
-
+        
         public object WIA_IPS_BRIGHTNESS { get; private set; }
 
         public event EventHandler OnTransferCompleted;
@@ -106,28 +106,39 @@ namespace ScanX.Core
             }
         }
 
-        public void ScanSinglePage(string deviceID)
+        public void ScanSinglePage(string deviceID,DeviceSetting setting = null)
         {
-            IDeviceInfo device = GetDeviceById(deviceID);
+            if (setting == null)
+                setting = new DeviceSetting();
 
+            setting.Color = DeviceSetting.ColorModel.Grayscale;
+            setting.Dpi = DeviceSetting.DPI.DPI_300;
+
+            IDeviceInfo device = GetDeviceById(deviceID);
+            
             if (device == null)
                 throw new Exception($"Unable to find device id: {deviceID}");
 
             var connectedDevice = device.Connect();
 
-            //SetWIAProperty(connectedDevice.Items[1].Properties, DeviceSetting.WIA_COLOR_MODE, DeviceSetting.ColorModel.Color);
-            SetWIAProperty(connectedDevice.Items[1].Properties, DeviceSetting.WIA_HORIZONTAL_EXTENT, 1240);
-            SetWIAProperty(connectedDevice.Items[1].Properties, DeviceSetting.WIA_VERTICAL_EXTENT, 1754);
+            SetDeviceSettings(connectedDevice, setting);
 
             int page = 1;
 
-            var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
+            try
+            {
+                var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
 
-            byte[] data = (byte[])img.FileData.get_BinaryData();
+                byte[] data = (byte[])img.FileData.get_BinaryData();
 
-            OnImageScanned?.Invoke(this, new DeviceImageScannedEventArgs(data, img.FileExtension, page));
+                OnImageScanned?.Invoke(this, new DeviceImageScannedEventArgs(data, img.FileExtension, page));
 
-            page++;
+                page++;
+            }
+            catch (COMException ex) when( (uint) ex.HResult == WIA_ERROR_PAPER_EMPTY)
+            {
+                Debug.WriteLine(ex);
+            }
 
 
         }
@@ -218,6 +229,25 @@ namespace ScanX.Core
             return device;
         }
 
+        private void SetDeviceSettings(Device connectedDevice,DeviceSetting setting)
+        {
+            var pageSize = DeviceSetting.GetA4SizeByDpi(setting.Dpi);
+            var resoultions = DeviceSetting.GetResolution(setting.Dpi);
+
+            var properties = connectedDevice.Items[1].Properties;
+
+            SetWIAProperty(properties, DeviceSetting.WIA_HORIZONTAL_RESOLUTION, resoultions);
+            SetWIAProperty(properties, DeviceSetting.WIA_VERTICAL_RESOLUTION, resoultions);
+
+
+            SetWIAProperty(properties, DeviceSetting.WIA_HORIZONTAL_EXTENT, pageSize.width);
+            SetWIAProperty(properties, DeviceSetting.WIA_VERTICAL_EXTENT, pageSize.height);
+            
+            SetWIAProperty(properties, DeviceSetting.WIA_COLOR_MODE, setting.Color);
+
+
+        }
+
         private void SetWIAProperty(IProperties properties, int propertyId, object value)
         {
             foreach (IProperty item in properties)
@@ -229,45 +259,6 @@ namespace ScanX.Core
 
             }
         }
-
-        private void SetWIAPageSize(IProperties properties, DeviceSetting.PageSize pageSize)
-        {
-            foreach (IProperty item in properties)
-            {
-                object value;
-
-                //if (item.PropertyID.Equals(DeviceSetting.WIA_PAGE_WIDTH))
-                //{
-                //    value = 8267;
-                //    item.set_Value(ref value);
-                //}
-                //else if(item.PropertyID.Equals(DeviceSetting.WIA_PAGE_HEIGHT))
-                //{
-                //    value = 11692;
-
-                //    item.set_Value(ref value);
-
-                //}
-                //else if (item.PropertyID.Equals(DeviceSetting.WIA_PAGE_SIZE))
-                //{
-                //    value = 2;
-
-                //    item.set_Value(ref value);
-
-                //}
-                //else if (item.PropertyID.Equals(DeviceSetting.WIA_HORIZONTAL_EXTENT))
-                //{
-                //    value = 2550;
-                //    item.set_Value(ref value);
-                //}
-                //else if (item.PropertyID.Equals(DeviceSetting.WIA_VERTICAL_EXTENT))
-                //{
-                //    value = 3300;
-
-                //    item.set_Value(ref value);
-                //}
-            }
-            
-        }
+        
     }
 }

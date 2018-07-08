@@ -55,6 +55,26 @@ namespace ScanX.App.ViewModels
 
         public ObservableCollection<ScannerDevice> Scanners { get; set; } = new ObservableCollection<ScannerDevice>();
 
+        private Media _selectedMedia;
+
+        public Media SelectedMedia
+        {
+            get
+            {
+                return _selectedMedia;
+            }
+            set
+            {
+                if (_selectedMedia != value)
+                {
+                    _selectedMedia = value;
+
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+
         public ObservableCollection<Media> Media { get; set; } = new ObservableCollection<Media>();
         
         public ICommand ListPrintersCommand { get; private set; }

@@ -71,7 +71,7 @@ namespace ScanX.App.ViewModels
 
             Properties.Clear();
 
-            var result = client.GetDeviceConnectProperties(SelectedDevice.DeviceId);
+            var result = client.GetItemDeviceConnectProperties(SelectedDevice.DeviceId);
 
             foreach (var item in result)
             {

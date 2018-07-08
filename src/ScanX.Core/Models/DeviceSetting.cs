@@ -11,12 +11,12 @@ namespace ScanX.Core.Models
         public const int WIA_COLOR_MODE = 6146;
 
         public const int WIA_HORIZONTAL_EXTENT = 6151;
-
-        public const int WIA_HORIZONTAL_RESOLUTION = 6148;
-
+        
         public const int WIA_VERTICAL_EXTENT = 6152;
 
         public const int WIA_VERTICAL_RESOLUTION = 6148;
+
+        public const int WIA_HORIZONTAL_RESOLUTION = 6147;
 
         public const int WIA_PAGE_WIDTH = 3098;
 
@@ -24,7 +24,7 @@ namespace ScanX.Core.Models
 
         public enum DPI
         {
-            DPI_72 = 1,
+            DPI_75 = 1,
             DPI_96 = 2,
             DPI_150 = 3,
             DPI_300 = 4,
@@ -53,9 +53,9 @@ namespace ScanX.Core.Models
         {
             switch (dpi)
             {
-                case DPI.DPI_72:
+                case DPI.DPI_75:
 
-                    return (595, 842);
+                    return (619, 876);
 
                 case DPI.DPI_96:
 
@@ -72,6 +72,31 @@ namespace ScanX.Core.Models
                 default:
 
                     return (794,1123);
+            }
+        }
+
+        public static int GetResolution(DPI dpi)
+        {
+            switch (dpi)
+            {
+                case DPI.DPI_75:
+
+                    return 75;
+
+                case DPI.DPI_96:
+
+                    return 96;
+
+                case DPI.DPI_150:
+
+                    return 150;
+
+                case DPI.DPI_300:
+
+                    return 300;
+
+                default:
+                    return 150;
             }
         }
     }
