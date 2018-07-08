@@ -241,7 +241,7 @@ namespace ScanX.Core
             SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, pageSize.width);
             SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, pageSize.height);
             
-            SetWIAProperty(properties, ScanSetting.WIA_COLOR_MODE, setting.Color);
+            SetWIAProperty(properties, ScanSetting.WIA_COLOR_MODE, (int)setting.Color);
 
 
         }

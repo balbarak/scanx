@@ -34,7 +34,7 @@ namespace ScanX.Core.Models
         {
             Grayscale = 2,
             Color = 1,
-            Mask = 3
+            BlackAndWhite = 4
         }
 
         public enum PageSize

@@ -71,6 +71,7 @@
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
                                 <Image Width="150" Stretch="UniformToFill" Source="{Binding Source}" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding Page}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding SizeIn}" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
