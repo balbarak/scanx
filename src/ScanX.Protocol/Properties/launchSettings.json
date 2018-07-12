@@ -18,6 +18,7 @@
     },
     "ScanX.Protocol": {
       "commandName": "Project",
+      "commandLineArgs": "--console",
       "launchBrowser": true,
       "launchUrl": "api/values",
       "environmentVariables": {
