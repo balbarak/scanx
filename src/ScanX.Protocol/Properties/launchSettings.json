@@ -20,11 +20,11 @@
       "commandName": "Project",
       "commandLineArgs": "--console",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "home/index",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:58306/"
+      "applicationUrl": "http://localhost:61234/"
     }
   }
 }

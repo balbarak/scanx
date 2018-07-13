@@ -42,6 +42,7 @@ namespace ScanX.Protocol
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://0.0.0.0:61234")
                 .UseStartup<Startup>();
         }
        

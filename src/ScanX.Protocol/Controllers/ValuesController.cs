@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ScanX.Protocol.Controllers
 {
-    [Route("api/[controller]")]
-    public class ValuesController : ControllerBase
+    public class ValuesController : ApiBaseController
     {
         // GET api/values
         [HttpGet]
