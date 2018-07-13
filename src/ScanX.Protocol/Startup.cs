@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ScanX.Protocol.Protocol;
 
 namespace ScanX.Protocol
 {
@@ -23,6 +24,8 @@ namespace ScanX.Protocol
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+
             services.AddMvc();
         }
 
@@ -35,6 +38,11 @@ namespace ScanX.Protocol
             }
 
             app.UseStaticFiles();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ScanXProtocol>("/scanx");
+            });
 
             app.UseMvc(routes =>
             {

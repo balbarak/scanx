@@ -25,5 +25,10 @@ namespace ScanX.Protocol.Controllers
 
             return View(result);
         }
+
+        public IActionResult ScannerSample()
+        {
+            return View();
+        }
     }
 }
