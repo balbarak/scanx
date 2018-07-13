@@ -1,0 +1,30 @@
+﻿@model DeviceViewModel
+@{
+    ViewData["Title"] = "Devices";
+}
+
+<div class="container content">
+
+    <h3>
+        Installed Printers
+        <small class="text-muted">List of all installed printers in the pc</small>
+    </h3>
+    <hr/>
+
+    <ul>
+        @foreach (var item in Model.Printers)
+        {
+            <li>
+                @item
+            </li>
+        }
+    </ul>
+
+    <h3>
+        Installed Scanners
+        <small class="text-muted">List of all installed scanners in the pc</small>
+    </h3>
+    
+    <hr/>
+
+</div>
