@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using System.Windows;
 
 namespace ScanX.InstallHelpers
 {
@@ -20,8 +21,6 @@ namespace ScanX.InstallHelpers
 
         public override void Install(IDictionary stateSaver)
         {
-            Debugger.Launch();
-
             base.Install(stateSaver);
 
             string path = this.Context.Parameters["targetdir"];
@@ -31,7 +30,8 @@ namespace ScanX.InstallHelpers
         }
         protected override void OnAfterInstall(IDictionary savedState)
         {
-            
+            MessageBox.Show("Debug Me");
+
             base.OnAfterInstall(savedState);
         }
     }
