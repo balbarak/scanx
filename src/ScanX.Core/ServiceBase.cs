@@ -12,7 +12,7 @@ namespace ScanX.Core
 
         protected ServiceBase()
         {
-
+            
         }
 
         static ServiceBase()

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,10 +10,19 @@
     <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="2.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+    <PackageReference Include="System.Reflection" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ScanX.Core\ScanX.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CustomMarshalers">
+      <HintPath>..\..\lib\32-bit\CustomMarshalers.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 
