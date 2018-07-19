@@ -23,6 +23,13 @@ namespace ScanX.Core
         public event EventHandler OnTransferCompleted;
         public event EventHandler OnImageScanned;
 
+        private readonly DeviceManager _deviceManager;
+
+        public DeviceClient()
+        {
+            _deviceManager = new DeviceManager();
+        }
+
         public List<string> GetAllPrinters()
         {
             List<string> result = new List<string>();
@@ -41,9 +48,13 @@ namespace ScanX.Core
         public List<ScannerDevice> GetAllScanners()
         {
             var result = new List<ScannerDevice>();
+            
+            var deviceInfos = _deviceManager.DeviceInfos;
 
-            foreach (IDeviceInfo info in new DeviceManagerClass().DeviceInfos)
+            for (int i = 0; i < deviceInfos.Count; i++)
             {
+                var info = deviceInfos[i];
+
                 if (info.Type == WiaDeviceType.ScannerDeviceType)
                 {
                     result.Add(new ScannerDevice()
@@ -55,7 +66,7 @@ namespace ScanX.Core
                     });
                 }
             }
-
+            
             return result;
         }
 

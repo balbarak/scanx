@@ -19,11 +19,5 @@
     <ProjectReference Include="..\ScanX.Core\ScanX.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="CustomMarshalers">
-      <HintPath>..\..\lib\32-bit\CustomMarshalers.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 
 </Project>
