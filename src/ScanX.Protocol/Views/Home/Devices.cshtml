@@ -9,22 +9,52 @@
         Installed Printers
         <small class="text-muted">List of all installed printers in the pc</small>
     </h3>
-    <hr/>
+    <hr />
 
-    <ul>
-        @foreach (var item in Model.Printers)
-        {
-            <li>
-                @item
-            </li>
-        }
-    </ul>
+    @if (Model.Printers.Any())
+    {
+
+        <ul>
+            @foreach (var item in Model.Printers)
+            {
+                <li>
+                    @item
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            There is no any printers found in your pc
+        </div>
+
+    }
 
     <h3>
         Installed Scanners
         <small class="text-muted">List of all installed scanners in the pc</small>
     </h3>
-    
-    <hr/>
+
+    @if (Model.Scanners.Any())
+    {
+        <ul>
+            @foreach (var item in Model.Scanners)
+            {
+                <li>
+                    @item.Name
+                </li>
+            }
+        </ul>
+
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            There is no any scanners found in your pc
+        </div>
+    }
+
+    <hr />
 
 </div>
