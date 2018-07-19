@@ -11,6 +11,8 @@
   <ItemGroup>
     <Reference Include="Interop.WIA">
       <HintPath>..\..\lib\Interop.WIA.dll</HintPath>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
+      <Private>true</Private>
     </Reference>
   </ItemGroup>
 
