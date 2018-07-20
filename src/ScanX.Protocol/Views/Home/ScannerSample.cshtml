@@ -5,6 +5,25 @@
 
 <h2>ScannerSample</h2>
 
+<div class="container content">
+
+    <div class="row">
+        <div class="col-9">
+            <div style="background-color:red; min-height:400px;">
+
+            </div>
+
+        </div>
+        <div class="col-3">
+            <div style="min-height:400px">
+                <img id="main" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="scanImage();">
+        Test
+    </button>
+</div>
 
 
 @section scripts{
@@ -14,6 +33,25 @@
     <script src="~/js/scanx.js"></script>
 
     <script type="text/javascript">
+
+        var scan = new ScanX();
+
+        $(function () {
+
+            scan.connection.on("ImageScanned", (data) => {
+
+                $("#main").attr("src","data:image/png;base64," + data);
+                
+
+            });
+
+            scan.connect();
+
+        })
+
+        function scanImage() {
+            scan.scan();
+        }
 
     </script>
 }
