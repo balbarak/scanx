@@ -12,7 +12,7 @@
             <button type="button" class="btn btn-primary" onclick="scanImage();">
                 Test
             </button>
-            <br/>
+            <br />
             <div style="background-color:whitesmoke; min-height:400px;">
 
             </div>
@@ -27,12 +27,14 @@
             </div>
         </div>
     </div>
-    
+
 </div>
+
+@*https://www.jqueryscript.net/rotator/jQuery-Plugin-for-Image-Zoom-Rotation-Plugin-iviewer.html*@
 
 
 @section scripts{
-    
+
     <script src="~/js/signalr.min.js"></script>
 
     <script src="~/js/scanx.js"></script>
@@ -48,7 +50,7 @@
                 var img = '<img class="img-fluid" src="data: image/png;base64,' + data + '"></img>';
 
                 $("#main-images").append(img);
-                
+
 
             });
 
