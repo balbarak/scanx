@@ -9,20 +9,25 @@
 
     <div class="row">
         <div class="col-9">
-            <div style="background-color:red; min-height:400px;">
+            <button type="button" class="btn btn-primary" onclick="scanImage();">
+                Test
+            </button>
+            <br/>
+            <div style="background-color:whitesmoke; min-height:400px;">
 
             </div>
 
         </div>
         <div class="col-3">
-            <div style="min-height:400px">
+            <div style=" background-color:whitesmoke;min-height:400px">
+                <div id="main-images">
+
+                </div>
                 <img id="main" class="img-fluid" />
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-primary" onclick="scanImage();">
-        Test
-    </button>
+    
 </div>
 
 
@@ -40,7 +45,9 @@
 
             scan.connection.on("ImageScanned", (data) => {
 
-                $("#main").attr("src","data:image/png;base64," + data);
+                var img = '<img class="img-fluid" src="data: image/png;base64,' + data + '"></img>';
+
+                $("#main-images").append(img);
                 
 
             });
