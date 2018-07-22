@@ -33,11 +33,11 @@
                                 <button type="button" class="btn btn-sm btn-primary" onclick="fit();">
                                     <i class="fas fa-crop"></i>
                                 </button>
-                                <button type="button" class="btn btn-sm btn-primary" onclick="scanImage();">
+                                <button type="button" class="btn btn-sm btn-primary" onclick="rotateLeft();">
                                     <i class="fas fa-undo"></i>
                                 </button>
 
-                                <button type="button" class="btn btn-sm btn-primary" onclick="scanImage();">
+                                <button type="button" class="btn btn-sm btn-primary" onclick="rotateRight();">
                                     <i class="fas fa-redo"></i>
                                 </button>
                             </div>
@@ -48,7 +48,7 @@
 
 
                 <div id="theparent" style="max-height:750px;">
-                    <img id="img-viewer" class="img-fluid"  />
+                    <img id="img-viewer" class="img-fluid" style="min-height:700px;"  />
                 </div>
 
 
@@ -113,6 +113,15 @@
         function zoomOut() {
             imgViewer.guillotine('zoomOut');
         }
+
+        function rotateLeft() {
+            imgViewer.guillotine('rotateLeft');
+        }
+
+        function rotateRight() {
+            imgViewer.guillotine('rotateRight');
+        }
+
 
         function fit() {
             imgViewer.guillotine('fit');
