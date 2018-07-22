@@ -17,7 +17,7 @@ namespace ScanX.Core
     public class DeviceClient
     {
         public const uint WIA_ERROR_PAPER_EMPTY = 0x80210003;
-        
+
         public object WIA_IPS_BRIGHTNESS { get; private set; }
 
         public event EventHandler OnTransferCompleted;
@@ -48,7 +48,7 @@ namespace ScanX.Core
         public List<ScannerDevice> GetAllScanners()
         {
             var result = new List<ScannerDevice>();
-            
+
             var deviceInfos = _deviceManager.DeviceInfos;
 
             for (int i = 0; i < deviceInfos.Count; i++)
@@ -66,65 +66,56 @@ namespace ScanX.Core
                     });
                 }
             }
-            
+
             return result;
         }
 
-        public void Scan(int deviceID)
+        public void ScanMultiple(string deviceID, ScanSetting setting = null)
         {
             var deviceManager = new DeviceManager();
 
-            try
+            if (setting == null)
+                setting = new ScanSetting();
+
+            IDeviceInfo device = GetDeviceById(deviceID);
+
+            var connectedDevice = device.Connect();
+
+            SetDeviceSettings(connectedDevice, setting);
+
+            int page = 1;
+
+            do
             {
-                var device = deviceManager.DeviceInfos[deviceID];
-
-                var connectedDevice = device.Connect();
-
-                int page = 1;
-
-                do
+                try
                 {
-                    try
-                    {
-                        var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
+                    var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
 
-                        byte[] data = (byte[])img.FileData.get_BinaryData();
+                    byte[] data = (byte[])img.FileData.get_BinaryData();
 
-                        OnImageScanned?.Invoke(this, new DeviceImageScannedEventArgs(data, img.FileExtension, page));
+                    OnImageScanned?.Invoke(this, new DeviceImageScannedEventArgs(data, img.FileExtension, page));
 
-                        page++;
-                    }
-                    catch (COMException ex)
-                    {
-                        if ((uint)ex.HResult != WIA_ERROR_PAPER_EMPTY)
-                        {
-                            OnTransferCompleted?.Invoke(this, new DeviceTransferCompletedEventArgs(page));
-                            break;
-                        }
-
-
-                        throw;
-                    }
+                    page++;
                 }
-                while (true);
-
-
-
+                catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
+                {
+                    Debug.WriteLine(ex);
+                    break;
+                }
             }
-            catch (Exception ex)
-            {
+            while (true);
 
-            }
         }
 
-        public void ScanSinglePage(string deviceID,ScanSetting setting = null)
+
+        public void ScanSinglePage(string deviceID, ScanSetting setting = null)
         {
             if (setting == null)
                 setting = new ScanSetting();
-            
+
 
             IDeviceInfo device = GetDeviceById(deviceID);
-            
+
             if (device == null)
                 throw new Exception($"Unable to find device id: {deviceID}");
 
@@ -144,7 +135,7 @@ namespace ScanX.Core
 
                 page++;
             }
-            catch (COMException ex) when( (uint) ex.HResult == WIA_ERROR_PAPER_EMPTY)
+            catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
             {
                 Debug.WriteLine(ex);
             }
@@ -224,21 +215,24 @@ namespace ScanX.Core
 
         private IDeviceInfo GetDeviceById(string deviceID)
         {
-            IDeviceInfo device = null;
+            var deviceManager = new DeviceManager();
 
-            foreach (IDeviceInfo info in new DeviceManagerClass().DeviceInfos)
+            var count = deviceManager.DeviceInfos.Count;
+
+            for (int i = 0; i < count; i++)
             {
-                if (info.DeviceID == deviceID)
+                IDeviceInfo device = deviceManager.DeviceInfos[i + 1];
+
+                if (device.DeviceID == deviceID)
                 {
-                    device = info;
-                    break;
+                    return device;
                 }
             }
 
-            return device;
+            return null;
         }
 
-        private void SetDeviceSettings(Device connectedDevice,ScanSetting setting)
+        private void SetDeviceSettings(Device connectedDevice, ScanSetting setting)
         {
             var pageSize = ScanSetting.GetA4SizeByDpi(setting.Dpi);
             var resoultions = ScanSetting.GetResolution(setting.Dpi);
@@ -246,28 +240,37 @@ namespace ScanX.Core
             var properties = connectedDevice.Items[1].Properties;
 
             SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_RESOLUTION, resoultions);
+
             SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_RESOLUTION, resoultions);
 
-
             SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, pageSize.width);
+
             SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, pageSize.height);
-            
+
             SetWIAProperty(properties, ScanSetting.WIA_COLOR_MODE, (int)setting.Color);
 
+            //SetWIAProperty(properties, ScanSetting.WIA_THRESHOLD, setting.Threshold);
 
         }
 
         private void SetWIAProperty(IProperties properties, int propertyId, object value)
         {
-            foreach (IProperty item in properties)
+            try
             {
-                if (item.PropertyID.Equals(propertyId))
+                foreach (IProperty item in properties)
                 {
-                    item.set_Value(value);
+                    if (item.PropertyID.Equals(propertyId))
+                    {
+                        item.set_Value(value);
+                    }
                 }
-
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"unable to set properties: {ex}");
+            }
+
         }
-        
+
     }
 }

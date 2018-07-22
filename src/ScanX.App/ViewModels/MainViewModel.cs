@@ -90,9 +90,7 @@ namespace ScanX.App.ViewModels
             get { return _selectedColorMode; }
             set { _selectedColorMode = value; RaisePropertyChanged(); }
         }
-
-
-
+        
         public IEnumerable<ScanSetting.DPI> Dpi
         {
             get
@@ -119,6 +117,8 @@ namespace ScanX.App.ViewModels
 
         public ICommand ScanCommand { get; private set; }
 
+        public ICommand ScanMultipleCommand { get; private set; }
+
         public ICommand ShowDeviceWindowCommand { get; private set; }
 
         public MainViewModel()
@@ -133,6 +133,7 @@ namespace ScanX.App.ViewModels
             ListScannersCommand = new RelayCommand(async (arg) => { await ListScanners(); });
             ScanCommand = new RelayCommand(async (arg) => { await Scan(); });
             ShowDeviceWindowCommand = new RelayCommand(async (arg) => { await ShowDeviceWindow(); });
+            ScanMultipleCommand = new RelayCommand(async (arg) => { await ScanMultiple(); });
         }
 
         private async Task ListScanners()
@@ -186,6 +187,26 @@ namespace ScanX.App.ViewModels
             };
 
             Service.ScanSinglePage(SelectedDevice.DeviceId,setting);
+
+            await Task.CompletedTask;
+        }
+
+        private async Task ScanMultiple()
+        {
+            if (SelectedDevice == null)
+            {
+                MessageBox.Show("Please select a scannr from scanner list", "Select scanner", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+
+                return;
+            }
+
+            ScanSetting setting = new ScanSetting()
+            {
+                Color = SelectedColorMode,
+                Dpi = SelectedDpi
+            };
+
+            await Task.Run(()=> { Service.ScanMultiple(SelectedDevice.DeviceId, setting); });
 
             await Task.CompletedTask;
         }

@@ -22,6 +22,8 @@ namespace ScanX.Core.Models
 
         public const int WIA_PAGE_HEIGHT = 3099;
 
+        public const int WIA_THRESHOLD = 6159;
+        
         public enum DPI
         {
             DPI_75 = 1,
@@ -47,6 +49,7 @@ namespace ScanX.Core.Models
 
         public ColorModel Color { get; set; }
 
+        public int Threshold { get; set; }
 
         //for more info https://www.papersizes.org/a-sizes-in-pixels.htm
         public static (int width,int height) GetA4SizeByDpi(DPI dpi)

@@ -13,7 +13,7 @@ class ScanX {
             .configureLogging(signalR.LogLevel.Information)
             .build();
     }
-    
+
     connect() {
 
         this.connection.start().catch(err => console.error(err.toString()));
@@ -22,5 +22,10 @@ class ScanX {
     scan() {
 
         this.connection.invoke("Scan").catch(err => console.error(err.toString()));
+    }
+
+    scanMultiple() {
+
+        this.connection.invoke("ScanMultiple").catch(err => console.error(err.toString()));
     }
 }
