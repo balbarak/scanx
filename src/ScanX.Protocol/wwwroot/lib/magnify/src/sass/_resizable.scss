@@ -1,0 +1,83 @@
+// -----------------------
+// Resizable
+// -----------------------
+.magnify-resizable-handle {
+  position: absolute;
+  z-index: 10;
+}
+
+.magnify-resizable-handle-e {
+  top: 0;
+  right: -5px;
+  bottom: 0;
+  left: auto;
+  width: 10px;
+  cursor: e-resize;
+}
+
+.magnify-resizable-handle-s {
+  top: auto;
+  right: 0;
+  bottom: -5px;
+  left: 0;
+  height: 10px;
+  cursor: s-resize;
+}
+
+.magnify-resizable-handle-w {
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: -5px;
+  width: 10px;
+  cursor: w-resize;
+}
+
+.magnify-resizable-handle-n {
+  top: -5px;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  height: 10px;
+  cursor: n-resize;
+}
+
+.magnify-resizable-handle-se {
+  top: auto;
+  right: -5px;
+  bottom: -5px;
+  left: auto;
+  width: 10px;
+  height: 10px;
+  cursor: se-resize;
+}
+
+.magnify-resizable-handle-sw {
+  top: auto;
+  right: auto;
+  bottom: -5px;
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  cursor: sw-resize;
+}
+
+.magnify-resizable-handle-nw {
+  top: -5px;
+  right: auto;
+  bottom: auto;
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  cursor: nw-resize;
+}
+
+.magnify-resizable-handle-ne {
+  top: -5px;
+  right: -5px;
+  bottom: auto;
+  left: auto;
+  width: 10px;
+  height: 10px;
+  cursor: ne-resize;
+}

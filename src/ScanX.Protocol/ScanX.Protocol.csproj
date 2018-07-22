@@ -21,5 +21,9 @@
     <ProjectReference Include="..\ScanX.Core\ScanX.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
 
 </Project>

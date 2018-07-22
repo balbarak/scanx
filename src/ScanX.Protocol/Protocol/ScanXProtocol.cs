@@ -22,13 +22,24 @@ namespace ScanX.Protocol.Protocol
             return base.OnDisconnectedAsync(exception);
         }
 
+        public async Task ScanTest()
+        {
+            var data = File.ReadAllBytes("wwwroot\\images\\1.png");
+
+            var imageBase64 = Convert.ToBase64String(data);
+
+            await Clients.Caller.SendAsync(ClientMethod.IMAGE_SCANNED, imageBase64);
+
+            await Task.CompletedTask;
+        }
+
         public async Task ScanSingle()
         {
             var data = File.ReadAllBytes("wwwroot\\images\\1.png");
 
             var imageBase64 = Convert.ToBase64String(data);
 
-            await Clients.Caller.SendAsync("ImageScanned", imageBase64);
+            await Clients.Caller.SendAsync(ClientMethod.IMAGE_SCANNED, imageBase64);
 
             await Task.CompletedTask;
         }
