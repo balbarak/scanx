@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Guillotine demo</title>
+  <link href='../css/jquery.guillotine.css' media='all' rel='stylesheet'>
+  <link href='demo.css' media='all' rel='stylesheet'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, target-densitydpi=device-dpi'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--[if lt IE 9]>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js'></script>
+  <![endif]-->
+</head>
+<body>
+  <div id='content'>
+    <h1>Guillotine demo</h1>
+
+    <div class='frame'>
+      <img id='sample_picture' src='http://lorempixel.com/640/480/city'>
+    </div>
+
+    <div id='controls'>
+      <button id='rotate_left'  type='button' title='Rotate left'> &lt; </button>
+      <button id='zoom_out'     type='button' title='Zoom out'> - </button>
+      <button id='fit'          type='button' title='Fit image'> [ ]  </button>
+      <button id='zoom_in'      type='button' title='Zoom in'> + </button>
+      <button id='rotate_right' type='button' title='Rotate right'> &gt; </button>
+    </div>
+
+    <ul id='data'>
+      <div class='column'>
+        <li>x: <span id='x'></span></li>
+        <li>y: <span id='y'></span></li>
+      </div>
+      <div class='column'>
+        <li>width:  <span id='w'></span></li>
+        <li>height: <span id='h'></span></li>
+      </div>
+      <div class='column'>
+        <li>scale: <span id='scale'></span></li>
+        <li>angle: <span id='angle'></span></li>
+      </div>
+    </ul>
+  </div>
+
+  <script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+  <script src='../js/jquery.guillotine.js'></script>
+  <script type='text/javascript'>
+    jQuery(function() {
+      var picture = $('#sample_picture');
+
+      // Make sure the image is completely loaded before calling the plugin
+      picture.one('load', function(){
+        // Initialize plugin (with custom event)
+        picture.guillotine({eventOnChange: 'guillotinechange'});
+
+        // Display inital data
+        var data = picture.guillotine('getData');
+        for(var key in data) { $('#'+key).html(data[key]); }
+
+        // Bind button actions
+        $('#rotate_left').click(function(){ picture.guillotine('rotateLeft'); });
+        $('#rotate_right').click(function(){ picture.guillotine('rotateRight'); });
+        $('#fit').click(function(){ picture.guillotine('fit'); });
+        $('#zoom_in').click(function(){ picture.guillotine('zoomIn'); });
+        $('#zoom_out').click(function(){ picture.guillotine('zoomOut'); });
+
+        // Update data on change
+        picture.on('guillotinechange', function(ev, data, action) {
+          data.scale = parseFloat(data.scale.toFixed(4));
+          for(var k in data) { $('#'+k).html(data[k]); }
+        });
+      });
+
+      // Make sure the 'load' event is triggered at least once (for cached images)
+      if (picture.prop('complete')) picture.trigger('load')
+    });
+  </script>
+</body>
+</html>

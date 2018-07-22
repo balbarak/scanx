@@ -1,37 +1,71 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "ScannerSample";
 }
 
+@section styles{
+    <link href="~/lib/guillotine-master/css/jquery.guillotine.css" rel="stylesheet" />
+    <link href="~/lib/simplebar/dist/simplebar.css" rel="stylesheet" />
+}
 <h2>ScannerSample</h2>
+
+@*http://photoswipe.com/*@
 
 <div class="container content">
 
     <div class="row">
-        <div class="col-9">
-            <button type="button" class="btn btn-primary" onclick="scanImage();">
-                Test
-            </button>
-            <br />
-            <div style="background-color:whitesmoke; min-height:400px;">
+        <div class="col-10">
+
+            <div style="background-color:whitesmoke;padding:20px; ">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                                <button type="button" class="btn btn-sm btn-primary" onclick="scanTest();">
+                                    Scan Test
+                                </button>
+
+                                <button type="button" class="btn btn-sm btn-primary" onclick="zoomIn();">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary" onclick="zoomOut();">
+                                    <i class="fas fa-search-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary" onclick="fit();">
+                                    <i class="fas fa-crop"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary" onclick="scanImage();">
+                                    <i class="fas fa-undo"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-sm btn-primary" onclick="scanImage();">
+                                    <i class="fas fa-redo"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="theparent" style="max-height:750px;">
+                    <img id="img-viewer" class="img-fluid"  />
+                </div>
+
 
             </div>
 
         </div>
-        <div class="col-3">
-            <div style=" background-color:whitesmoke;min-height:400px">
-                <div id="main-images">
 
-                </div>
-                <img id="main" class="img-fluid" />
+        <div class="col-2 border" style="background-color:whitesmoke;">
+            <div data-simplebar style="max-height:750px;">
+                <ul id="image-list"></ul>
             </div>
         </div>
     </div>
 
+    <br />
+
 </div>
-
-@*https://www.jqueryscript.net/rotator/jQuery-Plugin-for-Image-Zoom-Rotation-Plugin-iviewer.html*@
-
 
 @section scripts{
 
@@ -39,27 +73,62 @@
 
     <script src="~/js/scanx.js"></script>
 
+    <script src="~/lib/guillotine-master/js/jquery.guillotine.min.js"></script>
+
+    <script src="~/lib/simplebar/dist/simplebar.js"></script>
+
     <script type="text/javascript">
 
+        var imgViewer = $("#img-viewer")
         var scan = new ScanX();
 
         $(function () {
 
             scan.connection.on("ImageScanned", (data) => {
 
-                var img = '<img class="img-fluid" src="data: image/png;base64,' + data + '"></img>';
+                var img = '<li><img class="img-fluid" src="data: image/png;base64,' + data + '" onclick="setImageToViewer(this)"></img></li>';
 
-                $("#main-images").append(img);
+                $("#image-list").append(img);
 
 
             });
 
             scan.connect();
+            
 
         })
 
         function scanImage() {
-            scan.scanMultiple();
+            scan.scanTest();
+        }
+
+        function scanTest() {
+            scan.scanTest();
+        }
+        
+        function zoomIn() {
+            imgViewer.guillotine('zoomIn');
+        }
+
+        function zoomOut() {
+            imgViewer.guillotine('zoomOut');
+        }
+
+        function fit() {
+            imgViewer.guillotine('fit');
+        }
+
+        function setImageToViewer(data) {
+
+            var src = $(data).attr("src");
+
+            $(imgViewer).attr("src", src);
+
+            imgViewer.guillotine({
+                scale: 1
+            });
+
+            imgViewer.guillotine('fit');
         }
 
     </script>

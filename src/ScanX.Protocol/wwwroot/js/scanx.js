@@ -28,4 +28,8 @@ class ScanX {
 
         this.connection.invoke("ScanMultiple").catch(err => console.error(err.toString()));
     }
+
+    scanTest() {
+        this.connection.invoke("ScanTest").catch(err => console.error(err.toString()));
+    }
 }

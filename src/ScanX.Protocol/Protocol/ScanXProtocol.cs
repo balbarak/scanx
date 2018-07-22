@@ -25,10 +25,13 @@ namespace ScanX.Protocol.Protocol
         public async Task ScanTest()
         {
             var data = File.ReadAllBytes("wwwroot\\images\\1.png");
+            var data2 = File.ReadAllBytes("wwwroot\\images\\2.png");
 
             var imageBase64 = Convert.ToBase64String(data);
+            var imageTwo = Convert.ToBase64String(data2);
 
             await Clients.Caller.SendAsync(ClientMethod.IMAGE_SCANNED, imageBase64);
+            await Clients.Caller.SendAsync(ClientMethod.IMAGE_SCANNED, imageTwo);
 
             await Task.CompletedTask;
         }

@@ -7,11 +7,17 @@
 <html lang="en">
 <head>
 
+    <title>
+        ScanX
+    </title>
+
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
-    <title>Hello, world!</title>
+
+    @RenderSection("styles",false)
 </head>
 <body>
 
@@ -50,8 +56,10 @@
             </span>
         </div>
     </footer>
+    
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/lib/fontawesome/js/all.min.js"></script>
 
     <script type="text/javascript">
 
@@ -63,7 +71,7 @@
         function setActiveLink() {
 
             var currentPath = location.pathname.toLocaleLowerCase();
-            
+
             $('.nav-item a').each(function (i, n) {
 
                 var href = $(n).attr("href");
@@ -76,18 +84,18 @@
                         var anchor = $(n);
 
                         var navToggle = anchor.parents('.nav-item');
-                        
+
                         navToggle.addClass('active');
 
                         $(n).closest("li").addClass('active');
-                        
+
                     }
                 }
             });
         }
     </script>
 
-    @RenderSection("scripts",false)
+    @RenderSection("scripts", false)
 
 </body>
 </html>

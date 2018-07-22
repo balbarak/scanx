@@ -27,6 +27,19 @@ body {
     padding: 0 20px;
 }
 
-.content{
-    margin-top:80px;
+.content {
+    margin-top: 80px;
 }
+
+#image-list {
+    padding:0px;
+    margin:0px;
+}
+
+    #image-list li {
+        list-style: none;
+        margin-top:10px;
+        margin-bottom:10px;
+
+        border: 1px solid black;
+    }
