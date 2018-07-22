@@ -53,7 +53,7 @@ namespace ScanX.Core
 
             for (int i = 0; i < deviceInfos.Count; i++)
             {
-                var info = deviceInfos[i];
+                var info = deviceInfos[i + 1];
 
                 if (info.Type == WiaDeviceType.ScannerDeviceType)
                 {
