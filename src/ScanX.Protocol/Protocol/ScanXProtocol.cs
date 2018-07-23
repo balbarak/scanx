@@ -36,18 +36,27 @@ namespace ScanX.Protocol.Protocol
             await Task.CompletedTask;
         }
 
-        public async Task ScanSingle()
+        public async Task ScanSingle(string deviceId,ScanSetting settings)
         {
-            var data = File.ReadAllBytes("wwwroot\\images\\1.png");
+            DeviceClient client = new DeviceClient();
 
-            var imageBase64 = Convert.ToBase64String(data);
+            client.OnImageScanned += async (sender, args) =>
+            {
+                var data = args as DeviceImageScannedEventArgs;
 
-            await Clients.Caller.SendAsync(ClientMethod.IMAGE_SCANNED, imageBase64);
+                var imageData = data.GetBitmapBinary();
+
+                await Clients.Caller.SendAsync("ImageScanned", imageData);
+            };
+
+
+
+            client.ScanSinglePage(deviceId, settings);
 
             await Task.CompletedTask;
         }
 
-        public async Task ScanMultiple()
+        public async Task ScanMultiple(string deviceId,ScanSetting settings)
         {
             DeviceClient client = new DeviceClient();
 
@@ -55,12 +64,14 @@ namespace ScanX.Protocol.Protocol
             {
                 var data = args as DeviceImageScannedEventArgs;
                 
-                var imageBase64 = Convert.ToBase64String(data.ImageData);
+                var imageBase64 = Convert.ToBase64String(data.ImageRawData);
 
                 await Clients.Caller.SendAsync("ImageScanned", imageBase64);
             };
 
-            client.ScanMultiple("{6BDD1FC6-810F-11D0-BEC7-08002BE2092F}\\0000");
+            
+            
+            client.ScanMultiple(deviceId,settings);
             
             await Task.CompletedTask;
         }

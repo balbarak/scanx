@@ -19,14 +19,14 @@ class ScanX {
         this.connection.start().catch(err => console.error(err.toString()));
     }
 
-    scan() {
+    scanSingle(deviceId,settings) {
 
-        this.connection.invoke("Scan").catch(err => console.error(err.toString()));
+        this.connection.invoke("ScanSingle",deviceId,settings).catch(err => console.error(err.toString()));
     }
 
-    scanMultiple() {
+    scanMultiple(deviceId,settings) {
 
-        this.connection.invoke("ScanMultiple").catch(err => console.error(err.toString()));
+        this.connection.invoke("ScanMultiple", deviceId, settings).catch(err => console.error(err.toString()));
     }
 
     scanTest() {

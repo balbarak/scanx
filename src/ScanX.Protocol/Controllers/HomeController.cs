@@ -29,7 +29,11 @@ namespace ScanX.Protocol.Controllers
 
         public IActionResult ScannerSample()
         {
-            return View();
+            DeviceClient client = new DeviceClient();
+
+            var model = client.GetAllScanners();
+
+            return View(model);
         }
     }
 }

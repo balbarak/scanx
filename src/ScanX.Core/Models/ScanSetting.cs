@@ -102,5 +102,11 @@ namespace ScanX.Core.Models
                     return 150;
             }
         }
+
+        public ScanSetting()
+        {
+            this.Color = ColorModel.Color;
+            this.Dpi = DPI.DPI_300;
+        }
     }
 }

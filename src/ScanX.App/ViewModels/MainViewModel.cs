@@ -214,15 +214,22 @@ namespace ScanX.App.ViewModels
         private async void OnImageScanned(object sender, EventArgs e)
         {
             var args = e as DeviceImageScannedEventArgs;
-
-            var media = new Media()
+            
+            await Application.Current.Dispatcher.BeginInvoke(new Action(async () =>
             {
-                Size = args.ImageData.Length,
-                Page = args.Page,
-                Source = await ImageConverter.ConvertToImageSource(args.ImageData)
-            };
 
-            Media.Add(media);
+                var media = new Media()
+                {
+                    Size = args.ImageRawData.Length,
+                    Page = args.Page,
+                    Source = await ImageConverter.ConvertToImageSource(args.ImageRawData)
+                };
+
+
+
+                Media.Add(media);
+            }), System.Windows.Threading.DispatcherPriority.Normal);
+
             
         }
     }

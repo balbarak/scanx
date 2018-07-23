@@ -89,13 +89,7 @@ namespace ScanX.Core
             {
                 try
                 {
-                    var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
-
-                    byte[] data = (byte[])img.FileData.get_BinaryData();
-
-                    OnImageScanned?.Invoke(this, new DeviceImageScannedEventArgs(data, img.FileExtension, page));
-
-                    page++;
+                    page = ScanImage(connectedDevice, page,setting);
                 }
                 catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
                 {
@@ -106,8 +100,7 @@ namespace ScanX.Core
             while (true);
 
         }
-
-
+        
         public void ScanSinglePage(string deviceID, ScanSetting setting = null)
         {
             if (setting == null)
@@ -127,13 +120,7 @@ namespace ScanX.Core
 
             try
             {
-                var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
-
-                byte[] data = (byte[])img.FileData.get_BinaryData();
-
-                OnImageScanned?.Invoke(this, new DeviceImageScannedEventArgs(data, img.FileExtension, page));
-
-                page++;
+                page = ScanImage(connectedDevice, page,setting);
             }
             catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
             {
@@ -141,6 +128,27 @@ namespace ScanX.Core
             }
 
 
+        }
+
+        private int ScanImage(Device connectedDevice, int page, ScanSetting setting)
+        {
+            var img = (ImageFile)connectedDevice.Items[1].Transfer(FormatID.wiaFormatJPEG);
+
+            byte[] data = (byte[])img.FileData.get_BinaryData();
+
+            img.SaveFile(@"C:\\FFFFF.jpg");
+
+            var args = new DeviceImageScannedEventArgs(data, img.FileExtension, page)
+            {
+                Height = img.Height,
+                Width = img.Width,
+                Settings = setting
+            };
+
+            OnImageScanned?.Invoke(this, args);
+
+            page++;
+            return page;
         }
 
         public void ScanWithUI(int deviceID)
@@ -257,11 +265,13 @@ namespace ScanX.Core
         {
             try
             {
-                foreach (IProperty item in properties)
+                for (int i = 0; i < properties.Count; i++)
                 {
-                    if (item.PropertyID.Equals(propertyId))
+                    var index = i + 1;
+
+                    if (properties[index].PropertyID.Equals(propertyId))
                     {
-                        item.set_Value(value);
+                        properties[index].set_Value(value);
                     }
                 }
             }

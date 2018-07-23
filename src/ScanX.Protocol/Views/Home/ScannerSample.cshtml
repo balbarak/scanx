@@ -1,6 +1,8 @@
-﻿@{
+﻿@model List<ScanX.Core.Models.ScannerDevice>
+@{
     ViewData["Title"] = "ScannerSample";
 }
+
 
 @section styles{
     <link href="~/lib/guillotine-master/css/jquery.guillotine.css" rel="stylesheet" />
@@ -11,6 +13,89 @@
 @*http://photoswipe.com/*@
 
 <div class="container content">
+
+
+    <div class="row">
+        <div class="col-3">
+
+            <div class="form-group">
+                <label for="">
+                    Choose scanner:
+                </label>
+                <select id="select-scanner-drp" class="form-control">
+
+                    <option value="">--- Select Scanner ---</option>
+
+                    @foreach (var item in Model)
+                    {
+                        if (item.Name.Contains("fi-7"))
+                        {
+                            <option value="@item.DeviceId" selected>
+                                @item.Name
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@item.DeviceId">
+                                @item.Name
+                            </option>
+
+                        }
+                    }
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Color Mode:</label>
+                <select class="form-control" id="drp-color-mode">
+                    <option value="2">
+                        Grayscale
+                    </option>
+                    <option value="1">
+                        Color
+                    </option>
+                    <option value="4">
+                        Black & White
+                    </option>
+
+                </select>
+            </div>
+
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label>DPI Res:</label>
+                <select class="form-control" id="drp-dpi">
+                    <option value="75">
+                        75 DPI
+                    </option>
+                    <option value="96">
+                        96 DPI
+                    </option>
+                    <option value="150">
+                        150 DPI
+                    </option>
+                    <option value="300">
+                        300 DPI
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-sm btn-primary" onclick="scanSingle();">
+        <i class="fas fa-file"></i>
+        Scan Single
+    </button>
+
+    <button type="button" class="btn btn-sm btn-primary" onclick="scanImage();">
+        <i class="fas fa-print"></i>
+        Scan
+    </button>
+
+
+
 
     <div class="row">
         <div class="col-10">
@@ -23,6 +108,8 @@
                                 <button type="button" class="btn btn-sm btn-primary" onclick="scanTest();">
                                     Scan Test
                                 </button>
+
+
 
                                 <button type="button" class="btn btn-sm btn-primary" onclick="zoomIn();">
                                     <i class="fas fa-search-plus"></i>
@@ -48,7 +135,7 @@
 
 
                 <div id="theparent" style="max-height:750px;">
-                    <img id="img-viewer" class="img-fluid" style="min-height:700px;"  />
+                    <img id="img-viewer" class="img-fluid" style="min-height:700px;" />
                 </div>
 
 
@@ -86,7 +173,7 @@
 
             scan.connection.on("ImageScanned", (data) => {
 
-                var img = '<li><img class="img-fluid" src="data: image/png;base64,' + data + '" onclick="setImageToViewer(this)"></img></li>';
+                var img = '<li><img class="img-fluid" src="data: image/jpeg;base64,' + data + '" onclick="setImageToViewer(this)"></img></li>';
 
                 $("#image-list").append(img);
 
@@ -94,18 +181,44 @@
             });
 
             scan.connect();
-            
+
 
         })
 
+        function scanSingle() {
+
+            var deviceId = $("#select-scanner-drp").val();
+
+            var settings = {
+
+                color: $("#drp-color-mode").val(),
+
+                dpi: $("#drp-dpi").val(),
+
+            }
+
+            scan.scanSingle(deviceId, settings);
+        }
+
         function scanImage() {
-            scan.scanTest();
+
+            var deviceId = $("#select-scanner-drp").val();
+
+            var settings = {
+
+                color: $("#drp-color-mode").val(),
+
+                dpi: $("#drp-dpi").val(),
+
+            }
+
+            scan.scanMultiple(deviceId, settings);
         }
 
         function scanTest() {
             scan.scanTest();
         }
-        
+
         function zoomIn() {
             imgViewer.guillotine('zoomIn');
         }
