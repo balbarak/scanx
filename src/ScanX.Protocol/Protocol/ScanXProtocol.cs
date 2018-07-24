@@ -14,7 +14,7 @@ namespace ScanX.Protocol.Protocol
 {
     public class ScanXProtocol : Hub
     {
-        private ILogger _logger;
+        private readonly ILogger _logger;
 
         public ScanXProtocol(ILogger<ScanXProtocol> logger)
         {
