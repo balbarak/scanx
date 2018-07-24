@@ -20,6 +20,7 @@ namespace ScanX.Protocol.Protocol
         {
             _logger = logger;
         }
+
         public override Task OnConnectedAsync()
         {
             return base.OnConnectedAsync();
