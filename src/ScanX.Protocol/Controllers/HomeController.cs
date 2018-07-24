@@ -35,5 +35,15 @@ namespace ScanX.Protocol.Controllers
 
             return View(model);
         }
+
+        public IActionResult Viewerjs()
+        {
+            DeviceClient client = new DeviceClient();
+
+            var model = client.GetAllScanners();
+
+
+            return View();
+        }
     }
 }

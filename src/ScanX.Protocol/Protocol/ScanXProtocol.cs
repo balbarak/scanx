@@ -33,16 +33,29 @@ namespace ScanX.Protocol.Protocol
 
         public async Task ScanTest()
         {
-            var data = File.ReadAllBytes("wwwroot\\images\\1.png");
-            var data2 = File.ReadAllBytes("wwwroot\\images\\2.png");
+            var img1 = File.ReadAllBytes("wwwroot\\images\\1.png");
+            var img2 = File.ReadAllBytes("wwwroot\\images\\2.png");
+            var img3 = File.ReadAllBytes("wwwroot\\images\\3.png");
+            var img4 = File.ReadAllBytes("wwwroot\\images\\4.png");
+            var img5 = File.ReadAllBytes("wwwroot\\images\\5.jpg");
 
-            var imageBase64 = Convert.ToBase64String(data);
-            var imageTwo = Convert.ToBase64String(data2);
-            
-            await Clients.Caller.SendAsync(ClientMethod.IMAGE_SCANNED, imageBase64);
-            await Clients.Caller.SendAsync(ClientMethod.IMAGE_SCANNED, imageTwo);
+            var result1 = new DeviceImageScannedEventArgs(img1, ".png", 1);
+            var result2 = new DeviceImageScannedEventArgs(img2, ".png", 2);
+            var result3 = new DeviceImageScannedEventArgs(img3, ".png", 3);
+            var result4 = new DeviceImageScannedEventArgs(img4, ".png", 4);
+            var result5 = new DeviceImageScannedEventArgs(img2, ".jpg", 5);
 
-            await Task.CompletedTask;
+
+
+            await Clients.Caller.SendAsync(ClientMethod.ON_IMAGE_SCANNED, result1);
+            await Clients.Caller.SendAsync(ClientMethod.ON_IMAGE_SCANNED, result2);
+            await Clients.Caller.SendAsync(ClientMethod.ON_IMAGE_SCANNED, result3);
+            await Clients.Caller.SendAsync(ClientMethod.ON_IMAGE_SCANNED, result4);
+            await Clients.Caller.SendAsync(ClientMethod.ON_IMAGE_SCANNED, result5);
+
+
+
+            await Clients.Caller.SendAsync(ClientMethod.ON_SCAN_FINISHED);
         }
 
         public async Task ScanSingle(string deviceId,ScanSetting settings)
@@ -52,8 +65,8 @@ namespace ScanX.Protocol.Protocol
             RegisterImageScannedEvents(client);
 
             await TryInvoke(() => client.ScanSinglePage(deviceId, settings));
-            
-            await Task.CompletedTask;
+
+            await Clients.Caller.SendAsync(ClientMethod.ON_SCAN_FINISHED);
         }
         
         public async Task ScanMultiple(string deviceId,ScanSetting settings)
@@ -64,7 +77,7 @@ namespace ScanX.Protocol.Protocol
 
             await TryInvoke(() => client.ScanMultiple(deviceId, settings));
 
-            await Task.CompletedTask;
+            await Clients.Caller.SendAsync(ClientMethod.ON_SCAN_FINISHED);
         }
         
         private async Task TryInvoke(Action action)
@@ -78,7 +91,7 @@ namespace ScanX.Protocol.Protocol
             {
                 _logger?.LogError(ex.ToString());
 
-                await Clients.Caller.SendAsync(ClientMethod.ERROR, ex);
+                await Clients.Caller.SendAsync(ClientMethod.ON_ERROR, ex);
             }
         }
 
@@ -88,7 +101,7 @@ namespace ScanX.Protocol.Protocol
             {
                 var data = args as DeviceImageScannedEventArgs;
 
-                await Clients.Caller.SendAsync("ImageScanned", data);
+                await Clients.Caller.SendAsync(ClientMethod.ON_IMAGE_SCANNED, data);
             };
         }
 

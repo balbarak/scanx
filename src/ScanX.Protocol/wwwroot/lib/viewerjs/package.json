@@ -1,0 +1,157 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "viewerjs",
+        "scope": null,
+        "escapedName": "viewerjs",
+        "name": "viewerjs",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "D:\\Repos\\scanx\\src"
+    ]
+  ],
+  "_from": "viewerjs@latest",
+  "_id": "viewerjs@1.2.0",
+  "_inCache": true,
+  "_location": "/viewerjs",
+  "_nodeVersion": "10.6.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/viewerjs_1.2.0_1531650821271_0.9164431321099396"
+  },
+  "_npmUser": {
+    "name": "chenfengyuan",
+    "email": "chenfengyuan@outlook.com"
+  },
+  "_npmVersion": "6.2.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "viewerjs",
+    "scope": null,
+    "escapedName": "viewerjs",
+    "name": "viewerjs",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/viewerjs/-/viewerjs-1.2.0.tgz",
+  "_shasum": "22254b86e50898c7c7593891a1e36e6577eb8462",
+  "_shrinkwrap": null,
+  "_spec": "viewerjs",
+  "_where": "D:\\Repos\\scanx\\src",
+  "author": {
+    "name": "Chen Fengyuan",
+    "url": "http://chenfengyuan.com"
+  },
+  "bugs": {
+    "url": "https://github.com/fengyuanchen/viewerjs/issues"
+  },
+  "dependencies": {},
+  "description": "JavaScript image viewer.",
+  "devDependencies": {
+    "@commitlint/cli": "^7.0.0",
+    "@commitlint/config-conventional": "^7.0.1",
+    "babel-core": "^6.26.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.1.2",
+    "change-case": "^3.0.2",
+    "cpy-cli": "^2.0.0",
+    "create-banner": "^1.0.0",
+    "cssnano": "^4.0.2",
+    "del-cli": "^1.1.0",
+    "eslint": "^5.1.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "husky": "^0.14.3",
+    "karma": "^2.0.4",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-rollup-preprocessor": "^6.0.0",
+    "mocha": "^5.2.0",
+    "npm-run-all": "^4.1.3",
+    "postcss-cli": "^5.0.1",
+    "postcss-header": "^1.0.0",
+    "postcss-import": "^11.1.0",
+    "postcss-preset-env": "^5.2.2",
+    "postcss-url": "^7.3.2",
+    "puppeteer": "^1.6.0",
+    "rollup": "^0.62.0",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-watch": "^4.3.1",
+    "stylefmt": "^6.0.0",
+    "uglify-js": "^3.4.4"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-AEBXOaOHy/mLBH8qLMcwJsiaZ92ko29l7bEoMXHway8nLGHvdt1Cjss8Rvqh5PAOS/4GundHiiemYpBPGMvEjw==",
+    "shasum": "22254b86e50898c7c7593891a1e36e6577eb8462",
+    "tarball": "https://registry.npmjs.org/viewerjs/-/viewerjs-1.2.0.tgz",
+    "fileCount": 28,
+    "unpackedSize": 462233,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJbSyMFCRA9TVsSAnZWagAAL1cQAKBSDWswXqW1LJlp16Y7\nmlTSy1TOmdAE008QcdswqiN74klyOvhGE/Z8deu1p4fE7P6bdtndIxuoQ9rk\ntVIvnygL6BqKxHPwxtEXg/nOo2HWcdu/S9R8tSGpGulyIpTjpOdyaTeHlsDl\nZJ1eXiC5nFlQoKpll5TeunbcWuz7iCIeLTwCZtc1SxzmWhaCUqo3RrimBNbp\nYETXhLcA5LGU5PDV/fqR/3phDxqDEDYplgj60ZchpOzClHJQKW/NBpoRjIA3\ncYgJKsfV83Gr7HR+p0HYD2wVeZhIQvgjqKy6TfOSWlUfoNpSBtwOomihXNcF\nFjm7HqmAPckM80TVCmH01dPpYN2FIZEukZqsIjW56uUu8QIUOUa7M+ovsBQK\nCntFr9Ezymh4o1ZozTr2euTvGL9HGuzlq6pcK8NaPsjipicXgaPGuVA+Ew7l\nRUpiUW+s6iv08R3cEAiHssYufA5nhlNaGFD/i/ISRWZ8ID90OIbJMXwJlwmu\n/sBf9BfsiGOcscOTpbjo5DZpbLY9shfggDyZDRv9r+jhIiJ5I68Fikh1VohD\n7QJEcSbRdMPSJcDUMCynhRJAHUQMvNaHn7DofUXLZlEII95n3T1EkwF9zkLs\nNaWSSTt2PruoNKNr+6jA8H3K3xYWyDQKfLPT0dUINOsHBp3JTnR7xI2hHevE\n7q9T\r\n=r/ZC\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "files": [
+    "src",
+    "dist",
+    "types"
+  ],
+  "gitHead": "e9b09a833f752fc937014f22dba6ffbaa00659e5",
+  "homepage": "https://fengyuanchen.github.io/viewerjs",
+  "keywords": [
+    "image",
+    "viewer",
+    "viewerjs",
+    "viewer.js",
+    "html",
+    "css",
+    "javascript",
+    "front-end",
+    "web"
+  ],
+  "license": "MIT",
+  "main": "dist/viewer.common.js",
+  "maintainers": [
+    {
+      "name": "chenfengyuan",
+      "email": "chenfengyuan@outlook.com"
+    }
+  ],
+  "module": "dist/viewer.esm.js",
+  "name": "viewerjs",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fengyuanchen/viewerjs.git"
+  },
+  "scripts": {
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "postcss src/index.css -o dist/viewer.css --no-map",
+    "build:js": "rollup -c",
+    "clear": "del-cli dist",
+    "commitmsg": "npm run lint && commitlint -e",
+    "compress": "npm run compress:css && npm run compress:js",
+    "compress:css": "postcss dist/viewer.css -u cssnano -o dist/viewer.min.css --no-map",
+    "compress:js": "uglifyjs dist/viewer.js -o dist/viewer.min.js -c -m --comments /^!/",
+    "copy": "cpy dist/viewer.css docs/css",
+    "lint": "eslint src test *.js --fix",
+    "release": "npm run clear && npm run lint && npm run build && npm run compress && npm run copy && npm test",
+    "start": "npm-run-all --parallel watch:*",
+    "test": "karma start test/karma.conf.js",
+    "watch:css": "postcss src/index.css -o docs/css/viewer.css -m -w",
+    "watch:js": "rollup -c -m -w"
+  },
+  "style": "dist/viewer.css",
+  "types": "types/index.d.ts",
+  "unpkg": "dist/viewer.js",
+  "version": "1.2.0"
+}

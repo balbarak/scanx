@@ -1,0 +1,147 @@
+﻿@model List<ScanX.Core.Models.ScannerDevice>
+
+@{
+    ViewData["Title"] = "Viewerjs";
+}
+
+@section styles{
+    <link href="~/lib/viewerjs/dist/viewer.min.css" rel="stylesheet" />
+    <link href="~/lib/simplebar/dist/simplebar.css" rel="stylesheet" />
+}
+
+<div class="container content">
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="scanTest();">
+                        Scan Test
+                    </button>
+
+
+
+                    <button type="button" class="btn btn-sm btn-primary" onclick="zoomIn();">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-primary" onclick="zoomOut();">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-primary" onclick="fit();">
+                        <i class="fas fa-crop"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-primary" onclick="rotateLeft();">
+                        <i class="fas fa-undo"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-sm btn-primary" onclick="rotateRight();">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-10">
+
+            <img id="image-container" style="display:none;" />
+
+
+        </div>
+        <div class="col-2 border" style="background-color:whitesmoke;">
+
+            <div data-simplebar style="height:750px;">
+                <ul id="image-list" style="padding:20px;"></ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+
+
+    <script src="~/lib/viewerjs/dist/viewer.min.js"></script>
+
+    <script src="~/js/signalr.min.js"></script>
+
+    <script src="~/js/scanx.js"></script>
+
+    <script src="~/lib/simplebar/dist/simplebar.js"></script>
+
+
+    <script type="text/javascript">
+
+        var scan = new ScanX();
+        var viewer;
+
+        $(function () {
+
+            setupViewer();
+
+            setupEvents();
+
+            scan.connect();
+
+        });
+
+        function scanTest() {
+            scan.scanTest();
+        }
+
+        function setupEvents() {
+
+            scan.connection.on("OnError", (data) => {
+                addAlert(data);
+            });
+
+            scan.connection.on("OnFinish", () => {
+                
+            });
+
+            scan.connection.on("OnImageScanned", (data) => {
+
+                var img = '<li><img class="img-fluid" src="data: image/jpeg;base64,' + data.imageBytes + '" onclick="setImageToViewer(this)"></img><p class="text-center">' + data.page + ' <br/>' + data.size + ' </p></li>';
+
+                $("#image-list").append(img);
+            });
+
+            scan.connection.onclose(() => {
+
+
+            })
+        }
+
+        function setupViewer() {
+
+            viewer = new Viewer(document.getElementById('image-container'), {
+                inline: true,
+                viewed: function () {
+                    
+                }
+            });
+        }
+        
+
+        function setImageToViewer(data) {
+
+            var src = $(data).attr("src");
+            
+            $("#image-container").attr("src", src);
+
+            viewer.update();
+            
+            viewer.next();
+        }
+
+
+
+    </script>
+
+}

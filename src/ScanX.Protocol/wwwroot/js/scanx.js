@@ -17,6 +17,8 @@ class ScanX {
     connect() {
 
         this.connection.start().catch(err => console.error(err.toString()));
+
+        
     }
 
     scanSingle(deviceId,settings) {

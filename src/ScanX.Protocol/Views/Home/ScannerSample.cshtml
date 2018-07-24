@@ -172,28 +172,39 @@
 
         $(function () {
 
-            scan.connection.on("OnError", (data) => {
-
-                addAlert(data);
-
-            });
-
-            scan.connection.on("ImageScanned", (data) => {
-
-                var img = '<li><img class="img-fluid" src="data: image/jpeg;base64,' + data.imageBytes + '" onclick="setImageToViewer(this)"></img><p class="text-center">' + data.page +' <br/>'+ data.size +' </p></li>';
-
-                $("#image-list").append(img);
-
-
-            });
+            setupEvents();
 
             scan.connect();
 
 
         })
 
-        function scanSingle() {
+        function setupEvents() {
 
+            scan.connection.on("OnError", (data) => {
+                addAlert(data);
+            });
+
+            scan.connection.on("OnFinish", () => {
+
+            });
+
+            scan.connection.on("OnImageScanned", (data) => {
+
+                var img = '<li><img class="img-fluid" src="data: image/jpeg;base64,' + data.imageBytes + '" onclick="setImageToViewer(this)"></img><p class="text-center">' + data.page + ' <br/>' + data.size + ' </p></li>';
+
+                $("#image-list").append(img);
+            });
+
+            scan.connection.onclose(() => {
+                
+
+            })
+
+        }
+
+        function scanSingle() {
+            
             var deviceId = $("#select-scanner-drp").val();
 
             var settings = {
@@ -253,10 +264,10 @@
             $(imgViewer).attr("src", src);
 
             imgViewer.guillotine({
-                scale: 1
+                scale: 4
             });
 
-            imgViewer.guillotine('fit');
+            //imgViewer.guillotine('fit');
         }
 
         function addAlert(data) {
