@@ -47,13 +47,6 @@ namespace ScanX.Protocol.Protocol
 
         public async Task ScanSingle(string deviceId,ScanSetting settings)
         {
-            if (string.IsNullOrWhiteSpace(deviceId))
-            {
-                await Clients.Caller.SendAsync(ClientMethod.ERROR, "Please select a scanner device first");
-
-                return;
-            }
-
             DeviceClient client = new DeviceClient();
 
             RegisterImageScannedEvents(client);
@@ -65,13 +58,6 @@ namespace ScanX.Protocol.Protocol
         
         public async Task ScanMultiple(string deviceId,ScanSetting settings)
         {
-            if (string.IsNullOrWhiteSpace(deviceId))
-            {
-                await Clients.Caller.SendAsync(ClientMethod.ERROR, "Please select a scanner device first");
-
-                return;
-            }
-
             DeviceClient client = new DeviceClient();
 
             RegisterImageScannedEvents(client);

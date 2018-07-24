@@ -108,13 +108,9 @@ namespace ScanX.Core
         {
             if (setting == null)
                 setting = new ScanSetting();
-
-
+            
             IDeviceInfo device = GetDeviceById(deviceID);
-
-            if (device == null)
-                throw new Exception($"Unable to find device id: {deviceID}");
-
+            
             var connectedDevice = device.Connect();
 
             SetDeviceSettings(connectedDevice, setting);
@@ -243,6 +239,9 @@ namespace ScanX.Core
 
         private IDeviceInfo GetDeviceById(string deviceID)
         {
+            if (string.IsNullOrWhiteSpace(deviceID))
+                throw new ScanXException("Please select a scanner device", ScanXExceptionCodes.NoDevice);
+
             var deviceManager = new DeviceManager();
 
             var count = deviceManager.DeviceInfos.Count;
@@ -257,7 +256,7 @@ namespace ScanX.Core
                 }
             }
 
-            return null;
+            throw new ScanXException($"No scanner device named: {deviceID} found", ScanXExceptionCodes.NoDevice);
         }
 
         private void SetDeviceSettings(Device connectedDevice, ScanSetting setting)
@@ -269,9 +268,11 @@ namespace ScanX.Core
 
             var properties = connectedDevice.Items[1].Properties;
 
-            SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, width);
+            SetWIAProperty(properties, ScanSetting.WIA_PAGE_SIZE, 0);
 
-            SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, height);
+            //SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, width);
+
+            //SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, height);
 
             SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_RESOLUTION, resoultions);
 
