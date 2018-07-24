@@ -26,10 +26,10 @@ namespace ScanX.Core.Models
         
         public enum DPI
         {
-            DPI_75 = 1,
-            DPI_96 = 2,
-            DPI_150 = 3,
-            DPI_300 = 4,
+            DPI_72 = 72,
+            DPI_96 = 96,
+            DPI_150 = 150,
+            DPI_300 = 300,
         }
 
         public enum ColorModel
@@ -52,11 +52,16 @@ namespace ScanX.Core.Models
         public int Threshold { get; set; }
 
         //for more info https://www.papersizes.org/a-sizes-in-pixels.htm
-        public static (int width,int height) GetA4SizeByDpi(DPI dpi)
+        public static (int width,int height) GetA4SizeByDpi(int dpiValue)
         {
+            
+            return (1240, 1754);
+
+            var dpi = (DPI)dpiValue;
+
             switch (dpi)
             {
-                case DPI.DPI_75:
+                case DPI.DPI_72:
 
                     return (619, 876);
 
@@ -82,7 +87,7 @@ namespace ScanX.Core.Models
         {
             switch (dpi)
             {
-                case DPI.DPI_75:
+                case DPI.DPI_72:
 
                     return 75;
 

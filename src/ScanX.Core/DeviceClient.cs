@@ -10,6 +10,9 @@ using System.Runtime.InteropServices;
 using ScanX.Core.Args;
 using System.Drawing;
 using System.Diagnostics;
+using System.IO;
+using System.Drawing.Imaging;
+using ScanX.Core.Exceptions;
 
 namespace ScanX.Core
 {
@@ -93,8 +96,8 @@ namespace ScanX.Core
                 }
                 catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
                 {
-                    Debug.WriteLine(ex);
-                    break;
+                    if (page == 1)
+                        throw new ScanXException("No paper inserted", ScanXExceptionCodes.NoPaper);
                 }
             }
             while (true);
@@ -124,7 +127,8 @@ namespace ScanX.Core
             }
             catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
             {
-                Debug.WriteLine(ex);
+                if (page == 1)
+                    throw new ScanXException("No paper inserted", ScanXExceptionCodes.NoPaper);
             }
 
 
@@ -136,9 +140,11 @@ namespace ScanX.Core
 
             byte[] data = (byte[])img.FileData.get_BinaryData();
 
-            img.SaveFile(@"C:\\FFFFF.jpg");
+            byte[] dataConverted = null;
+            
+            dataConverted = CompressImageBytes(data);
 
-            var args = new DeviceImageScannedEventArgs(data, img.FileExtension, page)
+            var args = new DeviceImageScannedEventArgs(dataConverted, img.FileExtension, page)
             {
                 Height = img.Height,
                 Width = img.Width,
@@ -149,6 +155,20 @@ namespace ScanX.Core
 
             page++;
             return page;
+        }
+
+        private byte[] CompressImageBytes(byte[] data)
+        {
+            byte[] dataConverted;
+            using (MemoryStream writeMs = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream(data))
+            {
+                Bitmap bit = new Bitmap(ms);
+                bit.Save(writeMs, ImageFormat.Jpeg);
+                dataConverted = writeMs.ToArray();
+            }
+
+            return dataConverted;
         }
 
         public void ScanWithUI(int deviceID)
@@ -242,23 +262,23 @@ namespace ScanX.Core
 
         private void SetDeviceSettings(Device connectedDevice, ScanSetting setting)
         {
-            var pageSize = ScanSetting.GetA4SizeByDpi(setting.Dpi);
+
+            var (width, height) = ScanSetting.GetA4SizeByDpi((int)setting.Dpi);
+
             var resoultions = ScanSetting.GetResolution(setting.Dpi);
 
             var properties = connectedDevice.Items[1].Properties;
 
+            SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, width);
+
+            SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, height);
+
             SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_RESOLUTION, resoultions);
 
             SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_RESOLUTION, resoultions);
-
-            SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, pageSize.width);
-
-            SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, pageSize.height);
-
+            
             SetWIAProperty(properties, ScanSetting.WIA_COLOR_MODE, (int)setting.Color);
-
-            //SetWIAProperty(properties, ScanSetting.WIA_THRESHOLD, setting.Threshold);
-
+            
         }
 
         private void SetWIAProperty(IProperties properties, int propertyId, object value)

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 using ScanX.Core;
 using ScanX.Core.Args;
+using ScanX.Core.Exceptions;
 using ScanX.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,12 @@ namespace ScanX.Protocol.Protocol
 {
     public class ScanXProtocol : Hub
     {
+        private ILogger _logger;
+
+        public ScanXProtocol(ILogger<ScanXProtocol> logger)
+        {
+            _logger = logger;
+        }
         public override Task OnConnectedAsync()
         {
             return base.OnConnectedAsync();
@@ -29,7 +37,7 @@ namespace ScanX.Protocol.Protocol
 
             var imageBase64 = Convert.ToBase64String(data);
             var imageTwo = Convert.ToBase64String(data2);
-
+            
             await Clients.Caller.SendAsync(ClientMethod.IMAGE_SCANNED, imageBase64);
             await Clients.Caller.SendAsync(ClientMethod.IMAGE_SCANNED, imageTwo);
 
@@ -38,42 +46,64 @@ namespace ScanX.Protocol.Protocol
 
         public async Task ScanSingle(string deviceId,ScanSetting settings)
         {
+            if (string.IsNullOrWhiteSpace(deviceId))
+            {
+                await Clients.Caller.SendAsync(ClientMethod.ERROR, "Please select a scanner device first");
+
+                return;
+            }
+
             DeviceClient client = new DeviceClient();
 
-            client.OnImageScanned += async (sender, args) =>
-            {
-                var data = args as DeviceImageScannedEventArgs;
+            RegisterImageScannedEvents(client);
 
-                var imageData = data.GetBitmapBinary();
-
-                await Clients.Caller.SendAsync("ImageScanned", imageData);
-            };
-
-
-
-            client.ScanSinglePage(deviceId, settings);
-
+            await TryInvoke(() => client.ScanSinglePage(deviceId, settings));
+            
             await Task.CompletedTask;
         }
-
+        
         public async Task ScanMultiple(string deviceId,ScanSetting settings)
         {
+            if (string.IsNullOrWhiteSpace(deviceId))
+            {
+                await Clients.Caller.SendAsync(ClientMethod.ERROR, "Please select a scanner device first");
+
+                return;
+            }
+
             DeviceClient client = new DeviceClient();
 
+            RegisterImageScannedEvents(client);
+
+            await TryInvoke(() => client.ScanMultiple(deviceId, settings));
+
+            await Task.CompletedTask;
+        }
+        
+        private async Task TryInvoke(Action action)
+        {
+            try
+            {
+                action.Invoke();
+
+            }
+            catch (ScanXException ex)
+            {
+                _logger?.LogError(ex.ToString());
+
+                await Clients.Caller.SendAsync(ClientMethod.ERROR, ex);
+            }
+        }
+
+        private void RegisterImageScannedEvents(DeviceClient client)
+        {
             client.OnImageScanned += async (sender, args) =>
             {
                 var data = args as DeviceImageScannedEventArgs;
-                
-                var imageBase64 = Convert.ToBase64String(data.ImageRawData);
 
-                await Clients.Caller.SendAsync("ImageScanned", imageBase64);
+                await Clients.Caller.SendAsync("ImageScanned", data);
             };
-
-            
-            
-            client.ScanMultiple(deviceId,settings);
-            
-            await Task.CompletedTask;
         }
+
     }
 }

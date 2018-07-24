@@ -25,7 +25,7 @@ namespace ScanX.Protocol
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSignalR();
-
+            
             services.AddMvc();
         }
 
@@ -36,7 +36,7 @@ namespace ScanX.Protocol
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseStaticFiles();
 
             app.UseSignalR(routes =>

@@ -74,7 +74,7 @@ namespace ScanX.App.ViewModels
             }
         }
 
-        private ScanSetting.DPI _selectedDpi = ScanSetting.DPI.DPI_75;
+        private ScanSetting.DPI _selectedDpi = ScanSetting.DPI.DPI_72;
 
         public ScanSetting.DPI SelectedDpi
         {
@@ -220,9 +220,9 @@ namespace ScanX.App.ViewModels
 
                 var media = new Media()
                 {
-                    Size = args.ImageRawData.Length,
+                    Size = args.ImageBytes.Length,
                     Page = args.Page,
-                    Source = await ImageConverter.ConvertToImageSource(args.ImageRawData)
+                    Source = await ImageConverter.ConvertToImageSource(args.ImageBytes)
                 };
 
 

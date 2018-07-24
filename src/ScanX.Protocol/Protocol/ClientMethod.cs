@@ -8,5 +8,7 @@ namespace ScanX.Protocol.Protocol
     public class ClientMethod
     {
         public const string IMAGE_SCANNED = "ImageScanned";
+
+        public const string ERROR = "OnError";
     }
 }

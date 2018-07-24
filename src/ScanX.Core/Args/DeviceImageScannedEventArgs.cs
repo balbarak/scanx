@@ -10,7 +10,7 @@ namespace ScanX.Core.Args
 {
     public class DeviceImageScannedEventArgs : EventArgs
     {
-        public byte[] ImageRawData { get; set; }
+        public byte[] ImageBytes { get; set; }
 
         public string Extension { get; set; }
 
@@ -20,9 +20,9 @@ namespace ScanX.Core.Args
 
         public int Page { get; set; }
 
-        public ScanSetting Settings { get; set; }
+        public string Size { get; private set; }
 
-        public Image BitmapImage { get; set; }
+        public ScanSetting Settings { get; set; }
 
         public DeviceImageScannedEventArgs()
         {
@@ -31,40 +31,35 @@ namespace ScanX.Core.Args
 
         public DeviceImageScannedEventArgs(byte[] data, string ext, int page)
         {
-            this.ImageRawData = data;
+            this.ImageBytes = data;
             this.Extension = ext;
             this.Page = page;
+
+            Size = CalculateSize();
         }
 
-        public byte[] GetBitmapBinary()
+        private string CalculateSize()
         {
-            byte[] result = null;
+            if (ImageBytes == null)
+                return "";
 
-            if (BitmapImage == null)
+            string[] sizes = { "B", "KB", "MB", "GB", "TB" };
+
+            double len = (double)ImageBytes.Length;
+
+            int order = 0;
+            while (len >= 1024 && order < sizes.Length - 1)
             {
-                MemoryStream ms = new MemoryStream(ImageRawData);
-
-                BitmapImage = Image.FromStream(ms);
-
-                var size = ScanSetting.GetA4SizeByDpi(Settings.Dpi);
-                var res = ScanSetting.GetResolution(Settings.Dpi);
-
-                //BitmapImage.SetResolution(res, res);
-                
-                
+                order++;
+                len = len / 1024;
             }
 
-            
-            using (MemoryStream ms = new MemoryStream())
-            {
-                BitmapImage.Save(ms, ImageFormat.Jpeg);
-
-                result = ms.ToArray();
-            }
-
+            // Adjust the format string to your preferences. For example "{0:0.#}{1}" would
+            // show a single decimal place, and no space.
+            string result = String.Format("{0:0.##} {1}", len, sizes[order]);
 
             return result;
         }
-
+        
     }
 }
