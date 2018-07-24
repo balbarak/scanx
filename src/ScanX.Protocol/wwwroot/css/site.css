@@ -47,3 +47,8 @@ body {
         #image-list li img {
             border: 1px solid black;
         }
+
+
+        #image-list li .active {
+            border: 2px solid red;
+        }

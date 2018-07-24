@@ -9,59 +9,49 @@
     <link href="~/lib/simplebar/dist/simplebar.css" rel="stylesheet" />
 }
 
-<div class="container content">
+    <div class="container content">
 
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-sm btn-primary" onclick="scanTest();">
-                        Scan Test
-                    </button>
+        <div class="row">
+            <div class="col-10">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-sm btn-primary" onclick="scanTest();">
+                            Scan Test
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" onclick="scanTest();">
+                            <i class="fas fa-file"></i>
+                            Scan Single Image
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" onclick="scanTest();">
+                            <i class="fas fa-copy"></i>
+                            Scan All Images
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
 
 
-                    <button type="button" class="btn btn-sm btn-primary" onclick="zoomIn();">
-                        <i class="fas fa-search-plus"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="zoomOut();">
-                        <i class="fas fa-search-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="fit();">
-                        <i class="fas fa-crop"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="rotateLeft();">
-                        <i class="fas fa-undo"></i>
-                    </button>
+        <div class="row">
+            <div class="col-10">
+                <div style="height:750px;">
+                    <img id="image-container" style="display:none;" />
+                </div>
+            </div>
+            <div class="col-2 border" style="background-color:whitesmoke;">
 
-                    <button type="button" class="btn btn-sm btn-primary" onclick="rotateRight();">
-                        <i class="fas fa-redo"></i>
-                    </button>
+                <div data-simplebar style="height:750px;">
+                    <ul id="image-list" style="padding:20px;"></ul>
                 </div>
 
             </div>
         </div>
+
+        <br />
+        <br />
     </div>
-
-
-
-    <div class="row">
-        <div class="col-10">
-
-            <img id="image-container" style="display:none;" />
-
-
-        </div>
-        <div class="col-2 border" style="background-color:whitesmoke;">
-
-            <div data-simplebar style="height:750px;">
-                <ul id="image-list" style="padding:20px;"></ul>
-            </div>
-
-        </div>
-    </div>
-
-</div>
 
 
 @section scripts{
@@ -107,7 +97,7 @@
 
             scan.connection.on("OnImageScanned", (data) => {
 
-                var img = '<li><img class="img-fluid" src="data: image/jpeg;base64,' + data.imageBytes + '" onclick="setImageToViewer(this)"></img><p class="text-center">' + data.page + ' <br/>' + data.size + ' </p></li>';
+                var img = '<li><img class="img-fluid" src="data: image/jpeg;base64,' + data.imageBytes + '" onclick="setImageToViewer(this)"></img><p class="text-center">' + data.page + ' <br/><span style="font-size:11px">' + data.size + ' <span></p></li>';
 
                 $("#image-list").append(img);
             });
@@ -124,6 +114,26 @@
                 inline: true,
                 viewed: function () {
                     
+                },
+                title: false,
+                navbar: false,
+                zoomRatio: 0.2,
+                transition: false,
+                toolbar: {
+                    zoomIn: 4,
+                    zoomOut: 4,
+                    oneToOne: false,
+                    reset: 4,
+                    prev: false,
+                    play: {
+                        show: false,
+                        size: 'large',
+                    },
+                    next: false,
+                    rotateLeft: 4,
+                    rotateRight: 4,
+                    flipHorizontal: 4,
+                    flipVertical: 4,
                 }
             });
         }
@@ -132,7 +142,13 @@
         function setImageToViewer(data) {
 
             var src = $(data).attr("src");
-            
+
+            $("#image-list li img").each(function (i) {
+                $(this).removeClass("active");
+            })
+
+            $(data).addClass("active");
+
             $("#image-container").attr("src", src);
 
             viewer.update();
