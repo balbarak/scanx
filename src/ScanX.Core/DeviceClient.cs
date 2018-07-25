@@ -296,7 +296,7 @@ namespace ScanX.Core
             //SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, width);
 
             //SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, height);
-
+            
             SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_RESOLUTION, resoultions);
 
             SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_RESOLUTION, resoultions);
