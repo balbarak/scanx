@@ -132,6 +132,7 @@ namespace ScanX.Core
 
                 page = ScanImage(connectedDevice, page, setting);
             }
+            //WIA DEVICE ERRORS https://docs.microsoft.com/en-us/windows/desktop/wia/-wia-error-codes 
             catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
             {
                 if (page == 1)
@@ -247,6 +248,8 @@ namespace ScanX.Core
 
             var connectedDevice = device.Connect();
 
+            
+            
             foreach (IProperty item in connectedDevice.Items[1].Properties)
             {
                 result.Add(new DeviceProperty()
@@ -256,6 +259,8 @@ namespace ScanX.Core
                     Value = item.get_Value()
                 });
             }
+
+            result = result.OrderBy(a => a.Name).ToList();
 
             return result;
         }
@@ -291,12 +296,14 @@ namespace ScanX.Core
 
             var properties = connectedDevice.Items[1].Properties;
 
-            SetWIAProperty(properties, ScanSetting.WIA_PAGE_SIZE, 5865);
+            SetWIAProperty(properties, ScanSetting.WIA_ITEM_SIZE, 0);
 
-            //SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, width);
+            SetWIAProperty(properties, ScanSetting.WIA_PAGE_SIZE, 0);
 
-            //SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, height);
-            
+            //SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, resoultions * 2);
+
+            //SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, resoultions * 2);
+
             SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_RESOLUTION, resoultions);
 
             SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_RESOLUTION, resoultions);
@@ -317,6 +324,8 @@ namespace ScanX.Core
                     {
                         properties[index].set_Value(value);
                     }
+
+                    Debug.WriteLine($"{properties[index].Name}: {properties[index].PropertyID}");
                 }
             }
             catch (Exception ex)

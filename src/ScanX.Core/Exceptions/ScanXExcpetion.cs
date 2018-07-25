@@ -7,7 +7,8 @@ namespace ScanX.Core.Exceptions
     public enum ScanXExceptionCodes
     {
         NoPaper = 300,
-        NoDevice = 302
+        NoDevice = 302,
+        DeviceBusy = 304,
     }
 
     [Serializable]

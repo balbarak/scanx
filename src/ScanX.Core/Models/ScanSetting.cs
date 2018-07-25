@@ -23,6 +23,8 @@ namespace ScanX.Core.Models
         public const int WIA_PAGE_HEIGHT = 3099;
 
         public const int WIA_THRESHOLD = 6159;
+
+        public const int WIA_ITEM_SIZE = 4116;
         
         public enum DPI
         {
