@@ -60,7 +60,7 @@ namespace ScanX.Protocol.Protocol
 
         public async Task ScanSingle(string deviceId,ScanSetting settings)
         {
-            DeviceClient client = new DeviceClient();
+            DeviceClient client = new DeviceClient(_logger);
 
             RegisterImageScannedEvents(client);
 
@@ -71,7 +71,7 @@ namespace ScanX.Protocol.Protocol
         
         public async Task ScanMultiple(string deviceId,ScanSetting settings)
         {
-            DeviceClient client = new DeviceClient();
+            DeviceClient client = new DeviceClient(_logger);
 
             RegisterImageScannedEvents(client);
 

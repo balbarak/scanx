@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Drawing.Imaging;
 using ScanX.Core.Exceptions;
+using Microsoft.Extensions.Logging;
 
 namespace ScanX.Core
 {
@@ -20,17 +21,26 @@ namespace ScanX.Core
     public class DeviceClient
     {
         public const uint WIA_ERROR_PAPER_EMPTY = 0x80210003;
+        public const uint WIA_ERROR_COVER_OPEN = 0x80210016;
+        public const uint WIA_ERROR_DEVICE_COMMUNICATION = 0x8021000A;
+        public const uint WIA_ERROR_DEVICE_LOCKED = 0x8021000D;
 
         public object WIA_IPS_BRIGHTNESS { get; private set; }
-
-        public event EventHandler OnTransferCompleted;
+        
         public event EventHandler OnImageScanned;
+
+        private readonly ILogger _logger;
 
         private readonly DeviceManager _deviceManager;
 
         public DeviceClient()
         {
             _deviceManager = new DeviceManager();
+        }
+
+        public DeviceClient(ILogger logger) : this()
+        {
+            _logger = logger;
         }
 
         public List<string> GetAllPrinters()
@@ -92,7 +102,7 @@ namespace ScanX.Core
             {
                 try
                 {
-                    page = ScanImage(connectedDevice, page,setting);
+                    page = ScanImage(connectedDevice, page, setting);
                 }
                 catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
                 {
@@ -103,28 +113,41 @@ namespace ScanX.Core
             while (true);
 
         }
-        
+
         public void ScanSinglePage(string deviceID, ScanSetting setting = null)
         {
             if (setting == null)
                 setting = new ScanSetting();
-            
-            IDeviceInfo device = GetDeviceById(deviceID);
-            
-            var connectedDevice = device.Connect();
-
-            SetDeviceSettings(connectedDevice, setting);
 
             int page = 1;
 
+            IDeviceInfo device = GetDeviceById(deviceID);
+            Device connectedDevice = null;
+
             try
             {
-                page = ScanImage(connectedDevice, page,setting);
+                connectedDevice = device.Connect();
+                
+                SetDeviceSettings(connectedDevice, setting);
+
+                page = ScanImage(connectedDevice, page, setting);
             }
             catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
             {
                 if (page == 1)
                     throw new ScanXException("No paper inserted", ScanXExceptionCodes.NoPaper);
+            }
+            catch (Exception ex)
+            {
+                throw new ScanXException($"Error: {ex.ToString()}", ex);
+            }
+            finally
+            {
+                if (device != null)
+                    Marshal.ReleaseComObject(device);
+
+                if (connectedDevice != null)
+                    Marshal.ReleaseComObject(connectedDevice);
             }
 
 
@@ -137,7 +160,7 @@ namespace ScanX.Core
             byte[] data = (byte[])img.FileData.get_BinaryData();
 
             byte[] dataConverted = null;
-            
+
             dataConverted = CompressImageBytes(data);
 
             var args = new DeviceImageScannedEventArgs(dataConverted, img.FileExtension, page)
@@ -268,7 +291,7 @@ namespace ScanX.Core
 
             var properties = connectedDevice.Items[1].Properties;
 
-            SetWIAProperty(properties, ScanSetting.WIA_PAGE_SIZE, 0);
+            SetWIAProperty(properties, ScanSetting.WIA_PAGE_SIZE, 5865);
 
             //SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, width);
 
@@ -277,9 +300,9 @@ namespace ScanX.Core
             SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_RESOLUTION, resoultions);
 
             SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_RESOLUTION, resoultions);
-            
+
             SetWIAProperty(properties, ScanSetting.WIA_COLOR_MODE, (int)setting.Color);
-            
+
         }
 
         private void SetWIAProperty(IProperties properties, int propertyId, object value)
@@ -298,7 +321,11 @@ namespace ScanX.Core
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"unable to set properties: {ex}");
+                var msg = $"unable to set properties: {ex}";
+
+                _logger?.LogWarning(msg);
+
+                Debug.WriteLine(msg);
             }
 
         }

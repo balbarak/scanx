@@ -43,7 +43,7 @@ namespace ScanX.Protocol.Controllers
             var model = client.GetAllScanners();
 
 
-            return View();
+            return View(model);
         }
     }
 }
