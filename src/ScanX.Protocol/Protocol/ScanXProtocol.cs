@@ -64,7 +64,7 @@ namespace ScanX.Protocol.Protocol
 
             RegisterImageScannedEvents(client);
 
-            await TryInvoke(() => client.ScanSinglePage(deviceId, settings));
+            await TryInvoke(() => client.Scan(deviceId, settings));
 
             await Clients.Caller.SendAsync(ClientMethod.ON_SCAN_FINISHED);
         }
@@ -75,7 +75,7 @@ namespace ScanX.Protocol.Protocol
 
             RegisterImageScannedEvents(client);
 
-            await TryInvoke(() => client.ScanMultiple(deviceId, settings));
+            await TryInvoke(() => client.Scan(deviceId, settings,true));
 
             await Clients.Caller.SendAsync(ClientMethod.ON_SCAN_FINISHED);
         }

@@ -18,7 +18,7 @@ using Microsoft.Extensions.Logging;
 namespace ScanX.Core
 {
     //for more info https://ourcodeworld.com/articles/read/382/creating-a-scanning-application-in-winforms-with-csharp
-    public class DeviceClient
+    public class DeviceClient : IDisposable
     {
         public const uint WIA_ERROR_PAPER_EMPTY = 0x80210003;
         public const uint WIA_ERROR_COVER_OPEN = 0x80210016;
@@ -82,76 +82,42 @@ namespace ScanX.Core
 
             return result;
         }
-
-        public void ScanMultiple(string deviceID, ScanSetting setting = null)
+        
+        public void Scan(string deviceID, ScanSetting setting = null,bool scanAllPages = false)
         {
-            var deviceManager = new DeviceManager();
-
             if (setting == null)
                 setting = new ScanSetting();
 
+            int page = 1;
+
             IDeviceInfo device = GetDeviceById(deviceID);
 
-            var connectedDevice = device.Connect();
-
-            SetDeviceSettings(connectedDevice, setting);
-
-            int page = 1;
+            Device connectedDevice = null;
 
             do
             {
                 try
                 {
+                    connectedDevice = device.Connect();
+
+                    SetDeviceSettings(connectedDevice, setting);
+
                     page = ScanImage(connectedDevice, page, setting);
                 }
+                //WIA DEVICE ERRORS https://docs.microsoft.com/en-us/windows/desktop/wia/-wia-error-codes 
                 catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
                 {
                     if (page == 1)
                         throw new ScanXException("No paper inserted", ScanXExceptionCodes.NoPaper);
+
+                    scanAllPages = false;
+                }
+                catch (Exception ex)
+                {
+                    throw new ScanXException($"Error: {ex.ToString()}", ex);
                 }
             }
-            while (true);
-
-        }
-
-        public void ScanSinglePage(string deviceID, ScanSetting setting = null)
-        {
-            if (setting == null)
-                setting = new ScanSetting();
-
-            int page = 1;
-
-            IDeviceInfo device = GetDeviceById(deviceID);
-            Device connectedDevice = null;
-
-            try
-            {
-                connectedDevice = device.Connect();
-                
-                SetDeviceSettings(connectedDevice, setting);
-
-                page = ScanImage(connectedDevice, page, setting);
-            }
-            //WIA DEVICE ERRORS https://docs.microsoft.com/en-us/windows/desktop/wia/-wia-error-codes 
-            catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
-            {
-                if (page == 1)
-                    throw new ScanXException("No paper inserted", ScanXExceptionCodes.NoPaper);
-            }
-            catch (Exception ex)
-            {
-                throw new ScanXException($"Error: {ex.ToString()}", ex);
-            }
-            finally
-            {
-                if (device != null)
-                    Marshal.ReleaseComObject(device);
-
-                if (connectedDevice != null)
-                    Marshal.ReleaseComObject(connectedDevice);
-            }
-
-
+            while (scanAllPages);
         }
 
         private int ScanImage(Device connectedDevice, int page, ScanSetting setting)
@@ -269,14 +235,12 @@ namespace ScanX.Core
         {
             if (string.IsNullOrWhiteSpace(deviceID))
                 throw new ScanXException("Please select a scanner device", ScanXExceptionCodes.NoDevice);
-
-            var deviceManager = new DeviceManager();
-
-            var count = deviceManager.DeviceInfos.Count;
+            
+            var count = _deviceManager.DeviceInfos.Count;
 
             for (int i = 0; i < count; i++)
             {
-                IDeviceInfo device = deviceManager.DeviceInfos[i + 1];
+                IDeviceInfo device = _deviceManager.DeviceInfos[i + 1];
 
                 if (device.DeviceID == deviceID)
                 {
@@ -339,5 +303,9 @@ namespace ScanX.Core
 
         }
 
+        public void Dispose()
+        {
+            Marshal.ReleaseComObject(_deviceManager);
+        }
     }
 }

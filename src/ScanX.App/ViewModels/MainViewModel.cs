@@ -186,7 +186,7 @@ namespace ScanX.App.ViewModels
                 Dpi = SelectedDpi
             };
 
-            Service.ScanSinglePage(SelectedDevice.DeviceId,setting);
+            Service.Scan(SelectedDevice.DeviceId,setting);
 
             await Task.CompletedTask;
         }
@@ -206,7 +206,7 @@ namespace ScanX.App.ViewModels
                 Dpi = SelectedDpi
             };
 
-            await Task.Run(()=> { Service.ScanMultiple(SelectedDevice.DeviceId, setting); });
+            await Task.Run(()=> { Service.Scan(SelectedDevice.DeviceId, setting,true); });
 
             await Task.CompletedTask;
         }
