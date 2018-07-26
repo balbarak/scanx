@@ -26,7 +26,7 @@ namespace ScanX.Core
         public const uint WIA_ERROR_DEVICE_LOCKED = 0x8021000D;
 
         public object WIA_IPS_BRIGHTNESS { get; private set; }
-        
+
         public event EventHandler OnImageScanned;
 
         private readonly ILogger _logger;
@@ -82,8 +82,8 @@ namespace ScanX.Core
 
             return result;
         }
-        
-        public void Scan(string deviceID, ScanSetting setting = null,bool scanAllPages = false)
+
+        public void Scan(string deviceID, ScanSetting setting = null, bool scanAllPages = false)
         {
             if (setting == null)
                 setting = new ScanSetting();
@@ -94,30 +94,30 @@ namespace ScanX.Core
 
             Device connectedDevice = null;
 
-            do
+            try
             {
-                try
+                connectedDevice = device.Connect();
+
+                SetDeviceSettings(connectedDevice, setting);
+
+                do
                 {
-                    connectedDevice = device.Connect();
-
-                    SetDeviceSettings(connectedDevice, setting);
-
                     page = ScanImage(connectedDevice, page, setting);
                 }
-                //WIA DEVICE ERRORS https://docs.microsoft.com/en-us/windows/desktop/wia/-wia-error-codes 
-                catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
-                {
-                    if (page == 1)
-                        throw new ScanXException("No paper inserted", ScanXExceptionCodes.NoPaper);
-
-                    scanAllPages = false;
-                }
-                catch (Exception ex)
-                {
-                    throw new ScanXException($"Error: {ex.ToString()}", ex);
-                }
+                while (scanAllPages);
             }
-            while (scanAllPages);
+            //WIA DEVICE ERRORS https://docs.microsoft.com/en-us/windows/desktop/wia/-wia-error-codes 
+            catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
+            {
+                if (page == 1)
+                    throw new ScanXException("No paper inserted", ScanXExceptionCodes.NoPaper);
+
+                scanAllPages = false;
+            }
+            catch (Exception ex)
+            {
+                throw new ScanXException($"Error: {ex.ToString()}", ex);
+            }
         }
 
         private int ScanImage(Device connectedDevice, int page, ScanSetting setting)
@@ -214,8 +214,8 @@ namespace ScanX.Core
 
             var connectedDevice = device.Connect();
 
-            
-            
+
+
             foreach (IProperty item in connectedDevice.Items[1].Properties)
             {
                 result.Add(new DeviceProperty()
@@ -235,7 +235,7 @@ namespace ScanX.Core
         {
             if (string.IsNullOrWhiteSpace(deviceID))
                 throw new ScanXException("Please select a scanner device", ScanXExceptionCodes.NoDevice);
-            
+
             var count = _deviceManager.DeviceInfos.Count;
 
             for (int i = 0; i < count; i++)
@@ -301,6 +301,97 @@ namespace ScanX.Core
                 Debug.WriteLine(msg);
             }
 
+        }
+
+        private ScanXException GetException(COMException ex)
+        {
+            uint errorCode = (uint)ex.HResult;
+
+            switch (errorCode)
+            {
+                case 0x80210006:
+
+                    return new ScanXException("The device is busy. Close any apps that are using this device or wait for it to finish and then try again.",ScanXExceptionCodes.DeviceBusy);
+
+                case 0x80210016:
+
+                    return new ScanXException("One or more of the device’s cover is open", ScanXExceptionCodes.CoverOpen);
+
+                case 0x8021000A:
+
+                    return new ScanXException("Communication with the WIA device failed. Make sure that the device is powered on and connected to the PC. If the problem persists, disconnect and reconnect the device.", ScanXExceptionCodes.CommunicationWithDeviceFailed);
+
+                case 0x8021000D:
+
+                    return new ScanXException("The device is locked. Close any apps that are using this device or wait for it to finish and then try again.", ScanXExceptionCodes.DeviceLocked);
+
+                case 0x8021000E:
+
+                    return new ScanXException("The device driver threw an exception.", ScanXExceptionCodes.DeviceDriverError);
+
+                case 0x80210001:
+
+                    return new ScanXException("An unknown error has occurred with the WIA device.", ScanXExceptionCodes.UnkownError);
+
+                case 0x8021000C:
+
+                    return new ScanXException("There is an incorrect setting on the WIA device.", ScanXExceptionCodes.IconrrectSetting);
+
+                case 0x8021000B:
+
+                    return new ScanXException("The device doesn't support this command.", ScanXExceptionCodes.NotSupportedCommand);
+
+                case 0x8021000F:
+
+                    return new ScanXException("The response from the driver is invalid.", ScanXExceptionCodes.DeviceDriverInvlid);
+
+                case 0x80210009:
+
+                    return new ScanXException("The WIA device was deleted. It's no longer available.", ScanXExceptionCodes.ItemDeleted);
+                    
+                case 0x80210017:
+
+                    return new ScanXException("The scanner's lamp is off.", ScanXExceptionCodes.ScannerLampIsOff);
+
+                case 0x80210021:
+
+                    return new ScanXException("A scan job was interrupted because an Imprinter/Endorser item reached the maximum valid value for WIA_IPS_PRINTER_ENDORSER_COUNTER, and was reset to 0.", ScanXExceptionCodes.ScannerInterupted);
+
+                case 0x80210020:
+
+                    return new ScanXException("A scan error occurred because of a multiple page feed condition.", ScanXExceptionCodes.MultipageFeedCondition);
+
+                case 0x80210005:
+
+                    return new ScanXException("The device is offline. Make sure the device is powered on and connected to the PC.", ScanXExceptionCodes.DeviceOffline);
+
+                case 0x80210003:
+
+                    return new ScanXException("There are no documents in the document feeder.", ScanXExceptionCodes.NoPaper);
+
+                case 0x80210002:
+
+                    return new ScanXException("Paper is jammed in the scanner's document feeder.", ScanXExceptionCodes.PaperJammed);
+
+                case 0x80210004:
+
+                    return new ScanXException("An unspecified problem occurred with the scanner's document feeder.", ScanXExceptionCodes.DocumentFeeder);
+
+                case 0x80210007:
+
+                    return new ScanXException("The device is warming up.", ScanXExceptionCodes.DeviceIsWarmpingUp);
+
+                case 0x80210008:
+
+                    return new ScanXException("There is a problem with the WIA device. Make sure that the device is turned on, online, and any cables are properly connected.", ScanXExceptionCodes.DeviceOffline);
+
+                case 0x80210015:
+
+                    return new ScanXException("No scanner device was found. Make sure the device is online, connected to the PC, and has the correct driver installed on the PC.", ScanXExceptionCodes.NoDevice);
+
+                default:
+                    return new ScanXException("Unkown Error", ex, ScanXExceptionCodes.UnkownError);
+            }
         }
 
         public void Dispose()
