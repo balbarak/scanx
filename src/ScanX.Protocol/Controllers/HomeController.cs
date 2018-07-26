@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ScanX.Core;
+using ScanX.Core.Models;
 using ScanX.Protocol.ViewModels;
 
 namespace ScanX.Protocol.Controllers
@@ -19,31 +20,49 @@ namespace ScanX.Protocol.Controllers
         {
             DeviceViewModel result = new DeviceViewModel();
 
-            DeviceClient client = new DeviceClient();
-
-            result.Printers = client.GetAllPrinters();
-            result.Scanners = client.GetAllScanners();
+            using (DeviceClient client = new DeviceClient())
+            {
+                result.Printers = client.GetAllPrinters();
+                result.Scanners = client.GetAllScanners();
+            }
 
             return View(result);
         }
 
         public IActionResult ScannerSample()
         {
-            DeviceClient client = new DeviceClient();
+            List<ScannerDevice> result = new List<ScannerDevice>();
 
-            var model = client.GetAllScanners();
-
-            return View(model);
+            using (DeviceClient client = new DeviceClient())
+            {
+                result = client.GetAllScanners();
+            }
+            
+            return View(result);
         }
 
         public IActionResult Viewerjs()
         {
-            DeviceClient client = new DeviceClient();
+            List<ScannerDevice> result = new List<ScannerDevice>();
 
-            var model = client.GetAllScanners();
+            using (DeviceClient client = new DeviceClient())
+            {
+                result = client.GetAllScanners();
+            }
 
+            return View(result);
+        }
 
-            return View(model);
+        public IActionResult CropperJs()
+        {
+            List<ScannerDevice> result = new List<ScannerDevice>();
+
+            using (DeviceClient client = new DeviceClient())
+            {
+                result = client.GetAllScanners();
+            }
+
+            return View(result);
         }
     }
 }
