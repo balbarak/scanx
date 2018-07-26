@@ -50,6 +50,10 @@ function save() {
     }
 }
 
+function resetCropper() {
+    cropper.reset();
+}
+
 function clearCropper() {
     cropper.clear();
 }
@@ -59,9 +63,7 @@ function setCrop() {
 }
 
 function setImageToViewer(data) {
-
-    //cropper.destroy();
-
+    
     currentImage = $(data);
 
     var src = $(data).attr("src");
@@ -75,7 +77,5 @@ function setImageToViewer(data) {
     $("#image-container").attr("src", src);
 
     cropper.replace(src);
-
-    //initCropper();
-
+    
 }
