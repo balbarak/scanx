@@ -60,24 +60,27 @@ namespace ScanX.Protocol.Protocol
 
         public async Task ScanSingle(string deviceId,ScanSetting settings)
         {
-            DeviceClient client = new DeviceClient(_logger);
+            using (DeviceClient client = new DeviceClient(_logger))
+            {
+                RegisterImageScannedEvents(client);
 
-            RegisterImageScannedEvents(client);
+                await TryInvoke(() => client.Scan(deviceId, settings));
 
-            await TryInvoke(() => client.Scan(deviceId, settings));
-
-            await Clients.Caller.SendAsync(ClientMethod.ON_SCAN_FINISHED);
+                await Clients.Caller.SendAsync(ClientMethod.ON_SCAN_FINISHED);
+            }
         }
         
         public async Task ScanMultiple(string deviceId,ScanSetting settings)
         {
-            DeviceClient client = new DeviceClient(_logger);
+            using (DeviceClient client = new DeviceClient(_logger))
+            {
 
-            RegisterImageScannedEvents(client);
+                RegisterImageScannedEvents(client);
 
-            await TryInvoke(() => client.Scan(deviceId, settings,true));
+                await TryInvoke(() => client.Scan(deviceId, settings, true));
 
-            await Clients.Caller.SendAsync(ClientMethod.ON_SCAN_FINISHED);
+                await Clients.Caller.SendAsync(ClientMethod.ON_SCAN_FINISHED);
+            }
         }
         
         private async Task TryInvoke(Action action)

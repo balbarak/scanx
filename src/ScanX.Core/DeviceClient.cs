@@ -112,14 +112,15 @@ namespace ScanX.Core
 
                 _logger?.LogError(ex.ToString());
 
-                throw excpetion;
-                
+                if (page != 1 && excpetion.Code == ScanXExceptionCodes.NoPaper)
+                    throw excpetion;
+
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex.ToString());
 
-                throw new ScanXException($"Error: {ex.ToString()}", ex,ScanXExceptionCodes.UnkownError);
+                throw new ScanXException($"Error: {ex.ToString()}", ex, ScanXExceptionCodes.UnkownError);
             }
         }
 
@@ -314,7 +315,7 @@ namespace ScanX.Core
             {
                 case 0x80210006:
 
-                    return new ScanXException("The device is busy. Close any apps that are using this device or wait for it to finish and then try again.",ScanXExceptionCodes.DeviceBusy);
+                    return new ScanXException("The device is busy. Close any apps that are using this device or wait for it to finish and then try again.", ScanXExceptionCodes.DeviceBusy);
 
                 case 0x80210016:
 
@@ -351,7 +352,7 @@ namespace ScanX.Core
                 case 0x80210009:
 
                     return new ScanXException("The WIA device was deleted. It's no longer available.", ScanXExceptionCodes.ItemDeleted);
-                    
+
                 case 0x80210017:
 
                     return new ScanXException("The scanner's lamp is off.", ScanXExceptionCodes.ScannerLampIsOff);
