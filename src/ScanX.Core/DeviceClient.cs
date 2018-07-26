@@ -106,17 +106,20 @@ namespace ScanX.Core
                 }
                 while (scanAllPages);
             }
-            //WIA DEVICE ERRORS https://docs.microsoft.com/en-us/windows/desktop/wia/-wia-error-codes 
-            catch (COMException ex) when ((uint)ex.HResult == WIA_ERROR_PAPER_EMPTY)
+            catch (COMException ex)
             {
-                if (page == 1)
-                    throw new ScanXException("No paper inserted", ScanXExceptionCodes.NoPaper);
+                var excpetion = GetException(ex);
 
-                scanAllPages = false;
+                _logger?.LogError(ex.ToString());
+
+                throw excpetion;
+                
             }
             catch (Exception ex)
             {
-                throw new ScanXException($"Error: {ex.ToString()}", ex);
+                _logger?.LogError(ex.ToString());
+
+                throw new ScanXException($"Error: {ex.ToString()}", ex,ScanXExceptionCodes.UnkownError);
             }
         }
 
