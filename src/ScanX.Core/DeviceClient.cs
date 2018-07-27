@@ -112,7 +112,7 @@ namespace ScanX.Core
 
                 _logger?.LogError(ex.ToString());
 
-                if (page != 1 && excpetion.Code == ScanXExceptionCodes.NoPaper)
+                if (page != 1 && excpetion.Code != ScanXExceptionCodes.NoPaper)
                     throw excpetion;
 
             }

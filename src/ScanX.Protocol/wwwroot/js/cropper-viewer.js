@@ -79,3 +79,33 @@ function setImageToViewer(data) {
     cropper.replace(src);
     
 }
+
+function scanSingle() {
+
+    var deviceId = $("#select-scanner-drp").val();
+
+    var settings = {
+
+        color: $("#drp-color-mode").val(),
+
+        dpi: $("#drp-dpi").val(),
+
+    }
+
+    scan.scanSingle(deviceId, settings);
+}
+
+function scanImage() {
+
+    var deviceId = $("#select-scanner-drp").val();
+
+    var settings = {
+
+        color: $("#drp-color-mode").val(),
+
+        dpi: $("#drp-dpi").val(),
+
+    }
+
+    scan.scanMultiple(deviceId, settings);
+}
