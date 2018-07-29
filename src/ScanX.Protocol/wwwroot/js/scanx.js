@@ -3,6 +3,7 @@ $(function () {
     
 })
 
+var apiBaseUrl = "http://localhost:61234/api/v1/";
 
 class ScanX {
 
@@ -33,5 +34,26 @@ class ScanX {
 
     scanTest() {
         this.connection.invoke("ScanTest").catch(err => console.error(err.toString()));
+    }
+
+    getScanners() {
+
+        var url = apiBaseUrl + "scanner";
+
+        var result;
+
+        $.ajax(url, {
+
+            async: false,
+
+            complete: function (xhr,status) {
+
+                var data = xhr.responseJSON;
+
+                result = data;
+            }
+        })
+
+        return result;
     }
 }

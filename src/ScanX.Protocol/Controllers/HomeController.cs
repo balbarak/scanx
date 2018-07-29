@@ -40,29 +40,10 @@ namespace ScanX.Protocol.Controllers
             
             return View(result);
         }
-
-        public IActionResult Viewerjs()
+        
+        public IActionResult Documentation()
         {
-            List<ScannerDevice> result = new List<ScannerDevice>();
-
-            using (DeviceClient client = new DeviceClient())
-            {
-                result = client.GetAllScanners();
-            }
-
-            return View(result);
-        }
-
-        public IActionResult CropperJs()
-        {
-            List<ScannerDevice> result = new List<ScannerDevice>();
-
-            using (DeviceClient client = new DeviceClient())
-            {
-                result = client.GetAllScanners();
-            }
-
-            return View(result);
+            return View();
         }
     }
 }

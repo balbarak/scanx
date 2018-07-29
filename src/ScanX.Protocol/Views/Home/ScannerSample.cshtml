@@ -1,174 +1,180 @@
 ﻿@model List<ScanX.Core.Models.ScannerDevice>
 @{
-    ViewData["Title"] = "ScannerSample";
+    ViewData["Title"] = "CropperJs";
 }
-
 
 @section styles{
-    <link href="~/lib/guillotine-master/css/jquery.guillotine.css" rel="stylesheet" />
+    <link href="~/lib/cropperjs/dist/cropper.min.css" rel="stylesheet" />
     <link href="~/lib/simplebar/dist/simplebar.css" rel="stylesheet" />
 }
-<h2>ScannerSample</h2>
 
-@*http://photoswipe.com/*@
+    <div class="container content">
 
-<div class="container content">
+        <div id="alert"></div>
 
-    <div id="alert"></div>
+        <div class="row align-items-center">
+            <div class="col">
 
-    <div class="row">
-        <div class="col">
+                <div class="form-group">
+                    <label for="">
+                        Choose scanner:
+                    </label>
+                    <select id="select-scanner-drp" class="form-control">
 
-            <div class="form-group">
-                <label for="">
-                    Choose scanner:
-                </label>
-                <select id="select-scanner-drp" class="form-control">
+                        <option value="">--- Select Scanner ---</option>
 
-                    <option value="">--- Select Scanner ---</option>
-
-                    @foreach (var item in Model)
-                    {
-                        if (item.Name.Contains("fi-7"))
+                        @foreach (var item in Model)
                         {
-                            <option value="@item.DeviceId" selected>
-                                @item.Name
-                            </option>
+                            if (item.Name.Contains("fi-7"))
+                            {
+                                <option value="@item.DeviceId" selected>
+                                    @item.Name
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@item.DeviceId">
+                                    @item.Name
+                                </option>
+
+                            }
                         }
-                        else
-                        {
-                            <option value="@item.DeviceId">
-                                @item.Name
-                            </option>
 
-                        }
-                    }
+                    </select>
+                </div>
 
-                </select>
+                
+
             </div>
+            <div class="col">
+                <div class="form-group">
+                    <label>DPI Res:</label>
+                    <select class="form-control" id="drp-dpi">
+                        <option value="72">
+                            72 DPI
+                        </option>
+                        <option value="96">
+                            96 DPI
+                        </option>
+                        <option value="150">
+                            150 DPI
+                        </option>
+                        <option value="300">
+                            300 DPI
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label>Color Mode:</label>
+                    <select class="form-control" id="drp-color-mode">
+                        <option value="2">
+                            Grayscale
+                        </option>
+                        <option value="1">
+                            Color
+                        </option>
+                        <option value="4">
+                            Black & White
+                        </option>
 
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label>DPI Res:</label>
-                <select class="form-control" id="drp-dpi">
-                    <option value="72">
-                        72 DPI
-                    </option>
-                    <option value="96">
-                        96 DPI
-                    </option>
-                    <option value="150">
-                        150 DPI
-                    </option>
-                    <option value="300">
-                        300 DPI
-                    </option>
-                </select>
+                    </select>
+                </div>
+            </div>
+            <div class="col vertical">
+                <button type="button" class="btn btn-sm btn-primary" onclick="scanSingle();">
+                    <i class="fas fa-file"></i>
+                    Scan Single
+                </button>
+
+                <button type="button" class="btn btn-sm btn-primary" onclick="scanImage();">
+                    <i class="fas fa-print"></i>
+                    Scan
+                </button>
             </div>
         </div>
-        <div class="col">
-            <div class="form-group">
-                <label>Color Mode:</label>
-                <select class="form-control" id="drp-color-mode">
-                    <option value="2">
-                        Grayscale
-                    </option>
-                    <option value="1">
-                        Color
-                    </option>
-                    <option value="4">
-                        Black & White
-                    </option>
+        
+        <br />
+        <br />
 
-                </select>
-            </div>
-        </div>
-    </div>
+        <div class="row">
+            <div class="col-10">
+                <div style="background-color:whitesmoke;padding:20px; ">
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-auto">
+                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="btn-group mr-2" role="group" aria-label="First group">
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="scanTest();">
+                                        <i class="fas fa-file"></i>
+                                        Scan Test
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="resetCropper();">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="zoomIn();">
+                                        <i class="fas fa-search-plus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="zoomOut();">
+                                        <i class="fas fa-search-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="clearCropper();">
+                                        <i class="fas fa-arrows-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="setCrop();">
+                                        <i class="fas fa-crop"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="rotateLeft();">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
 
-    <button type="button" class="btn btn-sm btn-primary" onclick="scanSingle();">
-        <i class="fas fa-file"></i>
-        Scan Single
-    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="rotateRight();">
+                                        <i class="fas fa-redo"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="save();">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </div>
 
-    <button type="button" class="btn btn-sm btn-primary" onclick="scanImage();">
-        <i class="fas fa-print"></i>
-        Scan
-    </button>
-
-
-
-
-    <div class="row">
-        <div class="col-10">
-
-            <div style="background-color:whitesmoke;padding:20px; ">
-                <div class="row justify-content-md-center">
-                    <div class="col-md-auto">
-                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="btn-group mr-2" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-sm btn-primary" onclick="scanTest();">
-                                    Scan Test
-                                </button>
-
-
-
-                                <button type="button" class="btn btn-sm btn-primary" onclick="zoomIn();">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-primary" onclick="zoomOut();">
-                                    <i class="fas fa-search-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-primary" onclick="fit();">
-                                    <i class="fas fa-crop"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-primary" onclick="rotateLeft();">
-                                    <i class="fas fa-undo"></i>
-                                </button>
-
-                                <button type="button" class="btn btn-sm btn-primary" onclick="rotateRight();">
-                                    <i class="fas fa-redo"></i>
-                                </button>
                             </div>
-
                         </div>
                     </div>
+
+
+                    <div style="height:750px;">
+                        <img id="image-container" style="max-width:100%; display:none;" />
+                    </div>
+
+
                 </div>
-
-
-                <div id="theparent" style="max-height:750px;">
-                    <img id="img-viewer" class="img-fluid" style="min-height:700px;" />
-                </div>
-
 
             </div>
 
-        </div>
-
-        <div class="col-2 border" style="background-color:whitesmoke;">
-            <div data-simplebar style="max-height:750px;">
-                <ul id="image-list"></ul>
+            <div class="col-2 border" style="background-color:whitesmoke;">
+                <div data-simplebar style="height:750px;">
+                    <ul id="image-list" style="padding:20px;"></ul>
+                </div>
             </div>
         </div>
+
     </div>
 
-    <br />
-
-</div>
+<br />
 
 @section scripts{
+
+    <script src="~/lib/cropperjs/dist/cropper.min.js"></script>
 
     <script src="~/js/signalr.min.js"></script>
 
     <script src="~/js/scanx.js"></script>
 
-    <script src="~/lib/guillotine-master/js/jquery.guillotine.min.js"></script>
-
     <script src="~/lib/simplebar/dist/simplebar.js"></script>
+
+    <script src="~/js/cropper-viewer.js"></script>
 
     <script type="text/javascript">
 
-        var imgViewer = $("#img-viewer")
         var scan = new ScanX();
 
         $(function () {
@@ -198,85 +204,17 @@
             });
 
             scan.connection.onclose(() => {
-                
+
 
             })
 
         }
 
-        function scanSingle() {
-            
-            var deviceId = $("#select-scanner-drp").val();
-
-            var settings = {
-
-                color: $("#drp-color-mode").val(),
-
-                dpi: $("#drp-dpi").val(),
-
-            }
-
-            scan.scanSingle(deviceId, settings);
-        }
-
-        function scanImage() {
-
-            var deviceId = $("#select-scanner-drp").val();
-
-            var settings = {
-
-                color: $("#drp-color-mode").val(),
-
-                dpi: $("#drp-dpi").val(),
-
-            }
-
-            scan.scanMultiple(deviceId, settings);
-        }
-
-        function scanTest() {
-            scan.scanTest();
-        }
-
-        function zoomIn() {
-            imgViewer.guillotine('zoomIn');
-        }
-
-        function zoomOut() {
-            imgViewer.guillotine('zoomOut');
-        }
-
-        function rotateLeft() {
-            imgViewer.guillotine('rotateLeft');
-        }
-
-        function rotateRight() {
-            imgViewer.guillotine('rotateRight');
-        }
-        
-        function fit() {
-            imgViewer.guillotine('fit');
-        }
-
-        function setImageToViewer(data) {
-
-            var src = $(data).attr("src");
-
-            $(imgViewer).attr("src", src);
-
-            imgViewer.guillotine({
-                scale: 4
-            });
-
-            //imgViewer.guillotine('fit');
-        }
-
         function addAlert(data) {
-            
-            $("#alert").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + data.Message +'</div >');
+
+            $("#alert").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + data.Message + '</div >');
 
         }
-
-
     </script>
+
 }
