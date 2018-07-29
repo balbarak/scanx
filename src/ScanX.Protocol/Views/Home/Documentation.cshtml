@@ -34,6 +34,7 @@
         </code>
 
     </div>
+
     <br />
     <h4>
         Usage
@@ -41,12 +42,63 @@
     <br />
 
     <h6>
+        Html
+    </h6>
+    <br />
+    <div class="p-3 bg-light">
+        <code>
+
+            &lt;img id="image" src="" />
+
+        </code>
+    </div>
+    <br />
+    <h6>
         Syntax
     </h6>
+    <br />
     <div class="p-3 bg-light">
         <code>
             var scanx = new Scanx();
         </code>
-
     </div>
+    <br />
+    <h6>
+        Setup events
+    </h6>
+    <br />
+    <div class="p-3 bg-light">
+        <code>
+            scan.connection.on("OnImageScanned", (data) => {
+            <br />
+            
+            &nbsp;&nbsp;&nbsp;&nbsp; var image = document.getElementById('image');
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp; image.src = "data: image/jpeg;base64," + data.imageBytes;
+
+            <br />
+            });
+        </code>
+    </div>
+    <br />
+    <p>
+        <code>data:</code> wil have the following properties
+    </p>
+    <ul>
+        <li>
+            <code>
+                imageBytes:
+            </code>
+            Base64 image bytes
+        </li>
+        <li>
+            <code>size:</code> image size in bytes
+        </li>
+        <li>
+            <code>page:</code> page number of scanned image
+        </li>
+    </ul>
 </div>
+
+<br />
+<br />

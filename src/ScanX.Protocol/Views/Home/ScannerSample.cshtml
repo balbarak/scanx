@@ -198,6 +198,9 @@
 
             scan.connection.on("OnImageScanned", (data) => {
 
+                var ff = document.getElementById('image');
+                ff.src = "data: image/jpeg;base64," + data.imageBytes;
+
                 var img = '<li><img class="img-fluid" src="data: image/jpeg;base64,' + data.imageBytes + '" onclick="setImageToViewer(this)"></img><p class="text-center">' + data.page + ' <br/>' + data.size + ' </p></li>';
 
                 $("#image-list").append(img);
