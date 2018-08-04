@@ -62,7 +62,7 @@ namespace ScanX.InstallHelpers
 
         private void ExtractProtocl(string targetDir)
         {
-            var sourcePath = $"{targetDir}\\packages\\Protocol-v1.zip";
+            var sourcePath = $"{targetDir}\\packages\\Protocol.zip";
             var outputPath = $"{targetDir}\\Protocol";
 
             if (!Directory.Exists(outputPath))
