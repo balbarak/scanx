@@ -24,8 +24,18 @@ namespace ScanX.Protocol
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyMethod().AllowAnyHeader()
+                           .WithOrigins("http://localhost:61234")
+                           .AllowCredentials();
+                }));
+
             services.AddSignalR();
-            
+
             services.AddMvc();
         }
 
@@ -36,8 +46,10 @@ namespace ScanX.Protocol
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseStaticFiles();
+
+            app.UseCors("CorsPolicy");
 
             app.UseSignalR(routes =>
             {
