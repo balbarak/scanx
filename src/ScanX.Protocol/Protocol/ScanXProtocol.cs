@@ -6,6 +6,7 @@ using ScanX.Core.Exceptions;
 using ScanX.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,11 +34,13 @@ namespace ScanX.Protocol.Protocol
 
         public async Task ScanTest()
         {
-            var img1 = File.ReadAllBytes("wwwroot\\images\\1.png");
-            var img2 = File.ReadAllBytes("wwwroot\\images\\2.png");
-            var img3 = File.ReadAllBytes("wwwroot\\images\\3.png");
-            var img4 = File.ReadAllBytes("wwwroot\\images\\4.png");
-            var img5 = File.ReadAllBytes("wwwroot\\images\\5.jpg");
+            var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            
+            var img1 = File.ReadAllBytes($"{imagesPath}\\1.png");
+            var img2 = File.ReadAllBytes($"{imagesPath}\\2.png");
+            var img3 = File.ReadAllBytes($"{imagesPath}\\3.png");
+            var img4 = File.ReadAllBytes($"{imagesPath}\\4.png");
+            var img5 = File.ReadAllBytes($"{imagesPath}\\5.jpg");
 
             var result1 = new DeviceImageScannedEventArgs(img1, ".png", 1);
             var result2 = new DeviceImageScannedEventArgs(img2, ".png", 2);
