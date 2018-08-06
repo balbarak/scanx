@@ -30,7 +30,7 @@ namespace ScanX.Protocol
                 builder =>
                 {
                     builder.AllowAnyMethod().AllowAnyHeader()
-                           .WithOrigins("http://localhost:61234")
+                            .WithOrigins("*")
                            .AllowCredentials();
                 }));
 
