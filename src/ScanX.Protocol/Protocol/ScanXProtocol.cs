@@ -34,7 +34,13 @@ namespace ScanX.Protocol.Protocol
 
         public async Task ScanTest()
         {
-            var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            var processFileName = Process.GetCurrentProcess().MainModule.FileName;
+            var file = new FileInfo(processFileName);
+            var dir = file.DirectoryName;
+
+            var imagesPath = Path.Combine(dir, "wwwroot", "images");
+
+            await Clients.Caller.SendAsync(ClientMethod.ON_LOG, imagesPath);
             
             var img1 = File.ReadAllBytes($"{imagesPath}\\1.png");
             var img2 = File.ReadAllBytes($"{imagesPath}\\2.png");

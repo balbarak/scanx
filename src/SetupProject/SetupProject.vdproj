@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2967E8570BCB4FAEAD955FCCA242F103"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_85209EC1AB1ACB5E69790C2CB4B20342"
         "OwnerKey" = "8:_8A568DA3CBCE4E728A74EF9184838D9A"
         "MsmSig" = "8:_UNDEFINED"
@@ -28,12 +34,6 @@
         "Entry"
         {
         "MsmKey" = "8:_8A568DA3CBCE4E728A74EF9184838D9A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CFF1EB3ACC874AB89CCB1A20C1988F25"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -221,6 +221,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2967E8570BCB4FAEAD955FCCA242F103"
+            {
+            "SourcePath" = "8:C:\\Users\\balba\\Desktop\\ScanX Protocol Published\\Protocol.zip"
+            "TargetName" = "8:Protocol.zip"
+            "Tag" = "8:"
+            "Folder" = "8:_08E16D1E73EB4C11882B3A6DC60B7813"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_85209EC1AB1ACB5E69790C2CB4B20342"
             {
             "AssemblyRegister" = "3:1"
@@ -250,26 +270,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CFF1EB3ACC874AB89CCB1A20C1988F25"
-            {
-            "SourcePath" = "8:C:\\Users\\balba\\Desktop\\ScanX Protocol Published\\Protocol.zip"
-            "TargetName" = "8:Protocol.zip"
-            "Tag" = "8:"
-            "Folder" = "8:_08E16D1E73EB4C11882B3A6DC60B7813"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D60D8B2E28C0248BD71080A1575D96DC"
@@ -393,7 +393,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ScanX"
         "ProductCode" = "8:{3BDF528E-C6A9-4528-8384-5854BC644F1F}"
-        "PackageCode" = "8:{75C97A91-A23C-44FD-A505-969C19F34652}"
+        "PackageCode" = "8:{9B1E64C7-9078-4B49-8250-FB64CEF2990C}"
         "UpgradeCode" = "8:{17A25918-F87A-43AB-814F-5508AF7DB5B6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

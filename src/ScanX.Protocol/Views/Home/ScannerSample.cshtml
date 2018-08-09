@@ -196,6 +196,12 @@
 
             });
 
+            scan.connection.on("OnLog", (data) => {
+
+                alert(data);
+
+            });
+
             scan.connection.on("OnImageScanned", (data) => {
                 
                 var img = '<li><img class="img-fluid" src="data: image/jpeg;base64,' + data.imageBytes + '" onclick="setImageToViewer(this)"></img><p class="text-center">' + data.page + ' <br/>' + data.size + ' </p></li>';
