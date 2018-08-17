@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="2.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="System.Reflection" Version="4.3.0" />
     <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.3.0" />

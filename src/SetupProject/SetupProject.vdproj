@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_62F8DA8A8126443D93282A099ECC80CE"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_85209EC1AB1ACB5E69790C2CB4B20342"
         "OwnerKey" = "8:_8A568DA3CBCE4E728A74EF9184838D9A"
         "MsmSig" = "8:_UNDEFINED"
@@ -41,6 +35,12 @@
         {
         "MsmKey" = "8:_D60D8B2E28C0248BD71080A1575D96DC"
         "OwnerKey" = "8:_85209EC1AB1ACB5E69790C2CB4B20342"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DD00C70405F8440AA14CAACA0D7B3FD3"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -216,26 +216,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_62F8DA8A8126443D93282A099ECC80CE"
-            {
-            "SourcePath" = "8:C:\\Users\\balba\\Desktop\\ScanX Protocol Published\\Protocol.zip"
-            "TargetName" = "8:Protocol.zip"
-            "Tag" = "8:"
-            "Folder" = "8:_08E16D1E73EB4C11882B3A6DC60B7813"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_85209EC1AB1ACB5E69790C2CB4B20342"
             {
             "AssemblyRegister" = "3:1"
@@ -296,6 +276,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DD00C70405F8440AA14CAACA0D7B3FD3"
+            {
+            "SourcePath" = "8:C:\\Users\\balba\\Desktop\\ScanXPublish\\Protocol.zip"
+            "TargetName" = "8:Protocol.zip"
+            "Tag" = "8:"
+            "Folder" = "8:_08E16D1E73EB4C11882B3A6DC60B7813"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -909,7 +909,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8A568DA3CBCE4E728A74EF9184838D9A"
             {
-            "SourcePath" = "8:..\\ScanX.InstallHelpers\\obj\\Release\\ScanX.InstallHelpers.dll"
+            "SourcePath" = "8:..\\ScanX.InstallHelpers\\obj\\Debug\\ScanX.InstallHelpers.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_ABED00F939D14268A089D36117CFC9D0"
