@@ -11,7 +11,7 @@
 
 Include:
 
-``` javascript
+``` html
 
 <script src="/path/to/jquery.js"></script> 
 
@@ -39,7 +39,7 @@ files:
 ```
 
 ### javascript
-``` javascript
+``` html
 <script type="text/javascript">
 
 // declar scanx class
