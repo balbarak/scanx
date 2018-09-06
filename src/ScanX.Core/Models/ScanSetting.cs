@@ -56,11 +56,7 @@ namespace ScanX.Core.Models
         //for more info https://www.papersizes.org/a-sizes-in-pixels.htm
         public static (int width,int height) GetA4SizeByDpi(int dpiValue)
         {
-
-            return (619, 876);
-
-            //return (1240, 1754);
-
+            
             var dpi = (DPI)dpiValue;
 
             switch (dpi)

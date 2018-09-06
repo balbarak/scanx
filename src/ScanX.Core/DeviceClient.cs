@@ -217,9 +217,7 @@ namespace ScanX.Core
             IDeviceInfo device = GetDeviceById(id);
 
             var connectedDevice = device.Connect();
-
-
-
+            
             foreach (IProperty item in connectedDevice.Items[1].Properties)
             {
                 result.Add(new DeviceProperty()
@@ -266,15 +264,15 @@ namespace ScanX.Core
 
             SetWIAProperty(properties, ScanSetting.WIA_ITEM_SIZE, 0);
 
-            SetWIAProperty(properties, ScanSetting.WIA_PAGE_SIZE, 0);
-
-            //SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, resoultions * 2);
-
-            //SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, resoultions * 2);
-
+            SetWIAProperty(properties, ScanSetting.WIA_PAGE_SIZE, 3);
+            
             SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_RESOLUTION, resoultions);
 
             SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_RESOLUTION, resoultions);
+
+            SetWIAProperty(properties, ScanSetting.WIA_VERTICAL_EXTENT, height);
+
+            SetWIAProperty(properties, ScanSetting.WIA_HORIZONTAL_EXTENT, width);
 
             SetWIAProperty(properties, ScanSetting.WIA_COLOR_MODE, (int)setting.Color);
 
