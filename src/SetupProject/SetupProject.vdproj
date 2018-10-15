@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_70C34998DD614AFCB59B584FE95C2953"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_85209EC1AB1ACB5E69790C2CB4B20342"
         "OwnerKey" = "8:_8A568DA3CBCE4E728A74EF9184838D9A"
         "MsmSig" = "8:_UNDEFINED"
@@ -28,12 +34,6 @@
         "Entry"
         {
         "MsmKey" = "8:_8A568DA3CBCE4E728A74EF9184838D9A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CD98072E54B14024877AB98437906600"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -216,6 +216,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_70C34998DD614AFCB59B584FE95C2953"
+            {
+            "SourcePath" = "8:C:\\Users\\balba\\Desktop\\PublishFolders\\scanx\\Protocol.zip"
+            "TargetName" = "8:Protocol.zip"
+            "Tag" = "8:"
+            "Folder" = "8:_08E16D1E73EB4C11882B3A6DC60B7813"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_85209EC1AB1ACB5E69790C2CB4B20342"
             {
             "AssemblyRegister" = "3:1"
@@ -245,26 +265,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CD98072E54B14024877AB98437906600"
-            {
-            "SourcePath" = "8:C:\\Users\\b.albarrak\\Documents\\PublishFolders\\Scanx\\Protocol.zip"
-            "TargetName" = "8:Protocol.zip"
-            "Tag" = "8:"
-            "Folder" = "8:_08E16D1E73EB4C11882B3A6DC60B7813"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D60D8B2E28C0248BD71080A1575D96DC"
@@ -387,15 +387,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ScanX"
-        "ProductCode" = "8:{23A36A30-54D7-4311-8DAE-8FFA4EB15039}"
-        "PackageCode" = "8:{2CC59DA1-4A13-47FD-B811-87D0BC34198F}"
+        "ProductCode" = "8:{16F4143E-0870-4928-BB0D-5DA69B440022}"
+        "PackageCode" = "8:{705CDA85-F8FF-4EBE-A237-CD15EBBDA38B}"
         "UpgradeCode" = "8:{17A25918-F87A-43AB-814F-5508AF7DB5B6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.2"
+        "ProductVersion" = "8:1.0.3"
         "Manufacturer" = "8:CreaDev Solutions"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -909,7 +909,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8A568DA3CBCE4E728A74EF9184838D9A"
             {
-            "SourcePath" = "8:..\\ScanX.InstallHelpers\\obj\\Debug\\ScanX.InstallHelpers.dll"
+            "SourcePath" = "8:..\\ScanX.InstallHelpers\\obj\\Release\\ScanX.InstallHelpers.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_ABED00F939D14268A089D36117CFC9D0"
