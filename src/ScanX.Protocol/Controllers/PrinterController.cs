@@ -22,8 +22,20 @@ namespace ScanX.Protocol.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
         [Route("default")]
+        public IActionResult GetDefaultPrinter()
+        {
+            string result = "";
+            
+            using (DeviceClient client = new DeviceClient())
+            {
+                result = client.GetDefualtPrinter();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost]
         public IActionResult Post([FromBody] PrintRequest doc)
         {
             Dictionary<string, string> result = new Dictionary<string, string>

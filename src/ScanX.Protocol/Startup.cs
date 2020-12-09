@@ -21,25 +21,21 @@ namespace ScanX.Protocol
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
-            services.AddCors(options => options.AddPolicy("CorsPolicy",
-                builder =>
-                {
-                    builder.AllowAnyMethod().AllowAnyHeader()
-                            .WithOrigins("*")
-                           .AllowCredentials();
-                }));
+            //services.AddCors(options => options.AddPolicy("CorsPolicy",
+            //    builder =>
+            //    {
+            //        builder.AllowAnyMethod().AllowAnyHeader()
+            //                .WithOrigins("*")
+            //               .AllowCredentials();
+            //    }));
 
             services.AddSignalR();
 
-            services.AddMvc();
+            services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -51,16 +47,15 @@ namespace ScanX.Protocol
 
             app.UseCors("CorsPolicy");
 
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<ScanXProtocol>("/scanx");
-            });
+            app.UseRouting();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                  name: "default",
+                  pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHub<ScanXProtocol>("/scanx");
             });
         }
     }
