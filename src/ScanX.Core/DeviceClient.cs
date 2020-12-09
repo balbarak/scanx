@@ -168,6 +168,47 @@ namespace ScanX.Core
 
         }
 
+        public string getDefualtPrinter()
+        {
+            var defualtPrinter = new PrinterSettings();
+            return defualtPrinter.PrinterName;
+        }
+
+        public void Print(string imageLocation, PrintSetting setting = null)
+        {
+            Print(imageLocation, getDefualtPrinter(), setting);
+        }
+
+        public void Print(string imageLocation, string deviceID, PrintSetting setting = null)
+        {
+            if (setting == null)
+                setting = new PrintSetting();
+
+            try
+            {
+                PrintDocument pd = new PrintDocument();
+                pd.PrinterSettings.PrinterName = deviceID;
+                pd.DocumentName = imageLocation;
+                pd.PrintPage += PrintPage;
+                pd.Print();
+            }
+            catch (Exception ex)
+            {
+                _logger?.LogError(ex.ToString());
+
+                throw new ScanXException($"Error: {ex.ToString()}", ex, ScanXExceptionCodes.UnkownError);
+            }
+        }
+
+        private void PrintPage(object sender, PrintPageEventArgs e)
+        {
+            string imageLocation = ((PrintDocument)sender).DocumentName; // Current file name 
+            System.Drawing.Image img = System.Drawing.Image.FromFile(imageLocation);
+            Point loc = new Point(100, 100);
+            e.Graphics.DrawImage(img, loc);
+        }
+
+
         public List<DeviceProperty> GetDeviceProperties(string id)
         {
             List<DeviceProperty> result = new List<DeviceProperty>();
