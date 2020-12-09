@@ -23,6 +23,7 @@ namespace ScanX.Protocol.Controllers
         }
 
         [HttpPost]
+        [Route("default")]
         public IActionResult Post([FromBody] PrintRequest doc)
         {
             Dictionary<string, string> result = new Dictionary<string, string>
@@ -33,7 +34,7 @@ namespace ScanX.Protocol.Controllers
             using (DeviceClient client = new DeviceClient())
             {
                 client.Print(doc.location);
-                result["printer"] = client.getDefualtPrinter();
+                result["printer"] = client.GetDefualtPrinter();
             }
             return Ok(result);
         }

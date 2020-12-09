@@ -168,15 +168,16 @@ namespace ScanX.Core
 
         }
 
-        public string getDefualtPrinter()
+        public string GetDefualtPrinter()
         {
             var defualtPrinter = new PrinterSettings();
+
             return defualtPrinter.PrinterName;
         }
 
         public void Print(string imageLocation, PrintSetting setting = null)
         {
-            Print(imageLocation, getDefualtPrinter(), setting);
+            Print(imageLocation, GetDefualtPrinter(), setting);
         }
 
         public void Print(string imageLocation, string deviceID, PrintSetting setting = null)
@@ -207,7 +208,6 @@ namespace ScanX.Core
             Point loc = new Point(100, 100);
             e.Graphics.DrawImage(img, loc);
         }
-
 
         public List<DeviceProperty> GetDeviceProperties(string id)
         {
