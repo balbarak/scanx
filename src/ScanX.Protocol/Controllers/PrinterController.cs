@@ -57,7 +57,7 @@ namespace ScanX.Protocol.Controllers
         [Route("print")]
         public IActionResult Print()
         {
-
+            _client.Print(null,"Zebra");
 
             return Ok("doc printeds");
         }
