@@ -11,6 +11,13 @@ namespace ScanX.Protocol.Controllers
 {
     public class PrinterController : ApiBaseController
     {
+        private readonly IPrinterClient _client;
+
+        public PrinterController(IPrinterClient printerClient)
+        {
+            _client = printerClient;
+        }
+
         public IActionResult Get()
         {
             List<string> result = new List<string>();
@@ -25,14 +32,9 @@ namespace ScanX.Protocol.Controllers
         [Route("default")]
         public IActionResult GetDefaultPrinter()
         {
-            string result = "";
-            
-            using (DeviceClient client = new DeviceClient())
-            {
-                result = client.GetDefualtPrinter();
-            }
+            var printerName = _client.GetDefaultPrinter();
 
-            return Ok(result);
+            return Ok(printerName);
         }
 
         [HttpPost]
@@ -49,6 +51,15 @@ namespace ScanX.Protocol.Controllers
                 result["printer"] = client.GetDefualtPrinter();
             }
             return Ok(result);
+        }
+
+
+        [Route("print")]
+        public IActionResult Print()
+        {
+
+
+            return Ok("doc printeds");
         }
     }
 }

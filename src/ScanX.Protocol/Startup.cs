@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ScanX.Core;
 using ScanX.Protocol.Protocol;
 
 namespace ScanX.Protocol
@@ -34,9 +36,11 @@ namespace ScanX.Protocol
             services.AddSignalR();
 
             services.AddControllersWithViews();
+
+            services.AddTransient<IPrinterClient, PrinterClient>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
