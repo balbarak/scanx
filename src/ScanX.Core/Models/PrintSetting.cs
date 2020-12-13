@@ -6,5 +6,8 @@ namespace ScanX.Core.Models
 {
     public class PrintSetting
     {
+        public string PrinterName { get; set; }
+
+
     }
 }

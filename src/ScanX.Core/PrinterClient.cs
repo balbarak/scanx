@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
+using System.IO;
 using System.Text;
 
 namespace ScanX.Core
@@ -24,7 +25,7 @@ namespace ScanX.Core
             return _printerSettings.PrinterName;
         }
 
-        public void Print(byte[] dataToPrint,string printerName)
+        public void Print(byte[] imageToPrint,string printerName)
         {
             _printer.PrinterSettings = new PrinterSettings()
             {
@@ -32,11 +33,13 @@ namespace ScanX.Core
             };
 
             _printer.DocumentName = "test";
+            _printer.PrinterSettings.CreateMeasurementGraphics();
+
             _printer.PrintPage += OnPrintingPage;
             _printer.Print();
         }
 
-        public void Print(byte[] dataToPrint,PrinterSettings settings)
+        public void Print(byte[] imageToPrint,PrinterSettings settings)
         {
             _printer.PrinterSettings = settings;
 
@@ -47,9 +50,21 @@ namespace ScanX.Core
 
         private void OnPrintingPage(object sender, PrintPageEventArgs e)
         {
-            var filePath = @"C:\Users\balbarak\Desktop\test.html";
+            var filePath = @"C:\Users\balbarak\Pictures\Material Icons\test.png";
 
-            //e.Graphics.DrawImage();
+            //var data = File.ReadAllBytes(filePath);
+
+            var img = System.Drawing.Image.FromFile(filePath);
+
+            var sizes = _printer.PrinterSettings.PaperSizes;
+
+            var graphic = _printer.PrinterSettings.CreateMeasurementGraphics();
+
+            graphic.PageUnit = System.Drawing.GraphicsUnit.Display;
+
+            var clip = graphic.ClipBounds;
+
+            e.Graphics.DrawImage(img,0,0,300,200);
         }
 
         public void Dispose()
