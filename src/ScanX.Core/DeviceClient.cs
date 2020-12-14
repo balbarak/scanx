@@ -175,15 +175,15 @@ namespace ScanX.Core
             return defualtPrinter.PrinterName;
         }
 
-        public void Print(string imageLocation, PrintSetting setting = null)
+        public void Print(string imageLocation, PrintSettings setting = null)
         {
             Print(imageLocation, GetDefualtPrinter(), setting);
         }
 
-        public void Print(string imageLocation, string deviceID, PrintSetting setting = null)
+        public void Print(string imageLocation, string deviceID, PrintSettings setting = null)
         {
             if (setting == null)
-                setting = new PrintSetting();
+                setting = new PrintSettings();
 
             try
             {

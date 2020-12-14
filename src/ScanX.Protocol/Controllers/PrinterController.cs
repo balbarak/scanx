@@ -37,27 +37,11 @@ namespace ScanX.Protocol.Controllers
             return Ok(printerName);
         }
 
-        [HttpPost]
-        public IActionResult Post([FromBody] PrintRequest doc)
-        {
-            Dictionary<string, string> result = new Dictionary<string, string>
-            {
-                { "docLocation", doc.location }
-            };
-
-            using (DeviceClient client = new DeviceClient())
-            {
-                client.Print(doc.location);
-                result["printer"] = client.GetDefualtPrinter();
-            }
-            return Ok(result);
-        }
-
-
         [Route("print")]
+        [HttpPost]
         public IActionResult Print()
         {
-            _client.Print(null,"Zebra");
+            _client.Print(null,new PrintSettings("Zebra"));
 
             return Ok("doc printeds");
         }
