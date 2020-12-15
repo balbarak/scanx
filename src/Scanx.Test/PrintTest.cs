@@ -19,11 +19,20 @@ namespace Scanx.Test
         [Fact]
         public void Should_Print_With_Settings()
         {
-            var filePath = @"C:\Users\balba\Pictures\Cards\2.jpg";
+            var filePath = @"C:\Users\balbarak\Pictures\Material Icons\test.PNG";
             var imgData = File.ReadAllBytes(filePath);
 
+            var settings = new PrintSettings("Zebra")
+            {
+                Width = 300,
+                Height = 200,
+                Margin = new PageMargin()
+                {
+                    Top = 15,
+                }
+            };
 
-            _client.Print(imgData, new PrintSettings("Microsoft Print to PDF"));
+            _client.Print(imgData, settings);
         }
     }
 }

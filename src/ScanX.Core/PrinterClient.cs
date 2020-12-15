@@ -17,7 +17,7 @@ namespace ScanX.Core
         private readonly ILogger<PrinterClient> _logger;
         private readonly PrintDocument _printDocument;
         private MemoryStream _ms;
-
+        private PrintSettings _currentSettings;
 
         public PrinterClient(ILogger<PrinterClient> logger)
         {
@@ -41,12 +41,14 @@ namespace ScanX.Core
                 PrinterName = settings.PrinterName,
             };
 
-            _ms = new MemoryStream();
 
+            _ms = new MemoryStream();
             _ms.Write(imageToPrint, 0, imageToPrint.Length);
+            _currentSettings = settings;
+            var margin = _currentSettings.Margin;
 
             _printDocument.PrinterSettings = printerSettings;
-            _printDocument.DefaultPageSettings.Margins = new Margins(10, 20, 300, 0);
+            _printDocument.DefaultPageSettings.Margins = new Margins(margin.Left,margin.Right,margin.Top,margin.Bottom);
             _printDocument.Print();
         }
 
@@ -54,6 +56,8 @@ namespace ScanX.Core
         {
             try
             {
+                var pageBounds = e.PageBounds;
+
                 var leftMargin = e.MarginBounds.Left;
                 var rightMargin = e.MarginBounds.Right;
                 var topMargin = e.MarginBounds.Top;
@@ -61,7 +65,7 @@ namespace ScanX.Core
 
                 var img = Image.FromStream(_ms);
 
-                e.Graphics.DrawImage(img,leftMargin,topMargin,200,300);
+                e.Graphics.DrawImage(img,leftMargin,topMargin,_currentSettings.Width,_currentSettings.Height);
             }
             catch (Exception)
             {

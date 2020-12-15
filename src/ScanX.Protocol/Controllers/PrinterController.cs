@@ -41,6 +41,7 @@ namespace ScanX.Protocol.Controllers
         [HttpPost]
         public IActionResult Print()
         {
+
             _client.Print(null,new PrintSettings("Zebra"));
 
             return Ok("doc printeds");
