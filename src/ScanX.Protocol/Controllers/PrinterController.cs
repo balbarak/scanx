@@ -39,10 +39,14 @@ namespace ScanX.Protocol.Controllers
 
         [Route("print")]
         [HttpPost]
-        public IActionResult Print()
+        public IActionResult Print(PrintViewModel model)
         {
 
-            _client.Print(null,new PrintSettings("Zebra"));
+            var settings = model.ToModel();
+
+            
+            _client.Print(null,settings);
+
 
             return Ok("doc printeds");
         }
