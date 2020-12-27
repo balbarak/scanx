@@ -23,6 +23,8 @@ namespace ScanX.InstallHelpers
 
         protected override void OnBeforeInstall(IDictionary savedState)
         {
+            CleanUp();
+
             base.OnBeforeInstall(savedState);
         }
 
@@ -30,7 +32,6 @@ namespace ScanX.InstallHelpers
         {
             base.OnAfterInstall(savedState);
 
-            CleanUp();
 
             string path = GetPath();
 
@@ -43,13 +44,15 @@ namespace ScanX.InstallHelpers
         protected override void OnBeforeUninstall(IDictionary savedState)
         {
             ServiceHelper.StopService();
-            
+
             base.OnBeforeUninstall(savedState);
+
         }
 
         protected override void OnAfterUninstall(IDictionary savedState)
         {
             base.OnAfterUninstall(savedState);
+
             ServiceHelper.DeleteService();
         }
 
@@ -67,8 +70,9 @@ namespace ScanX.InstallHelpers
                 ServiceHelper.StopService();
                 ServiceHelper.DeleteService();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.ToString());
             }
             
         }
