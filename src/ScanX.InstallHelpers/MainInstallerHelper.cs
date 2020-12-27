@@ -29,10 +29,8 @@ namespace ScanX.InstallHelpers
         {
             base.OnAfterInstall(savedState);
 
-            //string path = this.Context.Parameters["targetdir"];
-            //string servicePath = $"{path}\\Protocol\\ScanX.Protocol.exe";
-            
-            //ExtractProtocl(path);
+            string path = this.Context.Parameters["targetdir"];
+            string servicePath = $"{path}\\Protocol\\ScanX.Protocol.exe";
             
             //ServiceHelper.InstallService(servicePath);
 
@@ -52,24 +50,12 @@ namespace ScanX.InstallHelpers
 
             //ServiceHelper.DeleteService();
 
-            //string path = this.Context.Parameters["targetdir"];
-            //var protocolDir = $"{path}\\Protocol";
+            string path = this.Context.Parameters["targetdir"];
+            var protocolDir = $"{path}\\Protocol";
 
             //if (Directory.Exists(protocolDir))
             //    Directory.Delete(protocolDir,true);
             
-        }
-
-        private void ExtractProtocl(string targetDir)
-        {
-            var sourcePath = $"{targetDir}\\packages\\Protocol.zip";
-            var outputPath = $"{targetDir}\\Protocol";
-
-            if (!Directory.Exists(outputPath))
-                Directory.CreateDirectory(outputPath);
-
-            ZipFile.ExtractToDirectory(sourcePath,outputPath);
-
         }
     }
 }

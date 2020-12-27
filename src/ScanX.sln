@@ -13,7 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanX.InstallHelpers", "Sca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scanx.Test", "Scanx.Test\Scanx.Test.csproj", "{8F418546-CA3D-4B4A-AD66-55970C3D27DF}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Scanx.Setup", "Scanx.Setup\Scanx.Setup.vdproj", "{20EA97AA-560B-42CF-AC61-3330E76A0A5A}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ScanX.Setup", "Scanx.Setup\Scanx.Setup.vdproj", "{20EA97AA-560B-42CF-AC61-3330E76A0A5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{A842DADE-752A-42E1-B527-97AFCB698966}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{026078FE-5FA9-46E9-909B-FD5BE01816C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +74,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{525B2FB7-EB2F-4970-9D3E-2C2BB1F3233E} = {026078FE-5FA9-46E9-909B-FD5BE01816C4}
+		{D32D3EF9-7110-41DA-93CF-350F45DA6BB4} = {A842DADE-752A-42E1-B527-97AFCB698966}
+		{8F418546-CA3D-4B4A-AD66-55970C3D27DF} = {026078FE-5FA9-46E9-909B-FD5BE01816C4}
+		{20EA97AA-560B-42CF-AC61-3330E76A0A5A} = {A842DADE-752A-42E1-B527-97AFCB698966}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {29E44D0D-F3E1-4137-93DB-DDEF073C3F2E}

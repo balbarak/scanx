@@ -5,11 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.WindowsServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Hosting;
+
 namespace ScanX.Protocol
 {
     public class Program
@@ -20,11 +22,13 @@ namespace ScanX.Protocol
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
+
              Host.CreateDefaultBuilder(args)
-                 .ConfigureWebHostDefaults(webBuilder =>
-                 {
-                     webBuilder.UseStartup<Startup>();
-                 });
+            .UseWindowsService()
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
 
     }
 }
