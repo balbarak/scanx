@@ -19,8 +19,6 @@ namespace ScanX.InstallHelpers
         public override void Install(IDictionary stateSaver)
         {
             base.Install(stateSaver);
-
-
         }
 
         protected override void OnBeforeInstall(IDictionary savedState)
@@ -32,12 +30,13 @@ namespace ScanX.InstallHelpers
         {
             base.OnAfterInstall(savedState);
 
+            CleanUp();
+
             string path = GetPath();
 
             string servicePath = Path.Combine(path,"ScanX.Protocol.exe");
             
             ServiceHelper.InstallService(servicePath);
-
             ServiceHelper.StartService();
         }
 
@@ -51,7 +50,6 @@ namespace ScanX.InstallHelpers
         protected override void OnAfterUninstall(IDictionary savedState)
         {
             base.OnAfterUninstall(savedState);
-
             ServiceHelper.DeleteService();
         }
 
@@ -60,6 +58,19 @@ namespace ScanX.InstallHelpers
             var result = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             return result;
+        }
+
+        private void CleanUp()
+        {
+            try
+            {
+                ServiceHelper.StopService();
+                ServiceHelper.DeleteService();
+            }
+            catch (Exception)
+            {
+            }
+            
         }
     }
 }

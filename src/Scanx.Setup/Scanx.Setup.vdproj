@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_17F4B068FC4444708B8A7D3E2B11BE17"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6BA5BFC9372141C08272B87D57415952"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -199,6 +205,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_17F4B068FC4444708B8A7D3E2B11BE17"
+            {
+            "SourcePath" = "8:Files\\ScanX Demo.url"
+            "TargetName" = "8:ScanX Demo.url"
+            "Tag" = "8:"
+            "Folder" = "8:_FDAEFC13223542E083131253586FAA73"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F2EAB900217196EAC479E319EF05A7E6"
             {
             "SourcePath" = "8:wiaaut.dll"
@@ -287,7 +313,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ScanX"
         "ProductCode" = "8:{F841CBE6-7E42-483C-BB74-9DB6E102D66C}"
-        "PackageCode" = "8:{02B73EF6-69E1-4393-822E-4629686B4CDE}"
+        "PackageCode" = "8:{A0C58BBB-3A5B-42E2-81D1-97A64BE3AC66}"
         "UpgradeCode" = "8:{9355A04B-2096-4C3A-9585-56196BEFFC20}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -808,7 +834,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0E7E4FC2B5F0474BA24AA931E526383B"
             {
-            "SourcePath" = "8:..\\ScanX.InstallHelpers\\obj\\Debug\\ScanX.InstallHelpers.dll"
+            "SourcePath" = "8:..\\ScanX.InstallHelpers\\obj\\Release\\ScanX.InstallHelpers.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2988575855214938A3ACAC40F8C3D9A1"
@@ -836,7 +862,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6BA5BFC9372141C08272B87D57415952"
             {
-            "SourcePath" = "8:..\\ScanX.Protocol\\obj\\Debug\\netcoreapp3.1\\apphost.exe"
+            "SourcePath" = "8:..\\ScanX.Protocol\\obj\\Release\\netcoreapp3.1\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2988575855214938A3ACAC40F8C3D9A1"

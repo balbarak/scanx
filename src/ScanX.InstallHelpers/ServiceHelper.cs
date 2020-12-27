@@ -9,7 +9,7 @@ namespace ScanX.InstallHelpers
 {
     public class ServiceHelper
     {
-        private static string _serviceName = "ScanXFu";
+        private static string _serviceName = "ScanX";
 
         public static void InstallService(string servicePath)
         {
