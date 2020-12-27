@@ -13,7 +13,7 @@
     <Reference Include="Interop.WIA">
       <HintPath>..\..\lib\Interop.WIA.dll</HintPath>
       <EmbedInteropTypes>false</EmbedInteropTypes>
-      <Private>true</Private>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 

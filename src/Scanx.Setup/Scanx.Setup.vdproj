@@ -108,7 +108,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_FDAEFC13223542E083131253586FAA73"
             {
-            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFiles64Folder][ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
@@ -144,9 +144,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:ScanX Client"
+        "ProductName" = "8:ScanX"
         "ProductCode" = "8:{F841CBE6-7E42-483C-BB74-9DB6E102D66C}"
-        "PackageCode" = "8:{BBBDB9D2-75F5-4FA0-9F85-0E56004D81AD}"
+        "PackageCode" = "8:{E9B5D8B6-1CA6-48B2-ADE7-D971C0574613}"
         "UpgradeCode" = "8:{9355A04B-2096-4C3A-9585-56196BEFFC20}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
