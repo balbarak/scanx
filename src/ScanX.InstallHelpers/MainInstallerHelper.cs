@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration.Install;
-using System.Linq;
-using System.Threading.Tasks;
 using System.IO;
-using System.Diagnostics;
+using System.Reflection;
+using System.Text;
 using System.Windows;
-using System.IO.Compression;
 
 namespace ScanX.InstallHelpers
 {
@@ -23,23 +19,31 @@ namespace ScanX.InstallHelpers
         public override void Install(IDictionary stateSaver)
         {
             base.Install(stateSaver);
+
+
+        }
+
+        protected override void OnBeforeInstall(IDictionary savedState)
+        {
+            base.OnBeforeInstall(savedState);
         }
 
         protected override void OnAfterInstall(IDictionary savedState)
         {
             base.OnAfterInstall(savedState);
 
-            string path = this.Context.Parameters["targetdir"];
-            string servicePath = $"{path}\\Protocol\\ScanX.Protocol.exe";
-            
-            //ServiceHelper.InstallService(servicePath);
+            string path = GetPath();
 
-            //ServiceHelper.StartService();
+            string servicePath = Path.Combine(path,"ScanX.Protocol.exe");
+            
+            ServiceHelper.InstallService(servicePath);
+
+            ServiceHelper.StartService();
         }
 
         protected override void OnBeforeUninstall(IDictionary savedState)
         {
-            //ServiceHelper.StopService();
+            ServiceHelper.StopService();
             
             base.OnBeforeUninstall(savedState);
         }
@@ -48,14 +52,14 @@ namespace ScanX.InstallHelpers
         {
             base.OnAfterUninstall(savedState);
 
-            //ServiceHelper.DeleteService();
+            ServiceHelper.DeleteService();
+        }
 
-            string path = this.Context.Parameters["targetdir"];
-            var protocolDir = $"{path}\\Protocol";
+        private string GetPath()
+        {
+            var result = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            //if (Directory.Exists(protocolDir))
-            //    Directory.Delete(protocolDir,true);
-            
+            return result;
         }
     }
 }

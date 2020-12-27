@@ -10,11 +10,8 @@
   "profiles": {
     "ScanX.Protocol": {
       "commandName": "Project",
-      "commandLineArgs": "--console",
       "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
+     
       "applicationUrl": "http://localhost:61234/"
     }
   }

@@ -28,6 +28,7 @@ namespace ScanX.Protocol
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseStartup<Startup>();
+                webBuilder.UseUrls("http://*:61234");
             });
 
     }

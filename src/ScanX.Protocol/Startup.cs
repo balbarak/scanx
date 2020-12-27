@@ -25,13 +25,13 @@ namespace ScanX.Protocol
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddCors(options => options.AddPolicy("CorsPolicy",
-            //    builder =>
-            //    {
-            //        builder.AllowAnyMethod().AllowAnyHeader()
-            //                .WithOrigins("*")
-            //               .AllowCredentials();
-            //    }));
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins("*");
+                }));
 
             services.AddSignalR();
 

@@ -9,7 +9,7 @@ namespace ScanX.InstallHelpers
 {
     public class ServiceHelper
     {
-        private static string _serviceName = "ScanX";
+        private static string _serviceName = "ScanXFu";
 
         public static void InstallService(string servicePath)
         {
@@ -18,7 +18,9 @@ namespace ScanX.InstallHelpers
                 ProcessStartInfo startupInfo = new ProcessStartInfo()
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/C sc create {_serviceName} binPath=\"{servicePath}\" start=auto"
+                    Arguments = $"/C sc create {_serviceName} binPath=\"{servicePath}\" start=auto",
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden
                 };
 
                 process.StartInfo = startupInfo;
@@ -38,7 +40,9 @@ namespace ScanX.InstallHelpers
                 ProcessStartInfo startupInfo = new ProcessStartInfo()
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/C sc start {_serviceName}"
+                    Arguments = $"/C sc start {_serviceName}",
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden
                 };
 
                 process.StartInfo = startupInfo;
@@ -57,7 +61,9 @@ namespace ScanX.InstallHelpers
                 ProcessStartInfo startupInfo = new ProcessStartInfo()
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/C sc stop {_serviceName}"
+                    Arguments = $"/C sc stop {_serviceName}",
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden
                 };
 
                 process.StartInfo = startupInfo;
@@ -76,7 +82,9 @@ namespace ScanX.InstallHelpers
                 ProcessStartInfo startupInfo = new ProcessStartInfo()
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/c sc delete \"{_serviceName}\""
+                    Arguments = $"/c sc delete \"{_serviceName}\"",
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden
                 };
 
                 process.StartInfo = startupInfo;
