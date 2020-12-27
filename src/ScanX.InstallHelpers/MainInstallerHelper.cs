@@ -29,19 +29,19 @@ namespace ScanX.InstallHelpers
         {
             base.OnAfterInstall(savedState);
 
-            string path = this.Context.Parameters["targetdir"];
-            string servicePath = $"{path}\\Protocol\\ScanX.Protocol.exe";
+            //string path = this.Context.Parameters["targetdir"];
+            //string servicePath = $"{path}\\Protocol\\ScanX.Protocol.exe";
             
-            ExtractProtocl(path);
+            //ExtractProtocl(path);
             
-            ServiceHelper.InstallService(servicePath);
+            //ServiceHelper.InstallService(servicePath);
 
-            ServiceHelper.StartService();
+            //ServiceHelper.StartService();
         }
 
         protected override void OnBeforeUninstall(IDictionary savedState)
         {
-            ServiceHelper.StopService();
+            //ServiceHelper.StopService();
             
             base.OnBeforeUninstall(savedState);
         }
@@ -50,13 +50,13 @@ namespace ScanX.InstallHelpers
         {
             base.OnAfterUninstall(savedState);
 
-            ServiceHelper.DeleteService();
+            //ServiceHelper.DeleteService();
 
-            string path = this.Context.Parameters["targetdir"];
-            var protocolDir = $"{path}\\Protocol";
+            //string path = this.Context.Parameters["targetdir"];
+            //var protocolDir = $"{path}\\Protocol";
 
-            if (Directory.Exists(protocolDir))
-                Directory.Delete(protocolDir,true);
+            //if (Directory.Exists(protocolDir))
+            //    Directory.Delete(protocolDir,true);
             
         }
 
