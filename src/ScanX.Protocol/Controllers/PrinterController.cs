@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ScanX.Core;
 using ScanX.Core.Models;
+using ScanX.Protocol.Helpers;
 using ScanX.Protocol.ViewModels;
 
 namespace ScanX.Protocol.Controllers
@@ -39,13 +40,15 @@ namespace ScanX.Protocol.Controllers
 
         [Route("print")]
         [HttpPost]
-        public IActionResult Print(PrintViewModel model)
+        public IActionResult Print([FromBody] PrintViewModel model)
         {
 
             var settings = model.ToModel();
 
+            var imageBytes = ImageHelper.FromBase64(model.ImageData, out string type);
+
             
-            _client.Print(null,settings);
+            _client.Print(imageBytes,settings);
 
 
             return Ok("doc printeds");

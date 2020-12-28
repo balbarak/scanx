@@ -22,6 +22,8 @@ namespace ScanX.Protocol.ViewModels
 
         public int MarginLeft { get; set; }
 
+        public string ImageData { get; set; }
+
         public PrintSettings ToModel()
         {
             return new PrintSettings()
