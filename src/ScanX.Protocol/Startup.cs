@@ -49,7 +49,15 @@ namespace ScanX.Protocol
 
             app.UseStaticFiles();
 
-            app.UseCors("CorsPolicy");
+
+            //app.UseCors("CorsPolicy");
+
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowAnyOrigin();
+            });
 
             app.UseRouting();
 

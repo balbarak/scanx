@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using ScanX.Core;
 using ScanX.Core.Args;
@@ -13,6 +14,8 @@ using System.Threading.Tasks;
 
 namespace ScanX.Protocol.Protocol
 {
+
+    [AllowAnonymous]
     public class ScanXProtocol : Hub
     {
         private readonly ILogger _logger;
