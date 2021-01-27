@@ -312,15 +312,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ScanX"
-        "ProductCode" = "8:{F841CBE6-7E42-483C-BB74-9DB6E102D66C}"
-        "PackageCode" = "8:{A0C58BBB-3A5B-42E2-81D1-97A64BE3AC66}"
+        "ProductCode" = "8:{DC3DCCC0-5A9D-4F7F-A1AA-42311698D4E8}"
+        "PackageCode" = "8:{2B34F606-3320-4B62-B2AD-7C27B2008CF2}"
         "UpgradeCode" = "8:{9355A04B-2096-4C3A-9585-56196BEFFC20}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.5.0"
         "Manufacturer" = "8:ScanX"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -834,7 +834,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0E7E4FC2B5F0474BA24AA931E526383B"
             {
-            "SourcePath" = "8:..\\ScanX.InstallHelpers\\obj\\Release\\ScanX.InstallHelpers.dll"
+            "SourcePath" = "8:..\\ScanX.InstallHelpers\\obj\\Debug\\ScanX.InstallHelpers.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2988575855214938A3ACAC40F8C3D9A1"
@@ -862,7 +862,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6BA5BFC9372141C08272B87D57415952"
             {
-            "SourcePath" = "8:..\\ScanX.Protocol\\obj\\Release\\netcoreapp3.1\\apphost.exe"
+            "SourcePath" = "8:..\\ScanX.Protocol\\obj\\Debug\\netcoreapp3.1\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2988575855214938A3ACAC40F8C3D9A1"
