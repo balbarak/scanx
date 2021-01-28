@@ -33,7 +33,10 @@ namespace ScanX.Protocol
                     .WithOrigins("*");
                 }));
 
-            services.AddSignalR();
+            services.AddSignalR(opt=>
+            {
+                opt.EnableDetailedErrors = true;
+            });
 
             services.AddControllersWithViews();
 
@@ -67,7 +70,9 @@ namespace ScanX.Protocol
                   name: "default",
                   pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapHub<ScanXProtocol>("/scanx");
+                endpoints.MapHub<ScanXProtocol>("/scanx",config=>
+                {
+                });
             });
         }
     }
