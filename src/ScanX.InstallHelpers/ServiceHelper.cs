@@ -61,7 +61,7 @@ namespace ScanX.InstallHelpers
                 ProcessStartInfo startupInfo = new ProcessStartInfo()
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/C sc stop {_serviceName}",
+                    Arguments = $"/C net stop {_serviceName}",
                     CreateNoWindow = true,
                     WindowStyle = ProcessWindowStyle.Hidden
                 };

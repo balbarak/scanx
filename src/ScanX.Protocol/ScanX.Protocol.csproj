@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>93bd8854-3168-49ce-990f-de49830ac2f8</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +12,11 @@
   
   <ItemGroup>
     <ProjectReference Include="..\ScanX.Core\ScanX.Core.csproj" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>

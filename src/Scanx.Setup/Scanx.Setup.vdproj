@@ -15,14 +15,8 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0E7E4FC2B5F0474BA24AA931E526383B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1127BA01B57147FD920C0D08674DD5DF"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_012A295EE574AB68F28A3F71E38B433A"
+        "OwnerKey" = "8:_803F272E6CAA4FA69F52736959340A5C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -33,26 +27,62 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6BA5BFC9372141C08272B87D57415952"
+        "MsmKey" = "8:_340D3A27B16BDBDD124284BB05183C10"
+        "OwnerKey" = "8:_803F272E6CAA4FA69F52736959340A5C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_340D3A27B16BDBDD124284BB05183C10"
+        "OwnerKey" = "8:_012A295EE574AB68F28A3F71E38B433A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7CB36B2ACA423B2F077F821158021C9C"
+        "OwnerKey" = "8:_803F272E6CAA4FA69F52736959340A5C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7CB36B2ACA423B2F077F821158021C9C"
+        "OwnerKey" = "8:_340D3A27B16BDBDD124284BB05183C10"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_803F272E6CAA4FA69F52736959340A5C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F2EAB900217196EAC479E319EF05A7E6"
-        "OwnerKey" = "8:_1127BA01B57147FD920C0D08674DD5DF"
+        "MsmKey" = "8:_F09F0F8A824240BF9AA17AA84623E827"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0E7E4FC2B5F0474BA24AA931E526383B"
+        "OwnerKey" = "8:_7CB36B2ACA423B2F077F821158021C9C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1127BA01B57147FD920C0D08674DD5DF"
+        "OwnerKey" = "8:_803F272E6CAA4FA69F52736959340A5C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_012A295EE574AB68F28A3F71E38B433A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_340D3A27B16BDBDD124284BB05183C10"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -75,7 +105,7 @@
         "InstallerBootstrapper" = "3:2"
             "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
             {
-            "Enabled" = "11:TRUE"
+            "Enabled" = "11:FALSE"
             "PromptEnabled" = "11:TRUE"
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
@@ -107,7 +137,7 @@
         "InstallerBootstrapper" = "3:2"
             "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
             {
-            "Enabled" = "11:TRUE"
+            "Enabled" = "11:FALSE"
             "PromptEnabled" = "11:TRUE"
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
@@ -127,17 +157,31 @@
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_47D4F2C907014C5F9FBF30885B8DE57A"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_1A8CC6A5349B48F4B7E4CB025608CC75"
             {
             "Name" = "8:Primary output from ScanX.InstallHelpers (Active)"
             "Condition" = "8:"
-            "Object" = "8:_0E7E4FC2B5F0474BA24AA931E526383B"
+            "Object" = "8:_803F272E6CAA4FA69F52736959340A5C"
+            "FileType" = "3:1"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_47A39C70_87FA_40C7_8E3C_8852DFA5B204"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_851C91035AB14E2AA79BD10642640792"
+            {
+            "Name" = "8:Primary output from ScanX.InstallHelpers (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_803F272E6CAA4FA69F52736959340A5C"
             "FileType" = "3:1"
             "InstallAction" = "3:1"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_0D3CE73A_7577_480A_BE74_F941A58F9F23"
+            "Identifier" = "8:_BA98B286_AB06_4501_B4AE_741DF2DEA57E"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
@@ -152,45 +196,35 @@
         {
             "LaunchCondition"
             {
-                "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_E1C4393F4DCF4076B087540C0A7923A1"
+                "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_4C36FAB9EE124A32ACDA983116F71DF4"
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.7.2"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.6"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=863262"
-                }
-                "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_F45722C4F7774B97B37A6696D16DA84C"
-                {
-                "Name" = "8:.NET Core"
-                "Message" = "8:[VSDNETCOREMSG]"
-                "AllowLaterVersions" = "11:FALSE"
-                "InstallUrl" = "8:https://dotnet.microsoft.com/download/dotnet-core/[NetCoreVerMajorDotMinor]"
-                "IsNETCore" = "11:TRUE"
-                "Architecture" = "2:0"
-                "Runtime" = "2:0"
                 }
             }
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1127BA01B57147FD920C0D08674DD5DF"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_012A295EE574AB68F28A3F71E38B433A"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Interop.WIA, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_1127BA01B57147FD920C0D08674DD5DF"
+                    "_012A295EE574AB68F28A3F71E38B433A"
                     {
-                    "Name" = "8:Interop.WIA.dll"
+                    "Name" = "8:System.IO.Compression.ZipFile.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:..\\..\\lib\\Interop.WIA.dll"
+            "SourcePath" = "8:System.IO.Compression.ZipFile.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_2988575855214938A3ACAC40F8C3D9A1"
+            "Folder" = "8:_FDAEFC13223542E083131253586FAA73"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -202,7 +236,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_17F4B068FC4444708B8A7D3E2B11BE17"
@@ -225,12 +259,23 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F2EAB900217196EAC479E319EF05A7E6"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_340D3A27B16BDBDD124284BB05183C10"
             {
-            "SourcePath" = "8:wiaaut.dll"
-            "TargetName" = "8:wiaaut.dll"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.IO.Compression.FileSystem, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+                "ScatterAssemblies"
+                {
+                    "_340D3A27B16BDBDD124284BB05183C10"
+                    {
+                    "Name" = "8:System.IO.Compression.FileSystem.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.IO.Compression.FileSystem.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_2988575855214938A3ACAC40F8C3D9A1"
+            "Folder" = "8:_FDAEFC13223542E083131253586FAA73"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -243,6 +288,57 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7CB36B2ACA423B2F077F821158021C9C"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.IO.Compression, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+                "ScatterAssemblies"
+                {
+                    "_7CB36B2ACA423B2F077F821158021C9C"
+                    {
+                    "Name" = "8:System.IO.Compression.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.IO.Compression.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_FDAEFC13223542E083131253586FAA73"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F09F0F8A824240BF9AA17AA84623E827"
+            {
+            "SourcePath" = "8:..\\ScanX.Protocol\\bin\\publish\\scanx.zip"
+            "TargetName" = "8:Scanx.zip"
+            "Tag" = "8:"
+            "Folder" = "8:_FDAEFC13223542E083131253586FAA73"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -312,15 +408,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ScanX"
-        "ProductCode" = "8:{DC3DCCC0-5A9D-4F7F-A1AA-42311698D4E8}"
-        "PackageCode" = "8:{2B34F606-3320-4B62-B2AD-7C27B2008CF2}"
+        "ProductCode" = "8:{F6FF7E79-49EB-4D8B-B278-7E07894BC325}"
+        "PackageCode" = "8:{58C4FFFC-29B9-4D90-92E9-537A21F7B0F0}"
         "UpgradeCode" = "8:{9355A04B-2096-4C3A-9585-56196BEFFC20}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.5.0"
+        "ProductVersion" = "8:1.6.0"
         "Manufacturer" = "8:ScanX"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -832,12 +928,12 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0E7E4FC2B5F0474BA24AA931E526383B"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_803F272E6CAA4FA69F52736959340A5C"
             {
-            "SourcePath" = "8:..\\ScanX.InstallHelpers\\obj\\Debug\\ScanX.InstallHelpers.dll"
+            "SourcePath" = "8:..\\ScanX.InstallHelpers\\obj\\Release\\ScanX.InstallHelpers.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_2988575855214938A3ACAC40F8C3D9A1"
+            "Folder" = "8:_FDAEFC13223542E083131253586FAA73"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -855,34 +951,6 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{D32D3EF9-7110-41DA-93CF-350F45DA6BB4}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6BA5BFC9372141C08272B87D57415952"
-            {
-            "SourcePath" = "8:..\\ScanX.Protocol\\obj\\Debug\\netcoreapp3.1\\apphost.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_2988575855214938A3ACAC40F8C3D9A1"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:PublishItems"
-            "OutputProjectGuid" = "8:{2ED2DFF1-0ABA-4723-B0EE-5353CBAC218C}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
