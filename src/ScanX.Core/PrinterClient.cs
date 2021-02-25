@@ -36,12 +36,6 @@ namespace ScanX.Core
 
         public void Print(byte[] imageToPrint,PrintSettings settings)
         {
-            
-            var printerSettings = new PrinterSettings()
-            {
-                PrinterName = settings.PrinterName,
-            };
-
             _ms = new MemoryStream();
             _ms.Write(imageToPrint, 0, imageToPrint.Length);
             _currentSettings = settings;
