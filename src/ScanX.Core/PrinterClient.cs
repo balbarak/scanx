@@ -36,19 +36,20 @@ namespace ScanX.Core
 
         public void Print(byte[] imageToPrint,PrintSettings settings)
         {
+            
             var printerSettings = new PrinterSettings()
             {
                 PrinterName = settings.PrinterName,
             };
 
-
             _ms = new MemoryStream();
             _ms.Write(imageToPrint, 0, imageToPrint.Length);
             _currentSettings = settings;
             var margin = _currentSettings.Margin;
-
-            _printDocument.PrinterSettings = printerSettings;
+            
+            _printDocument.DefaultPageSettings.PrinterSettings.PrinterName = settings.PrinterName;
             _printDocument.DefaultPageSettings.Margins = new Margins(margin.Left,margin.Right,margin.Top,margin.Bottom);
+
             _printDocument.Print();
         }
 
@@ -62,6 +63,8 @@ namespace ScanX.Core
                 var rightMargin = e.MarginBounds.Right;
                 var topMargin = e.MarginBounds.Top;
                 var bottomMargin = e.MarginBounds.Bottom;
+
+                
 
                 var img = Image.FromStream(_ms);
 
