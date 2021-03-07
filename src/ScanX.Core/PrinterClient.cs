@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ScanX.Core
@@ -26,6 +27,7 @@ namespace ScanX.Core
             _defaultPrinterSettings = new PrinterSettings();
             
             _printDocument = new PrintDocument();
+
             _printDocument.PrintPage += OnPrintingPage;
         }
 
@@ -36,15 +38,23 @@ namespace ScanX.Core
 
         public void Print(byte[] imageToPrint,PrintSettings settings)
         {
+
+            var defaultPrinterSettings = new PrinterSettings();
+            var defaultPrinterName = defaultPrinterSettings.PrinterName;
+
+            SetDefaultPrinter(settings.PrinterName);
+
+            var zebraPrinterSettings = new PrinterSettings();
+
             _ms = new MemoryStream();
             _ms.Write(imageToPrint, 0, imageToPrint.Length);
             _currentSettings = settings;
             var margin = _currentSettings.Margin;
-            
-            _printDocument.DefaultPageSettings.PrinterSettings.PrinterName = settings.PrinterName;
-            _printDocument.DefaultPageSettings.Margins = new Margins(margin.Left,margin.Right,margin.Top,margin.Bottom);
-
+            _printDocument.PrinterSettings = zebraPrinterSettings;
+            _printDocument.DefaultPageSettings.Margins = new Margins(margin.Left, margin.Right, margin.Top, margin.Bottom);
             _printDocument.Print();
+            
+            SetDefaultPrinter(defaultPrinterName);
         }
 
         private void OnPrintingPage(object sender, PrintPageEventArgs e)
@@ -74,6 +84,9 @@ namespace ScanX.Core
             }
             
         }
+
+        [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool SetDefaultPrinter(string Name);
 
         public void Dispose()
         {
