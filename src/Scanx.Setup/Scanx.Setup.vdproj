@@ -39,7 +39,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5AB6F9AE0AB740DE85A362CA7CD94618"
+        "MsmKey" = "8:_7031A5612B034A42AA32101880538BFE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -290,9 +290,9 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5AB6F9AE0AB740DE85A362CA7CD94618"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7031A5612B034A42AA32101880538BFE"
             {
-            "SourcePath" = "8:C:\\Users\\balba\\Desktop\\ss\\scanx.zip"
+            "SourcePath" = "8:C:\\Users\\balba\\Desktop\\scanx.zip"
             "TargetName" = "8:scanx.zip"
             "Tag" = "8:"
             "Folder" = "8:_FDAEFC13223542E083131253586FAA73"
@@ -408,15 +408,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ScanX"
-        "ProductCode" = "8:{57CEF9DD-063A-4A94-B17D-11E6D755756D}"
-        "PackageCode" = "8:{9C4038AF-0F8E-4C85-8B6F-3D8D07659580}"
+        "ProductCode" = "8:{BB5015BC-9534-4C91-B622-B79DAB8B01CC}"
+        "PackageCode" = "8:{F4F49F66-DA3D-4EA0-AC7B-C15EA6762EA9}"
         "UpgradeCode" = "8:{9355A04B-2096-4C3A-9585-56196BEFFC20}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.7.0"
+        "ProductVersion" = "8:1.8.0"
         "Manufacturer" = "8:ScanX"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

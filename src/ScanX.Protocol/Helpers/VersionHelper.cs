@@ -7,6 +7,6 @@ namespace ScanX.Protocol.Helpers
 {
     public class VersionHelper
     {
-        public static string Version => "1.7.0";
+        public static string Version => "1.8.0";
     }
 }
